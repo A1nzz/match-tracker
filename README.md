@@ -1,2 +1,4 @@
 # Task completion time estimate
-db schema - 3h
+db schema:
+scheduled time - 3h
+actual task completion time - 2.5h
