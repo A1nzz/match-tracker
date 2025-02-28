@@ -88,7 +88,7 @@ CREATE TABLE GameStats (
     game_id INT REFERENCES Game(id) ON DELETE CASCADE,
     player_hero_id INT REFERENCES PlayerHero(id) ON DELETE CASCADE,
     kills INT NOT NULL DEFAULT 0,
-    deathes INT NOT NULL DEFAULT 0,
+    deaths INT NOT NULL DEFAULT 0,
     assists INT NOT NULL DEFAULT 0,
     last_hits INT NOT NULL DEFAULT 0,
     gold_per_minute INT NOT NULL DEFAULT 0,
@@ -138,7 +138,7 @@ SELECT
     ph.player_id,
     ph.hero_id,
     ph.games_played,
-    COALESCE(AVG(gs.kills + gs.assists - gs.deathes) / NULLIF(ph.games_played, 0), 0) AS average_performance -- Средняя производительность с учетом смертей
+    COALESCE(AVG(gs.kills + gs.assists - gs.deaths) / NULLIF(ph.games_played, 0), 0) AS average_performance -- Средняя производительность с учетом смертей
 FROM 
     PlayerHero ph
 LEFT JOIN 
