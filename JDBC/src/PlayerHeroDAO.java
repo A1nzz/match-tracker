@@ -5,14 +5,13 @@ import java.util.List;
 public class PlayerHeroDAO {
 
     // Create
-    public void createPlayerHero(int playerId, int heroId, int gamesPlayed, String averagePerfomance) {
-        String query = "INSERT INTO PlayerHero (player_id, hero_id, games_played, average_perfomance) VALUES (?, ?, ?, ?)";
+    public void createPlayerHero(int playerId, int heroId, int gamesPlayed) {
+        String query = "INSERT INTO PlayerHero (player_id, hero_id, games_played) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, playerId);
             statement.setInt(2, heroId);
             statement.setInt(3, gamesPlayed);
-            statement.setString(4, averagePerfomance);
             statement.executeUpdate();
             System.out.println("PlayerHero added successfully.");
         } catch (SQLException e) {
@@ -22,7 +21,7 @@ public class PlayerHeroDAO {
 
     // Read
     public List<String> getAllPlayerHeroes() {
-        String query = "SELECT * FROM PlayerHero";
+        String query = "SELECT * FROM PlayerHeroPerfomance";
         List<String> playerHeroes = new ArrayList<>();
         try (Connection connection = DatabaseManager.getConnection();
              Statement statement = connection.createStatement();
@@ -42,15 +41,14 @@ public class PlayerHeroDAO {
     }
 
     // Update
-    public void updatePlayerHero(int id, int playerId, int heroId, int gamesPlayed, String averagePerfomance) {
-        String query = "UPDATE PlayerHero SET player_id = ?, heroId = ?, gamesPlayed = ?, averagePerfomance = ? WHERE id = ?";
+    public void updatePlayerHero(int id, int playerId, int heroId, int gamesPlayed) {
+        String query = "UPDATE PlayerHero SET player_id = ?, heroId = ?, gamesPlayed = ? WHERE id = ?";
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
              statement.setInt(1, playerId);
              statement.setInt(2, heroId);
              statement.setInt(3, gamesPlayed);
-            statement.setString(4, averagePerfomance);
-            statement.setInt(5, id);
+            statement.setInt(4, id);
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("Player Hero updated successfully.");

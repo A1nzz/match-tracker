@@ -14,7 +14,10 @@ public class ConsoleApp {
         HeroDAO heroDAO = new HeroDAO();
         GameStatsDAO gameStatsDAO = new GameStatsDAO();
         PlayerHeroDAO playerHeroDAO = new PlayerHeroDAO();
-        // Другие DAO: TeamDAO, PlayerDAO, MatchDAO, GameDAO, HeroDAO, GameStatsDAO, PlayerHeroDAO
+        ItemDAO itemDAO = new ItemDAO();
+        GameItemStatsDAO gameItemStatsDAO = new GameItemStatsDAO();
+        MatchTypeDAO matchTypeDAO = new MatchTypeDAO();
+
 
         int choice;
         do {
@@ -27,7 +30,10 @@ public class ConsoleApp {
             System.out.println("6. Герой");
             System.out.println("7. Статистика Игры");
             System.out.println("8. PlayerHero");
-            System.out.println("9. Выход");
+            System.out.println("9. Предмет");
+            System.out.println("10. GameItemStats");
+            System.out.println("11. Тип матча");
+            System.out.println("12. Выход");
             choice = scanner.nextInt();
 
             switch (choice) {
@@ -56,6 +62,15 @@ public class ConsoleApp {
                     handlePlayerHero(scanner, playerHeroDAO);
                     break;
                 case 9:
+                    handleItem(scanner, itemDAO);
+                    break;
+                case 10:
+                    handleGameItemStats(scanner, gameItemStatsDAO);
+                    break;
+                case 11:
+                    handleMatchType(scanner, matchTypeDAO);
+                    break;
+                case 12:
                     System.out.println("Выход из приложения...");
                     break;
                 default:
@@ -376,13 +391,13 @@ public class ConsoleApp {
         int teamDireId = scanner.nextInt();
         System.out.print("Введите формат матча (1, 3 или 5): ");
         int bestOf = scanner.nextInt();
+        System.out.print("Введите идентификатор типа матча");
+        int matchTypeId = scanner.nextInt();
         scanner.nextLine(); // Очистка буфера
-        System.out.print("Введите результат матча (например, 'Radiant' или 'Dire'): ");
-        String result = scanner.nextLine();
         System.out.print("Введите дату матча (YYYY-MM-DD): ");
         String matchDateStr = scanner.nextLine();
 
-        matchDAO.createMatch(tournamentId, teamRadiantId, teamDireId, bestOf, result, matchDateStr);
+        matchDAO.createMatch(tournamentId, teamRadiantId, teamDireId, bestOf, matchTypeId, matchDateStr);
         System.out.println("Матч успешно добавлен!");
     }
 
@@ -409,13 +424,12 @@ public class ConsoleApp {
         int teamDireId = scanner.nextInt();
         System.out.print("Введите новый формат матча (1, 3 или 5): ");
         int bestOf = scanner.nextInt();
+        System.out.print("Введите новый id типа матча: ");
+        int matchTypeId = scanner.nextInt();
         scanner.nextLine(); // Очистка буфера
-        System.out.print("Введите новый результат матча: ");
-        String result = scanner.nextLine();
         System.out.print("Введите новую дату матча (YYYY-MM-DD): ");
         String matchDateStr = scanner.nextLine();
-
-        matchDAO.updateMatch(id, tournamentId, teamRadiantId, teamDireId, bestOf, result, matchDateStr);
+        matchDAO.updateMatch(id, tournamentId, teamRadiantId, teamDireId, bestOf, matchTypeId, matchDateStr);
         System.out.println("Матч успешно обновлен!");
     }
 
@@ -467,16 +481,12 @@ public class ConsoleApp {
         scanner.nextLine(); // Очистка буфера
         System.out.print("Введите победителя: ");
         String winner = scanner.nextLine();
-        System.out.print("Введите счет Radiant: ");
-        int radiantScore = scanner.nextInt();
-        System.out.print("Введите счет Dire: ");
-        int direScore = scanner.nextInt();
         scanner.nextLine(); // Очистка буфера
         System.out.print("Введите время начала (YYYY-MM-DD HH:MM:SS): ");
         String startTimeStr = scanner.nextLine();
         Timestamp startTime = Timestamp.valueOf(startTimeStr);
 
-        gameDAO.createGame(matchId, duration, winner, radiantScore, direScore, startTime);
+        gameDAO.createGame(matchId, duration, winner, startTime);
         System.out.println("Игра успешно добавлена!");
     }
 
@@ -502,16 +512,12 @@ public class ConsoleApp {
         scanner.nextLine(); // Очистка буфера
         System.out.print("Введите нового победителя: ");
         String winner = scanner.nextLine();
-        System.out.print("Введите новый счет Radiant: ");
-        int radiantScore = scanner.nextInt();
-        System.out.print("Введите новый счет Dire: ");
-        int direScore = scanner.nextInt();
         scanner.nextLine(); // Очистка буфера
         System.out.print("Введите новое время начала (YYYY-MM-DD HH:MM:SS): ");
         String startTimeStr = scanner.nextLine();
         Timestamp startTime = Timestamp.valueOf(startTimeStr);
 
-        gameDAO.updateMatch(id, matchId, duration, winner, radiantScore, direScore, startTime);
+        gameDAO.updateMatch(id, matchId, duration, winner, startTime);
         System.out.println("Игра успешно обновлена!");
     }
 
@@ -642,10 +648,8 @@ public class ConsoleApp {
     private static void createGameStats(Scanner scanner, GameStatsDAO gameStatsDAO) {
         System.out.print("Введите ID игры: ");
         int gameId = scanner.nextInt();
-        System.out.print("Введите ID игрока: ");
-        int playerId = scanner.nextInt();
-        System.out.print("Введите ID героя: ");
-        int heroId = scanner.nextInt();
+        System.out.print("Введите ID героя-игрока: ");
+        int playerHeroId = scanner.nextInt();
         System.out.print("Введите количество убийств: ");
         int kills = scanner.nextInt();
         System.out.print("Введите количество смертей: ");
@@ -660,8 +664,10 @@ public class ConsoleApp {
         int xpPerMinute = scanner.nextInt();
         System.out.print("Введите чистую стоимость: ");
         int netWorth = scanner.nextInt();
+        System.out.print("Введите уровень героя: ");
+        int level = scanner.nextInt();
 
-        gameStatsDAO.createGameStats(gameId, playerId, heroId, kills, deaths, assists, lastHits, goldPerMinute, xpPerMinute, netWorth);
+        gameStatsDAO.createGameStats(gameId, playerHeroId, kills, deaths, assists, lastHits, goldPerMinute, xpPerMinute, netWorth, level);
         System.out.println("Игровая статистика успешно добавлена!");
     }
 
@@ -682,10 +688,8 @@ public class ConsoleApp {
         int id = scanner.nextInt();
         System.out.print("Введите новый ID игры: ");
         int gameId = scanner.nextInt();
-        System.out.print("Введите новый ID игрока: ");
-        int playerId = scanner.nextInt();
-        System.out.print("Введите новый ID героя: ");
-        int heroId = scanner.nextInt();
+        System.out.print("Введите новый ID игрока-героя: ");
+        int playerHeroId = scanner.nextInt();
         System.out.print("Введите новое количество убийств: ");
         int kills = scanner.nextInt();
         System.out.print("Введите новое количество смертей: ");
@@ -700,8 +704,10 @@ public class ConsoleApp {
         int xpPerMinute = scanner.nextInt();
         System.out.print("Введите новую чистую стоимость: ");
         int netWorth = scanner.nextInt();
+        System.out.print("Введите уровень героя: ");
+        int level = scanner.nextInt();
 
-        gameStatsDAO.updateGameStats(id, gameId, playerId, heroId, kills, deaths, assists, lastHits, goldPerMinute, xpPerMinute, netWorth);
+        gameStatsDAO.updateGameStats(id, gameId, playerHeroId, kills, deaths, assists, lastHits, goldPerMinute, xpPerMinute, netWorth, level);
         System.out.println("Игровая статистика успешно обновлена!");
     }
 
@@ -752,11 +758,8 @@ public class ConsoleApp {
         int heroId = scanner.nextInt();
         System.out.print("Введите количество сыгранных игр: ");
         int gamesPlayed = scanner.nextInt();
-        scanner.nextLine(); // Очистка буфера
-        System.out.print("Введите среднюю производительность: ");
-        String averagePerformance = scanner.nextLine();
 
-        playerHeroDAO.createPlayerHero(playerId, heroId, gamesPlayed, averagePerformance);
+        playerHeroDAO.createPlayerHero(playerId, heroId, gamesPlayed);
         System.out.println("Игрок-герой успешно добавлен!");
     }
 
@@ -781,11 +784,8 @@ public class ConsoleApp {
         int heroId = scanner.nextInt();
         System.out.print("Введите новое количество сыгранных игр: ");
         int gamesPlayed = scanner.nextInt();
-        scanner.nextLine(); // Очистка буфера
-        System.out.print("Введите новую среднюю производительность: ");
-        String averagePerformance = scanner.nextLine();
 
-        playerHeroDAO.updatePlayerHero(id, playerId, heroId, gamesPlayed, averagePerformance);
+        playerHeroDAO.updatePlayerHero(id, playerId, heroId, gamesPlayed);
         System.out.println("Игрок-герой успешно обновлен!");
     }
 
@@ -795,5 +795,230 @@ public class ConsoleApp {
         playerHeroDAO.deletePlayerHero(id);
         System.out.println("Игрок-герой успешно удалён!");
     }
+    private static void handleItem(Scanner scanner, ItemDAO itemDAO) {
+        int choice;
+        do {
+            System.out.println("\nВыберите операцию с предметом:");
+            System.out.println("1. Добавить предмет");
+            System.out.println("2. Просмотреть все предметы");
+            System.out.println("3. Обновить предмет");
+            System.out.println("4. Удалить предмет");
+            System.out.println("5. Назад");
+            choice = scanner.nextInt();
 
+            switch (choice) {
+                case 1:
+                    createItem(scanner, itemDAO);
+                    break;
+                case 2:
+                    readItems(itemDAO);
+                    break;
+                case 3:
+                    updateItem(scanner, itemDAO);
+                    break;
+                case 4:
+                    deleteItem(scanner, itemDAO);
+                    break;
+                case 5:
+                    System.out.println("Возврат в главное меню...");
+                    break;
+                default:
+                    System.out.println("Неверный выбор. Попробуйте снова.");
+            }
+        } while (choice != 5);
+    }
+
+    private static void createItem(Scanner scanner, ItemDAO itemDAO) {
+        System.out.print("Введите название предмета: ");
+        String name = scanner.next();
+        System.out.print("Введите стоимость предмета (или 0, если не указана): ");
+        int cost = scanner.nextInt();
+        System.out.print("Введите описание предмета: ");
+        String description = scanner.next();
+
+        itemDAO.createItem(name, cost == 0 ? null : cost, description);
+        System.out.println("Предмет успешно добавлен!");
+    }
+
+    private static void readItems(ItemDAO itemDAO) {
+        List<String> items = itemDAO.getAllItems();
+        if (items.isEmpty()) {
+            System.out.println("Нет данных для отображения.");
+        } else {
+            System.out.println("Предметы:");
+            for (String item : items) {
+                System.out.println(item);
+            }
+        }
+    }
+
+    private static void updateItem(Scanner scanner, ItemDAO itemDAO) {
+        System.out.print("Введите ID предмета для обновления: ");
+        int id = scanner.nextInt();
+        System.out.print("Введите новое название предмета: ");
+        String newName = scanner.next();
+        System.out.print("Введите новую стоимость предмета (или 0, если не указана): ");
+        int newCost = scanner.nextInt();
+        System.out.print("Введите новое описание предмета: ");
+        String newDescription = scanner.next();
+
+        itemDAO.updateItem(id, newName, newCost == 0 ? null : newCost, newDescription);
+        System.out.println("Предмет успешно обновлен!");
+    }
+
+    private static void deleteItem(Scanner scanner, ItemDAO itemDAO) {
+        System.out.print("Введите ID предмета для удаления: ");
+        int id = scanner.nextInt();
+        itemDAO.deleteItem(id);
+        System.out.println("Предмет успешно удалён!");
+    }
+
+    private static void handleGameItemStats(Scanner scanner, GameItemStatsDAO gameItemStatsDAO) {
+        int choice;
+        do {
+            System.out.println("\nВыберите операцию со статистикой предметов в игре:");
+            System.out.println("1. Добавить статистику предмета");
+            System.out.println("2. Просмотреть все статистики предметов");
+            System.out.println("3. Обновить статистику предмета");
+            System.out.println("4. Удалить статистику предмета");
+            System.out.println("5. Назад");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    createGameItemStats(scanner, gameItemStatsDAO);
+                    break;
+                case 2:
+                    readGameItemStats(gameItemStatsDAO);
+                    break;
+                case 3:
+                    updateGameItemStats(scanner, gameItemStatsDAO);
+                    break;
+                case 4:
+                    deleteGameItemStats(scanner, gameItemStatsDAO);
+                    break;
+                case 5:
+                    System.out.println("Возврат в главное меню...");
+                    break;
+                default:
+                    System.out.println("Неверный выбор. Попробуйте снова.");
+            }
+        } while (choice != 5);
+    }
+
+    private static void createGameItemStats(Scanner scanner, GameItemStatsDAO gameItemStatsDAO) {
+        System.out.print("Введите ID статистики игры: ");
+        int gameStatsId = scanner.nextInt();
+        System.out.print("Введите ID предмета: ");
+        int itemId = scanner.nextInt();
+        System.out.print("Введите количество: ");
+        int quantity = scanner.nextInt();
+
+        gameItemStatsDAO.createGameItemStats(gameStatsId, itemId, quantity);
+        System.out.println("Статистика предмета успешно добавлена!");
+    }
+
+    private static void readGameItemStats(GameItemStatsDAO gameItemStatsDAO) {
+        List<String> gameItemStats = gameItemStatsDAO.getAllGameItemStats();
+        if (gameItemStats.isEmpty()) {
+            System.out.println("Нет данных для отображения.");
+        } else {
+            System.out.println("Статистики предметов:");
+            for (String stats : gameItemStats) {
+                System.out.println(stats);
+            }
+        }
+    }
+
+    private static void updateGameItemStats(Scanner scanner, GameItemStatsDAO gameItemStatsDAO) {
+        System.out.print("Введите ID статистики предмета для обновления: ");
+        int id = scanner.nextInt();
+        System.out.print("Введите новый ID статистики игры: ");
+        int newGameStatsId = scanner.nextInt();
+        System.out.print("Введите новый ID предмета: ");
+        int newItemId = scanner.nextInt();
+        System.out.print("Введите новое количество: ");
+        int newQuantity = scanner.nextInt();
+
+        gameItemStatsDAO.updateGameItemStats(id, newGameStatsId, newItemId, newQuantity);
+        System.out.println("Статистика предмета успешно обновлена!");
+    }
+
+    private static void deleteGameItemStats(Scanner scanner, GameItemStatsDAO gameItemStatsDAO) {
+        System.out.print("Введите ID статистики предмета для удаления: ");
+        int id = scanner.nextInt();
+        gameItemStatsDAO.deleteGameItemStats(id);
+        System.out.println("Статистика предмета успешно удалена!");
+    }
+
+    private static void handleMatchType(Scanner scanner, MatchTypeDAO matchTypeDAO) {
+        int choice;
+        do {
+            System.out.println("\nВыберите операцию с типом матча:");
+            System.out.println("1. Добавить тип матча");
+            System.out.println("2. Просмотреть все типы матчей");
+            System.out.println("3. Обновить тип матча");
+            System.out.println("4. Удалить тип матча");
+            System.out.println("5. Назад");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    createMatchType(scanner, matchTypeDAO);
+                    break;
+                case 2:
+                    readMatchTypes(matchTypeDAO);
+                    break;
+                case 3:
+                    updateMatchType(scanner, matchTypeDAO);
+                    break;
+                case 4:
+                    deleteMatchType(scanner, matchTypeDAO);
+                    break;
+                case 5:
+                    System.out.println("Возврат в главное меню...");
+                    break;
+                default:
+                    System.out.println("Неверный выбор. Попробуйте снова.");
+            }
+        } while (choice != 5);
+    }
+
+    private static void createMatchType(Scanner scanner, MatchTypeDAO matchTypeDAO) {
+        System.out.print("Введите название типа матча: ");
+        String typeName = scanner.next();
+
+        matchTypeDAO.createMatchType(typeName);
+        System.out.println("Тип матча успешно добавлен!");
+    }
+
+    private static void readMatchTypes(MatchTypeDAO matchTypeDAO) {
+        List<String> matchTypes = matchTypeDAO.getAllMatchTypes();
+        if (matchTypes.isEmpty()) {
+            System.out.println("Нет данных для отображения.");
+        } else {
+            System.out.println("Типы матчей:");
+            for (String matchType : matchTypes) {
+                System.out.println(matchType);
+            }
+        }
+    }
+
+    private static void updateMatchType(Scanner scanner, MatchTypeDAO matchTypeDAO) {
+        System.out.print("Введите ID типа матча для обновления: ");
+        int id = scanner.nextInt();
+        System.out.print("Введите новое название типа матча: ");
+        String newTypeName = scanner.next();
+
+        matchTypeDAO.updateMatchType(id, newTypeName);
+        System.out.println("Тип матча успешно обновлен!");
+    }
+
+    private static void deleteMatchType(Scanner scanner, MatchTypeDAO matchTypeDAO) {
+        System.out.print("Введите ID типа матча для удаления: ");
+        int id = scanner.nextInt();
+        matchTypeDAO.deleteMatchType(id);
+        System.out.println("Тип матча успешно удалён!");
+    }
 }
+

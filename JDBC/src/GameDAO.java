@@ -5,16 +5,14 @@ import java.util.List;
 public class GameDAO {
 
     // Create
-    public void createGame(int matchId, int duration, String winner, int radiantScore, int direScore, Timestamp startTime) {
-        String query = "INSERT INTO Game (match_id, duration, winner, radiant_score, dire_score, start_time) VALUES (?, ?, ?, ?, ?, ?)";
+    public void createGame(int matchId, int duration, String winner, Timestamp startTime) {
+        String query = "INSERT INTO Game (match_id, duration, winner, start_time) VALUES (?, ?, ?, ?)";
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, matchId);
             statement.setInt(2, duration);
             statement.setString(3, winner);
-            statement.setInt(4, radiantScore);
-            statement.setInt(5, direScore);
-            statement.setTimestamp(6, startTime);
+            statement.setTimestamp(4, startTime);
             statement.executeUpdate();
             System.out.println("Game added successfully.");
         } catch (SQLException e) {
@@ -24,7 +22,7 @@ public class GameDAO {
 
     // Read
     public List<String> getAllGames() {
-        String query = "SELECT * FROM Game";
+        String query = "SELECT * FROM GameWithScores";
         List<String> games = new ArrayList<>();
         try (Connection connection = DatabaseManager.getConnection();
              Statement statement = connection.createStatement();
@@ -46,17 +44,15 @@ public class GameDAO {
     }
 
     // Update
-    public void updateMatch(int id, int matchId, int duration, String winner, int radiantScore, int direScore, Timestamp startTime) {
-        String query = "UPDATE Game SET match_id = ?, duration = ?, winner = ?, radiant_score = ?, dire_score = ?, start_time = ? WHERE id = ?";
+    public void updateMatch(int id, int matchId, int duration, String winner, Timestamp startTime) {
+        String query = "UPDATE Game SET match_id = ?, duration = ?, winner = ?, start_time = ? WHERE id = ?";
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, matchId);
             statement.setInt(2, duration);
             statement.setString(3, winner);
-            statement.setInt(4, radiantScore);
-            statement.setInt(5, direScore);
-            statement.setTimestamp(6, startTime);
-            statement.setInt(7, id);
+            statement.setTimestamp(4, startTime);
+            statement.setInt(5, id);
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("Game updated successfully.");

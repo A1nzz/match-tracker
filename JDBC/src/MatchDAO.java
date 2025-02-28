@@ -5,15 +5,15 @@ import java.util.List;
 public class MatchDAO {
 
     // Create
-    public void createMatch(int tournamentId, int teamRadiantId, int teamDireId, int bestOf, String result, String matchDate) {
-        String query = "INSERT INTO Match (tournament_id, team_radiant_id, team_dire_id, best_of, result, match_date) VALUES (?, ?, ?, ?, ?, ?)";
+    public void createMatch(int tournamentId, int teamRadiantId, int teamDireId, int bestOf, int matchTypeId, String matchDate) {
+        String query = "INSERT INTO Match (tournament_id, team_radiant_id, team_dire_id, best_of, match_type_id, match_date) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, tournamentId);
             statement.setInt(2, teamRadiantId);
             statement.setInt(3, teamDireId);
             statement.setInt(4, bestOf);
-            statement.setString(5, result);
+            statement.setInt(5, matchTypeId);
             statement.setDate(6, Date.valueOf(matchDate));
             statement.executeUpdate();
             System.out.println("Match added successfully.");
@@ -24,7 +24,7 @@ public class MatchDAO {
 
     // Read
     public List<String> getAllMatches() {
-        String query = "SELECT * FROM Match";
+        String query = "SELECT * FROM MatchResults";
         List<String> matches = new ArrayList<>();
         try (Connection connection = DatabaseManager.getConnection();
              Statement statement = connection.createStatement();
@@ -35,8 +35,9 @@ public class MatchDAO {
                         ", Radiant Id: " + resultSet.getInt("team_radiant_id") +
                         ", Dire Id: " + resultSet.getInt("team_dire_id") +
                         ", Best Of: " + resultSet.getInt("best_of") +
-                        ", Result: " + resultSet.getString("result") +
-                        ", MatchDate: " + resultSet.getString("match_date") + ")"
+                        ", Match Type Id: " + resultSet.getString("match_type_id") +
+                        ", MatchDate: " + resultSet.getString("match_date") +
+                        ", Results"  + resultSet.getString("result") + ")"
                 );
             }
         } catch (SQLException e) {
@@ -46,15 +47,15 @@ public class MatchDAO {
     }
 
     // Update
-    public void updateMatch(int id, int tournamentId, int teamRadiantId, int teamDireId, int bestOf, String result, String matchDate) {
-        String query = "UPDATE Match SET tournament_id = ?, team_radiant_id = ?, team_dire_id = ?, best_of = ?, reslt = ?, match_date = ? WHERE id = ?";
+    public void updateMatch(int id, int tournamentId, int teamRadiantId, int teamDireId, int bestOf, int matchTypeId, String matchDate) {
+        String query = "UPDATE Match SET tournament_id = ?, team_radiant_id = ?, team_dire_id = ?, best_of = ?, match_type_id = ?, match_date = ? WHERE id = ?";
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, tournamentId);
             statement.setInt(2, teamRadiantId);
             statement.setInt(3, teamDireId);
             statement.setInt(4, bestOf);
-            statement.setString(5, result);
+            statement.setInt(5, matchTypeId);
             statement.setDate(6, Date.valueOf(matchDate));
             statement.setInt(7, id);
             int rowsUpdated = statement.executeUpdate();

@@ -6,21 +6,21 @@ import java.math.BigDecimal;
 public class GameStatsDAO {
 
     // Create
-    public void createGameStats(int gameId, int playerId, int hero_id, int kills, int deaths, int assists, int last_hits, int gold_per_minute, int xp_per_minute, int net_worth) {
-        String query = "INSERT INTO GameStats (game_id, player_id, hero_id, kills, deaths, assists, last_hits, gold_per_minute, xp_per_minute, net_worth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void createGameStats(int gameId, int player_heroId, int kills, int deaths, int assists, int last_hits, int gold_per_minute, int xp_per_minute, int net_worth, int final_level) {
+        String query = "INSERT INTO GameStats (game_id, player_hero_id, kills, deaths, assists, last_hits, gold_per_minute, xp_per_minute, net_worth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, gameId);
-            statement.setInt(2, playerId);
-            statement.setInt(3, hero_id);
-            statement.setInt(4, kills);
-            statement.setInt(5, deaths);
-            statement.setInt(6, assists);
-            statement.setInt(7, last_hits);
-            statement.setInt(8, gold_per_minute);
-            statement.setInt(9, xp_per_minute);
+            statement.setInt(2, player_heroId);
+            statement.setInt(3, kills);
+            statement.setInt(4, deaths);
+            statement.setInt(5, assists);
+            statement.setInt(6, last_hits);
+            statement.setInt(7, gold_per_minute);
+            statement.setInt(8, xp_per_minute);
+            statement.setInt(9, net_worth);
             statement.setInt(10, net_worth);
-            statement.executeUpdate();
+            statement.setInt(11, final_level);
             System.out.println("Game stat added successfully.");
         } catch (SQLException e) {
             System.out.println("Error while adding game stat: " + e.getMessage());
@@ -37,15 +37,15 @@ public class GameStatsDAO {
             while (resultSet.next()) {
                 gameStats.add(resultSet.getInt("id") + ": " +
                         "( Game Id: " + resultSet.getInt("game_id") +
-                        ", Player Id: " + resultSet.getInt("player_id") +
-                        ", Hero Id: " + resultSet.getInt("hero_id") +
+                        ", Player Hero Id: " + resultSet.getInt("player_hero_id") +
                         ", Kills: " + resultSet.getInt("kills") +
                         ", Deaths: " + resultSet.getInt("deaths") +
                         ", Assists: " + resultSet.getInt("assists") +
                         ", Last Hits: " + resultSet.getInt("last_hits") +
                         ", GPM: " + resultSet.getInt("gold_per_minute") +
                         ", XPM: " + resultSet.getInt("xp_per_minute") +
-                        ", Net worth: " + resultSet.getInt("net_worth")
+                        ", Net worth: " + resultSet.getInt("net_worth") +
+                        ", Level: "  + resultSet.getInt("final_level")+ ")"
                 );
             }
         } catch (SQLException e) {
@@ -55,21 +55,21 @@ public class GameStatsDAO {
     }
 
     // Update
-    public void updateGameStats(int id, int gameId, int playerId, int hero_id, int kills, int deaths, int assists, int last_hits, int gold_per_minute, int xp_per_minute, int net_worth) {
-        String query = "UPDATE GameStats SET gameId = ?, playerId = ?, hero_id = ?, kills = ?, deaths = ?, assists = ?, last_hits = ?, gold_per_minute = ?, xp_per_minute = ?, net_worth  WHERE id = ?";
+    public void updateGameStats(int id, int gameId, int player_hero_id, int kills, int deaths, int assists, int last_hits, int gold_per_minute, int xp_per_minute, int net_worth, int final_level) {
+        String query = "UPDATE GameStats SET game_id = ?, player_hero_id = ?, kills = ?, deaths = ?, assists = ?, last_hits = ?, gold_per_minute = ?, xp_per_minute = ?, net_worth = ?, final_level = ?  WHERE id = ?";
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, gameId);
-            statement.setInt(2, playerId);
-            statement.setInt(3, hero_id);
-            statement.setInt(4, kills);
-            statement.setInt(5, deaths);
-            statement.setInt(6, assists);
-            statement.setInt(7, last_hits);
-            statement.setInt(8, gold_per_minute);
-            statement.setInt(9, xp_per_minute);
-            statement.setInt(10, net_worth);
-            statement.setInt(11, id);
+            statement.setInt(2, player_hero_id);
+            statement.setInt(3, kills);
+            statement.setInt(4, deaths);
+            statement.setInt(5, assists);
+            statement.setInt(6, last_hits);
+            statement.setInt(7, gold_per_minute);
+            statement.setInt(8, xp_per_minute);
+            statement.setInt(9, net_worth);
+            statement.setInt(10, id);
+            statement.setInt(11, final_level);
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("GameStats updated successfully.");
