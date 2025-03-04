@@ -1,6 +1,4 @@
-package com.example.model;
-
-import java.math.BigDecimal;
+package org.example.model;
 import java.sql.Date;
 
 public class Tournament {
@@ -8,7 +6,7 @@ public class Tournament {
     private String name;
     private Date startDate;
     private Date endDate;
-    private int prizePool;
+    private double prizePool;
     private String organizer;
 
     // Геттеры и сеттеры
@@ -44,11 +42,11 @@ public class Tournament {
         this.endDate = endDate;
     }
 
-    public int getPrizePool() {
+    public double getPrizePool() {
         return prizePool;
     }
 
-    public void setPrizePool(int prizePool) {
+    public void setPrizePool(double prizePool) {
         this.prizePool = prizePool;
     }
 
@@ -57,6 +55,16 @@ public class Tournament {
     }
 
     public void setOrganizer(String organizer) {
+        this.organizer = organizer;
+    }
+
+    public Tournament() {}
+
+    public Tournament(String name, Date startDate, Date endDate, double prizePool, String organizer) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.prizePool = prizePool;
         this.organizer = organizer;
     }
 }

@@ -166,6 +166,16 @@ GROUP BY
     m.id, t_r.name, t_d.name;
 
 
+CREATE TABLE Admin (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE, 
+    password_hash TEXT NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login TIMESTAMP
+);
+
+
 
 -- Индексы для улучшения производительности
 CREATE INDEX idx_match_tournament ON Match(tournament_id);

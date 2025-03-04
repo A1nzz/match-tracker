@@ -37,6 +37,8 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            text-decoration: none;
+
         }
 
         .button:hover {
@@ -51,7 +53,7 @@
 </head>
 <body>
 <h1>Добро пожаловать в Match Tracker</h1>
-<button class="button" onclick="location.href='views/tournaments.jsp'">Get Started</button>
+<a href="${pageContext.request.contextPath}/tournaments" class="button">Go to Tournaments</a>
 
 </body>
 </html>
