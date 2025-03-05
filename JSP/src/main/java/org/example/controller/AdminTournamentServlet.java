@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
-@WebServlet("/tournaments_admin")
+@WebServlet("/tournaments_admin/*")
 public class AdminTournamentServlet extends HttpServlet {
     private TournamentDAO tournamentDAO;
 
@@ -33,7 +33,7 @@ public class AdminTournamentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-
+        System.out.println(action);
         if ("create".equals(action)) {
             Tournament tournament = new Tournament();
             tournament.setName(req.getParameter("name"));
@@ -53,10 +53,28 @@ public class AdminTournamentServlet extends HttpServlet {
             tournament.setPrizePool(Double.parseDouble(req.getParameter("prizePool")));
             tournament.setOrganizer(req.getParameter("organizer"));
             tournamentDAO.updateTournament(tournament);
-        } else if ("delete".equals(action)) {
-            int tournamentId = Integer.parseInt(req.getParameter("id"));
-            tournamentDAO.deleteTournament(tournamentId);
+        }
+        resp.sendRedirect(req.getContextPath() + "/tournaments_admin");
+
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String pathInfo = req.getPathInfo();
+        if (pathInfo != null && pathInfo.length() > 1) {
+            String tournamentIdStr = pathInfo.substring(1); // Убираем начальный "/"
+            try {
+                int tournamentId = Integer.parseInt(tournamentIdStr); // Преобразуем в int
+
+                tournamentDAO.deleteTournament(tournamentId); // Метод удаления из DAO
+            } catch (NumberFormatException e) {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid tournament ID"); // Неверный ID
+            }
+        } else {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Tournament ID is required"); // Отсутствует ID
         }
     }
+
+
 
 }

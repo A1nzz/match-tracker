@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>Admin Tournaments</title>
-  <<script src="${pageContext.request.contextPath}/js/admin_tournaments.js" defer></script>
+  <script src="${pageContext.request.contextPath}/js/admin_tournaments.js" defer></script>
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin_tournaments.css">
   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/tournaments.css">
 
@@ -28,7 +28,7 @@
     <p>No tournaments available.</p>
   </c:if>
 </div>
-<button class="button" onclick="openModal('add', null)">Add New Tournament</button>
+<button class="button" onclick="openModal('add', null)" style="margin-top: 15px;">Add New Tournament</button>
 
 <!-- Модальное окно -->
 <div id="modal">
@@ -36,7 +36,7 @@
     <div class="modal-header">
       <h2 id="modalTitle">Add/Edit Tournament</h2>
     </div>
-    <form id="tournamentForm" method="post" action="tournaments_admin">
+    <form id="tournamentForm" method="post">
       <input type="hidden" name="id" id="tournamentId">
       <label for="tournamentName">Name:</label>
       <input type="text" name="name" id="tournamentName" required>
@@ -49,7 +49,7 @@
       <label for="tournamentOrganizer">Organizer:</label>
       <input type="text" name="organizer" id="tournamentOrganizer" required>
       <div class="modal-footer">
-        <button type="submit" value="Create" class="modal-button">Save</button>
+        <button type="submit" class="modal-button">Save</button>
         <button type="button" class="modal-button" onclick="closeModal()">Cancel</button>
       </div>
     </form>

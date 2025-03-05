@@ -39,7 +39,7 @@ public class TournamentDAO {
     }
 
     public void addTournament(Tournament tournament) {
-        String sql = "INSERT INTO tournaments (name, start_date, end_date, prize_pool, organizer) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Tournament (name, start_date, end_date, prize_pool, organizer) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement statement = conn.prepareStatement(sql)) {
@@ -56,7 +56,7 @@ public class TournamentDAO {
     }
 
     public void updateTournament(Tournament tournament) {
-        String query = "UPDATE tournaments SET name = ?, start_date = ?, end_date = ?, prize_pool = ?, organizer = ? WHERE id = ?";
+        String query = "UPDATE Tournament SET name = ?, start_date = ?, end_date = ?, prize_pool = ?, organizer = ? WHERE id = ?";
 
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -74,7 +74,7 @@ public class TournamentDAO {
     }
 
     public void deleteTournament(int tournamentId) {
-        String query = "DELETE FROM tournaments WHERE id = ?";
+        String query = "DELETE FROM Tournament WHERE id = ?";
 
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
