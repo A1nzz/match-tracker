@@ -21,17 +21,16 @@ public class PlayerHeroDAO {
 
     // Read
     public List<String> getAllPlayerHeroes() {
-        String query = "SELECT * FROM PlayerHeroPerfomance";
+        String query = "SELECT * FROM playerheroperformance";
         List<String> playerHeroes = new ArrayList<>();
         try (Connection connection = DatabaseManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                playerHeroes.add(resultSet.getInt("id") + ": " +
+                playerHeroes.add(
                         "(Player ID: " + resultSet.getInt("player_id") +
                         ", HeroID: " + resultSet.getString("hero_id") +
                         ", Games Played: " + resultSet.getInt("games_played") +
-                        ", Average Perfomance" + resultSet.getString("average_perfomance") +
                         ")");
             }
         } catch (SQLException e) {

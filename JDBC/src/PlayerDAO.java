@@ -5,7 +5,7 @@ import java.util.List;
 public class PlayerDAO {
 
     // Create
-    public void createPlayer(String nickname, String realName, int teamId, String role, String country) {
+    public void createPlayer(String nickname, String realName, Integer teamId, String role, String country) {
         String query = "INSERT INTO Player (nickname, real_name, team_id, role, country) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -40,7 +40,7 @@ public class PlayerDAO {
     }
 
     // Update
-    public void updatePlayer(int id, String nickname, String realName, int teamId, String role, String country) {
+    public void updatePlayer(int id, String nickname, String realName, Integer teamId, String role, String country) {
         String query = "UPDATE Player SET nickname = ?, real_name = ?, team_id = ?, role = ?, country = ? WHERE id = ?";
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {

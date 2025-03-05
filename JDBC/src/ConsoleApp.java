@@ -1,4 +1,3 @@
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.List;
 import java.util.Scanner;
@@ -76,7 +75,7 @@ public class ConsoleApp {
                 default:
                     System.out.println("Неверный выбор. Попробуйте снова.");
             }
-        } while (choice != 9);
+        } while (choice != 12);
 
         scanner.close();
     }
@@ -648,6 +647,7 @@ public class ConsoleApp {
     private static void createGameStats(Scanner scanner, GameStatsDAO gameStatsDAO) {
         System.out.print("Введите ID игры: ");
         int gameId = scanner.nextInt();
+
         System.out.print("Введите ID героя-игрока: ");
         int playerHeroId = scanner.nextInt();
         System.out.print("Введите количество убийств: ");
@@ -663,10 +663,9 @@ public class ConsoleApp {
         System.out.print("Введите опыт в минуту: ");
         int xpPerMinute = scanner.nextInt();
         System.out.print("Введите чистую стоимость: ");
-        int netWorth = scanner.nextInt();
+        double netWorth = scanner.nextDouble();
         System.out.print("Введите уровень героя: ");
         int level = scanner.nextInt();
-
         gameStatsDAO.createGameStats(gameId, playerHeroId, kills, deaths, assists, lastHits, goldPerMinute, xpPerMinute, netWorth, level);
         System.out.println("Игровая статистика успешно добавлена!");
     }
@@ -829,12 +828,14 @@ public class ConsoleApp {
     }
 
     private static void createItem(Scanner scanner, ItemDAO itemDAO) {
+        scanner.nextLine();
         System.out.print("Введите название предмета: ");
-        String name = scanner.next();
+        String name = scanner.nextLine();
         System.out.print("Введите стоимость предмета (или 0, если не указана): ");
         int cost = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Введите описание предмета: ");
-        String description = scanner.next();
+        String description = scanner.nextLine();
 
         itemDAO.createItem(name, cost == 0 ? null : cost, description);
         System.out.println("Предмет успешно добавлен!");

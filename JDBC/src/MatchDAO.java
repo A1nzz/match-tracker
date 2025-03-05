@@ -24,7 +24,7 @@ public class MatchDAO {
 
     // Read
     public List<String> getAllMatches() {
-        String query = "SELECT * FROM MatchResults";
+        String query = "SELECT * FROM Match";
         List<String> matches = new ArrayList<>();
         try (Connection connection = DatabaseManager.getConnection();
              Statement statement = connection.createStatement();
@@ -37,7 +37,7 @@ public class MatchDAO {
                         ", Best Of: " + resultSet.getInt("best_of") +
                         ", Match Type Id: " + resultSet.getString("match_type_id") +
                         ", MatchDate: " + resultSet.getString("match_date") +
-                        ", Results"  + resultSet.getString("result") + ")"
+                        ")"
                 );
             }
         } catch (SQLException e) {

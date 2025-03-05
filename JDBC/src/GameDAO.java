@@ -22,13 +22,13 @@ public class GameDAO {
 
     // Read
     public List<String> getAllGames() {
-        String query = "SELECT * FROM GameWithScores";
+        String query = "SELECT * FROM gamewithscores";
         List<String> games = new ArrayList<>();
         try (Connection connection = DatabaseManager.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
-                games.add(resultSet.getInt("id") + ": " +
+                games.add(
                         "Match Id: " + resultSet.getInt("match_id") +
                         "Duration: " + resultSet.getInt("duration") +
                         "Winner: " + resultSet.getString("winner") +
