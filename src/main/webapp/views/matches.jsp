@@ -16,6 +16,7 @@
                 <p class="match-type"><strong>Match Type:</strong> ${match.matchTypeName}</p>
                 <p class="match-date"><strong>Date:</strong> ${match.matchDate}</p>
                 <p><strong>Best of:</strong> ${match.bestOf}</p>
+                <a href="${pageContext.request.contextPath}/games?matchId=${match.id}">Check</a>
             </div>
         </c:forEach>
     </c:if>

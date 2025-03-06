@@ -2,9 +2,11 @@ package org.example.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.example.model.Match;
 import org.example.utils.DBConnection;
+import org.example.model.GameStatsDTO;
 
 
 public class MatchDAO {
@@ -80,5 +82,30 @@ public class MatchDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+
+    public Match getMatchById(int matchId){
+        Match match = null;
+        String sql = "SELECT * FROM Match WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, matchId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    match = new Match();
+                    match.setId(rs.getInt("id"));
+                    match.setTournamentId(rs.getInt("tournament_id"));
+                    match.setTeamRadiantId(rs.getInt("team_radiant_id"));
+                    match.setTeamDireId(rs.getInt("team_dire_id"));
+                    match.setMatchDate(rs.getDate("match_date"));
+                    match.setBestOf(rs.getInt("best_of"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return match;
     }
 }
