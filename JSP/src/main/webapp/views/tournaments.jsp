@@ -17,6 +17,7 @@
                 <p><strong>End Date:</strong> ${tournament.endDate}</p>
                 <p class="prize-pool"><strong>Prize Pool:</strong> $${tournament.prizePool}</p>
                 <p class="organizer"><strong>Organizer:</strong> ${tournament.organizer}</p>
+                <a class="tournament-link" href="${pageContext.request.contextPath}/matches?tournamentId=${tournament.id}">View Matches</a>
             </div>
         </c:forEach>
     </c:if>

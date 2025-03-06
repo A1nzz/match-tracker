@@ -1,13 +1,14 @@
 package org.example.dao;
 
+import org.example.model.Tournament;
+import org.example.utils.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.example.model.Tournament;
-import org.example.utils.DBConnection;
+
 
 public class TournamentDAO {
 
