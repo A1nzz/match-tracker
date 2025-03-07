@@ -54,7 +54,7 @@ public class GameDAO {
                 "gs.final_level, " +
                 "p.nickname AS player_nickname, " +
                 "h.name AS hero_name, " +
-                "ARRAY_AGG(i.name) AS items, " +  // Собранные предметы
+                "ARRAY_AGG(i.name) AS items, " +
                 "m.id AS match_id, " +
                 "m.match_date, " +
                 "t_r.name AS radiant_team, " +
@@ -93,7 +93,7 @@ public class GameDAO {
                 "t_r.name, " +
                 "t_d.name, " +
                 "g.winner, " +
-                "p.team_id;";  // Добавлено для группировки
+                "p.team_id;";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
