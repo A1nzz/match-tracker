@@ -2,9 +2,10 @@
 
 function deleteTournament(tournamentId) {
     if (confirm("Are you sure you want to delete this tournament?")) {
-
-        let url = '/JSP_war_exploded/tournaments_admin/{tournamentId}';
+        const contextPath = window.location.pathname.split('/')[1]; // Получает имя контекста
+        let url = '/{contextPath}/tournaments_admin/{tournamentId}';
         url = url.replace("{tournamentId}", tournamentId);
+        url = url.replace("{contextPath}", contextPath);
 
         fetch(url, {
             method: 'DELETE',

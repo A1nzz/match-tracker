@@ -1,9 +1,7 @@
 package org.example.controller;
 
 import org.example.dao.GameDAO;
-import org.example.dao.MatchDAO;
 import org.example.model.Game;
-import org.example.model.Match;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,13 +21,21 @@ public class GameServlet extends HttpServlet {
         super.init();
         gameDAO = new GameDAO();
     }
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int matchId = Integer.parseInt(request.getParameter("matchId"));
-        List<Game> games = gameDAO.getGamesByMatchId(matchId);
-
-        request.setAttribute("games", games);
-
-        request.getRequestDispatcher("views/games.jsp").forward(request, response);
-
+        try {
+            int matchId = Integer.parseInt(request.getParameter("matchId"));
+            List<Game> games = gameDAO.getGamesByMatchId(matchId);
+            request.setAttribute("games", games);
+            try {
+                request.getRequestDispatcher("views/games.jsp").forward(request, response); // Обработка исключения
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while forwarding the request."); // Ошибка при forward
+            }
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid tournament ID or prize pool value.");
+        }
     }
 }

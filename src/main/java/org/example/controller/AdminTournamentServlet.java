@@ -24,54 +24,76 @@ public class AdminTournamentServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Tournament> tournaments = tournamentDAO.getAllTournaments();
 
-        req.setAttribute("items", tournaments);
-        req.getRequestDispatcher("views/admin_tournaments.jsp").forward(req, resp);
+        try {
+            List<Tournament> tournaments = tournamentDAO.getAllTournaments();
+            req.setAttribute("items", tournaments);
+            req.getRequestDispatcher("views/admin_tournaments.jsp").forward(req, resp);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request.");
+        }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        System.out.println(action);
         if ("create".equals(action)) {
-            Tournament tournament = new Tournament();
-            tournament.setName(req.getParameter("name"));
-            tournament.setStartDate(Date.valueOf(req.getParameter("startDate")));
-            tournament.setEndDate(Date.valueOf(req.getParameter("endDate")));
-            tournament.setPrizePool(Double.parseDouble(req.getParameter("prizePool")));
-            tournament.setOrganizer(req.getParameter("organizer"));
-            tournamentDAO.addTournament(tournament);
+            try {
+                Tournament tournament = new Tournament();
+                tournament.setName(req.getParameter("name"));
+                tournament.setStartDate(Date.valueOf(req.getParameter("startDate")));
+                tournament.setEndDate(Date.valueOf(req.getParameter("endDate")));
+                tournament.setPrizePool(Double.parseDouble(req.getParameter("prizePool")));
+                tournament.setOrganizer(req.getParameter("organizer"));
+                tournamentDAO.addTournament(tournament);
+            } catch (NumberFormatException e) {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid prize pool value.");
+            }
         } else if ("edit".equals(action)) {
-            System.out.println("Received post request");
-
-            Tournament tournament = new Tournament();
-            tournament.setId(Integer.parseInt(req.getParameter("id")));
-            tournament.setName(req.getParameter("name"));
-            tournament.setStartDate(Date.valueOf(req.getParameter("startDate")));
-            tournament.setEndDate(Date.valueOf(req.getParameter("endDate")));
-            tournament.setPrizePool(Double.parseDouble(req.getParameter("prizePool")));
-            tournament.setOrganizer(req.getParameter("organizer"));
-            tournamentDAO.updateTournament(tournament);
+            try {
+                Tournament tournament = new Tournament();
+                tournament.setId(Integer.parseInt(req.getParameter("id")));
+                tournament.setName(req.getParameter("name"));
+                tournament.setStartDate(Date.valueOf(req.getParameter("startDate")));
+                tournament.setEndDate(Date.valueOf(req.getParameter("endDate")));
+                tournament.setPrizePool(Double.parseDouble(req.getParameter("prizePool")));
+                tournament.setOrganizer(req.getParameter("organizer"));
+                tournamentDAO.updateTournament(tournament);
+            } catch (NumberFormatException e) {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid tournament ID or prize pool value.");
+            }
         }
-        resp.sendRedirect(req.getContextPath() + "/tournaments_admin");
-
+        try {
+            resp.sendRedirect(req.getContextPath() + "/tournaments_admin");
+        } catch (IOException e) {
+            e.printStackTrace();
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while redirecting.");
+        }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String pathInfo = req.getPathInfo();
         if (pathInfo != null && pathInfo.length() > 1) {
-            String tournamentIdStr = pathInfo.substring(1); // Убираем начальный "/"
+            String tournamentIdStr = pathInfo.substring(1);
             try {
-                int tournamentId = Integer.parseInt(tournamentIdStr); // Преобразуем в int
-
-                tournamentDAO.deleteTournament(tournamentId); // Метод удаления из DAO
+                int tournamentId = Integer.parseInt(tournamentIdStr);
+                tournamentDAO.deleteTournament(tournamentId);
             } catch (NumberFormatException e) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid tournament ID"); // Неверный ID
+                try {
+                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid tournament ID");
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         } else {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Tournament ID is required"); // Отсутствует ID
+            try {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Tournament ID is required");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 
