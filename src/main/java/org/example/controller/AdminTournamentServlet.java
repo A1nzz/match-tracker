@@ -2,7 +2,6 @@ package org.example.controller;
 
 import org.example.dao.TournamentDAO;
 import org.example.model.Tournament;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,16 +23,18 @@ public class AdminTournamentServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         try {
             List<Tournament> tournaments = tournamentDAO.getAllTournaments();
             req.setAttribute("items", tournaments);
             req.getRequestDispatcher("views/admin_tournaments.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
             e.printStackTrace();
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request.");
+            try {
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request.");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
-
     }
 
     @Override
@@ -49,7 +50,11 @@ public class AdminTournamentServlet extends HttpServlet {
                 tournament.setOrganizer(req.getParameter("organizer"));
                 tournamentDAO.addTournament(tournament);
             } catch (NumberFormatException e) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid prize pool value.");
+                try {
+                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid prize pool value.");
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         } else if ("edit".equals(action)) {
             try {
@@ -62,14 +67,23 @@ public class AdminTournamentServlet extends HttpServlet {
                 tournament.setOrganizer(req.getParameter("organizer"));
                 tournamentDAO.updateTournament(tournament);
             } catch (NumberFormatException e) {
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid tournament ID or prize pool value.");
+                try {
+                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid tournament ID or prize pool value.");
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }
+
         try {
             resp.sendRedirect(req.getContextPath() + "/tournaments_admin");
         } catch (IOException e) {
             e.printStackTrace();
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while redirecting.");
+            try {
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while redirecting.");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 
@@ -96,7 +110,4 @@ public class AdminTournamentServlet extends HttpServlet {
             }
         }
     }
-
-
-
 }

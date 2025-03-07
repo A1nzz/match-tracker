@@ -25,9 +25,22 @@ public class TournamentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Tournament> tournaments = tournamentDAO.getAllTournaments();
         req.setAttribute("items", tournaments);
-        req.getRequestDispatcher("views/tournaments.jsp").forward(req, resp);
+        forwardRequest(req, resp);
     }
 
+
+    private void forwardRequest(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.getRequestDispatcher("views/tournaments.jsp").forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+            try {
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while forwarding the request."); // Ошибка при forward
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+    }
 
 
 }

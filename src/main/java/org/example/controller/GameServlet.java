@@ -2,7 +2,6 @@ package org.example.controller;
 
 import org.example.dao.GameDAO;
 import org.example.model.Game;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +12,6 @@ import java.util.List;
 
 @WebServlet("/games")
 public class GameServlet extends HttpServlet {
-
     private GameDAO gameDAO;
 
     @Override
@@ -28,14 +26,26 @@ public class GameServlet extends HttpServlet {
             int matchId = Integer.parseInt(request.getParameter("matchId"));
             List<Game> games = gameDAO.getGamesByMatchId(matchId);
             request.setAttribute("games", games);
-            try {
-                request.getRequestDispatcher("views/games.jsp").forward(request, response); // Обработка исключения
-            } catch (ServletException | IOException e) {
-                e.printStackTrace();
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while forwarding the request."); // Ошибка при forward
-            }
+            forwardRequest(request, response);
         } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid tournament ID or prize pool value.");
+            try {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid match ID.");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+    }
+
+    private void forwardRequest(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.getRequestDispatcher("views/games.jsp").forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+            try {
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while forwarding the request."); // Ошибка при forward
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 }

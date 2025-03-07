@@ -13,13 +13,33 @@ import java.util.List;
 
 @WebServlet("/gameStats")
 public class GameStatsServlet extends HttpServlet {
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int gameId = Integer.parseInt(request.getParameter("id"));
-
+        try {
+            int gameId = Integer.parseInt(request.getParameter("id"));
             GameDAO gameDAO = new GameDAO();
             List<GameStatsDTO> gameStats = gameDAO.getGameStatsForGame(gameId);
             request.setAttribute("gameStats", gameStats);
-            request.getRequestDispatcher("/views/gameStats.jsp").forward(request, response);
+            forwardRequest(request, response);
+        } catch (NumberFormatException e) {
+            try {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid game ID.");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+    }
 
+    private void forwardRequest(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.getRequestDispatcher("/views/gameStats.jsp").forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+            try {
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while forwarding the request."); // Ошибка при forward
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
     }
 }

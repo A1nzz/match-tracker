@@ -14,13 +14,14 @@ public class DBConnection {
 
         Connection conn = null;
         try {
-            // Загрузка драйвера PostgreSQL
-            Class.forName("org.postgresql.Driver");
-            // Установка соединения
+            try {
+                Class.forName("org.postgresql.Driver");
                 conn = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+         catch (SQLException e) {
             e.printStackTrace();
         }
         return conn;
