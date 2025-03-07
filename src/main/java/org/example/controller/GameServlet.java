@@ -21,7 +21,7 @@ public class GameServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
             int matchId = Integer.parseInt(request.getParameter("matchId"));
             List<Game> games = gameDAO.getGamesByMatchId(matchId);

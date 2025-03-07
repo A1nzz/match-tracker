@@ -22,7 +22,7 @@ public class AdminTournamentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
             List<Tournament> tournaments = tournamentDAO.getAllTournaments();
             req.setAttribute("items", tournaments);
@@ -38,7 +38,7 @@ public class AdminTournamentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         String action = req.getParameter("action");
         if ("create".equals(action)) {
             try {
@@ -88,7 +88,7 @@ public class AdminTournamentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         String pathInfo = req.getPathInfo();
         if (pathInfo != null && pathInfo.length() > 1) {
             String tournamentIdStr = pathInfo.substring(1);

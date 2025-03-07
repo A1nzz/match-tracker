@@ -19,9 +19,11 @@ public class Match {
     public int getId() {
         return id;
     }
+
     public int getTournamentId() {
         return tournamentId;
     }
+
     public int getTeamRadiantId() {
         return teamRadiantId;
     }
@@ -41,21 +43,27 @@ public class Match {
     public Date getMatchDate() {
         return matchDate;
     }
+
     public String getTeamRadiantName() {
         return teamRadiantName;
     }
+
     public String getTeamDireName() {
         return teamDireName;
     }
+
     public String getMatchTypeName() {
         return matchTypeName;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public void setTournamentId(int tournamentId) {
         this.tournamentId = tournamentId;
     }
+
     public void setTeamRadiantId(int teamRadiantId) {
         this.teamRadiantId = teamRadiantId;
     }
@@ -79,9 +87,11 @@ public class Match {
     public void setTeamRadiantName(String teamRadiantName) {
         this.teamRadiantName = teamRadiantName;
     }
+
     public void setTeamDireName(String teamDireName) {
         this.teamDireName = teamDireName;
     }
+
     public void setMatchTypeName(String matchTypeName) {
         this.matchTypeName = matchTypeName;
     }

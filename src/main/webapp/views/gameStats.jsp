@@ -7,9 +7,6 @@
 </head>
 <body>
 <h1>Game Statistics</h1>
-
-
-
     <div class="teams-container">
         <div class="team">
             <h2>Radiant Team</h2>
@@ -124,4 +121,3 @@
     </div>
 
 </body>
-</html>

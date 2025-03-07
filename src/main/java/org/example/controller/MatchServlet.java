@@ -24,7 +24,7 @@ public class MatchServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
             int tournamentId = Integer.parseInt(request.getParameter("tournamentId"));
             List<Match> matches = matchDAO.getMatchesByTournament(tournamentId);

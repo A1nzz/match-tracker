@@ -14,7 +14,7 @@ import java.util.List;
 @WebServlet("/gameStats")
 public class GameStatsServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
             int gameId = Integer.parseInt(request.getParameter("id"));
             GameDAO gameDAO = new GameDAO();

@@ -128,9 +128,11 @@ public class GameStatsDTO {
     public void setLastHits(int lastHits) {
         this.lastHits = lastHits;
     }
+
     public int getGoldPerMinute() {
         return goldPerMinute;
     }
+
     public void setGoldPerMinute(int goldPerMinute) {
         this.goldPerMinute = goldPerMinute;
     }

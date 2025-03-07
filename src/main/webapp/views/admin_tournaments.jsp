@@ -53,8 +53,6 @@
         <button type="button" class="modal-button" onclick="closeModal()">Cancel</button>
       </div>
     </form>
-
   </div>
 </div>
 </body>
-</html>

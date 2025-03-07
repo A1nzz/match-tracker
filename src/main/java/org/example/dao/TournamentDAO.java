@@ -11,10 +11,6 @@ import java.util.List;
 
 
 public class TournamentDAO {
-
-
-
-
     public List<Tournament> getAllTournaments() {
         List<Tournament> tournaments = new ArrayList<>();
         String sql = "SELECT * FROM Tournament";

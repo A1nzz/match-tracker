@@ -15,7 +15,7 @@ import java.util.List;
 @WebServlet("/team")
 public class TeamServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
         try {
             int teamId = Integer.parseInt(request.getParameter("id"));

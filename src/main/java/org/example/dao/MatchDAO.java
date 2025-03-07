@@ -10,8 +10,6 @@ import org.example.model.GameStatsDTO;
 
 
 public class MatchDAO {
-
-
     public List<Match> getAllMatches() {
         List<Match> matches = new ArrayList<>();
         String sql = "SELECT * FROM Match";

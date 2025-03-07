@@ -4,7 +4,6 @@
 <head>
     <title>Tournaments</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/tournaments.css">
-
 </head>
 <body>
 <h1>Tournaments</h1>
@@ -26,4 +25,3 @@
     </c:if>
 </div>
 </body>
-</html>

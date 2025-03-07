@@ -16,6 +16,7 @@ public class Team {
         this.rating = rating;
         this.logoUrl = logoUrl;
     }
+
     public int getId() {
         return id;
     }

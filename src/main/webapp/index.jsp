@@ -24,9 +24,6 @@
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
-
-
-
         .button {
             padding: 15px 30px;
             font-size: 1.2em;
@@ -54,6 +51,5 @@
 <body>
 <h1>Добро пожаловать в Match Tracker</h1>
 <a href="${pageContext.request.contextPath}/tournaments" class="button">Go to Tournaments</a>
-
 </body>
 </html>

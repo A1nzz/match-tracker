@@ -22,7 +22,7 @@ public class TournamentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         List<Tournament> tournaments = tournamentDAO.getAllTournaments();
         req.setAttribute("items", tournaments);
         forwardRequest(req, resp);
