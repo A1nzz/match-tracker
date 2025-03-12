@@ -1,0 +1,265 @@
+// Основные стили
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1e1e1e; 
+  color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #ff7f50; 
+}
+
+a {
+  color: #ff7f50;
+  text-decoration: none;
+
+  &:hover {
+    color: #ff8a65;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+
+.grid-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+
+  &.team {
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  }
+}
+
+.card {
+  background-color: #333;
+  padding: 1.2rem;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  
+  &.team {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .team-info {
+      flex: 1;
+    }
+  
+    .players-list {
+      flex: 1;
+      max-width: 200px;
+  
+      h4 {
+        color: #ff7f50;
+        margin-top: 0;
+      }
+  
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+  
+        li {
+          color: #cccccc;
+          margin: 0.5rem 0;
+          display: flex;
+          align-items: center;
+
+          .react-country-flag {
+            margin-right: 0.5em;
+          }
+        }
+      }
+    }
+  }
+
+  
+
+  &-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h3 {
+    color: #ff7f50;
+    margin-top: 0;
+  }
+
+  p {
+    color: #cccccc;
+  }
+
+  .button {
+    background-color: #ff7f50;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    margin-top: auto;
+
+      &:hover {
+        background-color: #ffa07a;
+      }
+    }
+}
+
+.teamLogo, .heroLogo, .itemLogo {
+  max-width: 100px;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+}
+
+.section {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h2 {
+    color: #ff7f50;
+    margin: 0;
+    border-bottom: 2px solid #ff7f50;
+    padding-bottom: 0.5rem;
+  }
+
+  .button {
+    background-color: #ff7f50;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: scale 0.3s ease;
+    text-align: center;
+    display: inline-block;
+
+    &:hover {
+      scale: 1.05;
+    }
+  }
+}
+
+.stats-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.team-stats {
+  background-color: #333;
+  padding: 1rem;
+  border-radius: 8px;
+
+  h2 {
+    color: #ff7f50;
+    margin-bottom: 1rem;
+  }
+}
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.player-card {
+  background-color: #444;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .hero-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+  }
+
+  .player-info {
+    h3 {
+      color: #ff7f50;
+      margin: 0;
+    }
+
+    p {
+      color: #cccccc;
+      margin: 0;
+    }
+  }
+
+  .stats-info {
+    margin-top: 0.5rem;
+
+    p {
+      color: #cccccc;
+      margin: 0.25rem 0;
+    }
+  }
+}
+
+.radiant {
+  border: 2px solid #4caf50;
+}
+
+.dire {
+  border: 2px solid #f44336;
+}
+
+/* Стили для предметов */
+.items-info {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.item-card {
+  background-color: #555;
+  padding: 1rem;
+  border-radius: 8px;
+  flex: 1 1 200px; /* Позволяет карточкам предметов адаптироваться к размеру */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-card h4 {
+  color: #ff7f50;
+  margin: 0.5rem 0;
+}
+
+.item-card p {
+  color: #cccccc;
+  margin: 0.25rem 0;
+}
+
+.item-image {
+  max-width: 50px;
+  max-height: 50px;
+  margin-bottom: 0.5rem;
+}

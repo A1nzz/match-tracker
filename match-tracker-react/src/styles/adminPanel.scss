@@ -1,0 +1,188 @@
+  .admin-panel {
+    display: flex;
+    height: calc(100vh - 5rem); // Устанавливаем высоту, учитывая padding
+
+  
+    .sidebar {
+      width: 25%;
+      background-color: #333;
+      padding: 1rem;
+      color: #fff;
+  
+      h2 {
+        color: #ff7f50;
+        border-bottom: 2px solid #ff7f50;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+      }
+  
+      ul {
+        list-style: none;
+        padding: 0;
+  
+        li {
+          padding: 0.5rem 1rem;
+          margin-bottom: 0.5rem;
+          cursor: pointer;
+          border-radius: 4px;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: #444;
+          }
+  
+          &.active {
+            background-color: #ff7f50;
+            color: #fff;
+          }
+        }
+      }
+    }
+  
+    .content {
+      width: 75%;
+      background-color: #1e1e1e;
+      padding: 1rem;
+      overflow: hidden;
+      overflow-y: auto; 
+
+
+      
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+      }
+
+      h2 {
+        color: #ff7f50;
+        border-bottom: 2px solid #ff7f50;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+        
+      }
+
+      .button {
+        background-color: #ff7f50;
+              color: #fff;
+              border: none;
+              padding: 0.5rem 1rem;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+              margin-right: 1rem;
+              transition: scale 0.3s ease;
+  
+              &:hover {
+                scale: 1.05;
+              }
+      }
+  
+      .entity-list {
+        list-style: none;
+        padding: 0;
+  
+        .entity-card {
+          background-color: #333;
+          padding: 1rem;
+          margin-bottom: 1rem;
+          border-radius: 8px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+  
+          span {
+            color: #fff;
+          }
+  
+          .actions {
+            button {
+              background-color: transparent;
+              color: #ff7f50;
+              border: 2px solid #ff7f50;
+              padding: 0.5rem 1rem;
+              border-radius: 4px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+  
+              &:hover {
+                background-color: #ff7f50;
+                color: #fff;
+                scale: 1.05;
+              }
+  
+              &.delete {
+                margin-left: 1rem;
+                background-color: #ff7f50;
+                color: #fff;
+  
+                &:hover {
+                  scale: 1.05;
+                }
+              }
+            }
+          }
+        }
+      }
+  
+    }
+  }
+  .form-group {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background-color: #333;
+      color: #fff;
+    }
+
+    .edit-form {
+        background-color: #444;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+  
+        h3 {
+          color: #ff7f50;
+          margin-bottom: 1rem;
+        }   
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      background-color: #ff7f50;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #ffa07a;
+      }
+    }
+  }
