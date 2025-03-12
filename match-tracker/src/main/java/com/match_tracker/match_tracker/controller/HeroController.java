@@ -23,20 +23,4 @@ public class HeroController {
     public Hero getHeroById(@PathVariable Long id) {
         return heroService.getHeroById(id);
     }
-
-    @PostMapping
-    public Hero createHero(@RequestBody Hero hero) {
-        return heroService.saveHero(hero);
-    }
-
-    @PutMapping("/{id}")
-    public Hero updateHero(@PathVariable Long id, @RequestBody Hero hero) {
-        hero.setId(id);
-        return heroService.saveHero(hero);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteHero(@PathVariable Long id) {
-        heroService.deleteHero(id);
-    }
 }

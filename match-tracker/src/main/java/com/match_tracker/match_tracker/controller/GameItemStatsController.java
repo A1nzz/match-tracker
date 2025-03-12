@@ -23,20 +23,4 @@ public class GameItemStatsController {
     public GameItemStats getGameItemStatsById(@PathVariable Long id) {
         return gameItemStatsService.getGameItemStatsById(id);
     }
-
-    @PostMapping
-    public GameItemStats createGameItemStats(@RequestBody GameItemStats gameItemStats) {
-        return gameItemStatsService.saveGameItemStats(gameItemStats);
-    }
-
-    @PutMapping("/{id}")
-    public GameItemStats updateGameItemStats(@PathVariable Long id, @RequestBody GameItemStats gameItemStats) {
-        gameItemStats.setId(id);
-        return gameItemStatsService.saveGameItemStats(gameItemStats);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteGameItemStats(@PathVariable Long id) {
-        gameItemStatsService.deleteGameItemStats(id);
-    }
 }

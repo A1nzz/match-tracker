@@ -1,0 +1,47 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #333;
+  padding: 1rem;
+
+  &-logo {
+    margin-right: auto; 
+    img {
+      height: 40px;
+    }
+  }
+
+  &-list {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    justify-content: center; // Элементы навигации по центру
+    flex-grow: 1; // Растягиваем список навигации
+  }
+
+  &-item {
+    margin: 0;
+  }
+
+  &-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover {
+      color: #ff7f50;
+    }
+  }
+
+  .active {
+    color: #ff7f50;
+    font-weight: bold;
+  }
+}

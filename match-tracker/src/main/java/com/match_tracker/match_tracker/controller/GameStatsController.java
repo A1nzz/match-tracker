@@ -1,5 +1,6 @@
 package com.match_tracker.match_tracker.controller;
 
+import com.match_tracker.match_tracker.dto.GameStatsDto;
 import com.match_tracker.match_tracker.entity.GameStats;
 import com.match_tracker.match_tracker.service.GameStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,8 @@ public class GameStatsController {
     private GameStatsService gameStatsService;
 
     @GetMapping
-    public List<GameStats> getAllGameStats() {
-        return gameStatsService.getAllGameStats();
+    public List<GameStatsDto> getAllGameStats() {
+        return gameStatsService.getAllGameStatsDto();
     }
 
     @GetMapping("/{id}")
@@ -24,19 +25,5 @@ public class GameStatsController {
         return gameStatsService.getGameStatsById(id);
     }
 
-    @PostMapping
-    public GameStats createGameStats(@RequestBody GameStats gameStats) {
-        return gameStatsService.saveGameStats(gameStats);
-    }
 
-    @PutMapping("/{id}")
-    public GameStats updateGameStats(@PathVariable Long id, @RequestBody GameStats gameStats) {
-        gameStats.setId(id);
-        return gameStatsService.saveGameStats(gameStats);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteGameStats(@PathVariable Long id) {
-        gameStatsService.deleteGameStats(id);
-    }
 }

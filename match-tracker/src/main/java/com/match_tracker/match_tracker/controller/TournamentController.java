@@ -1,5 +1,6 @@
 package com.match_tracker.match_tracker.controller;
 
+import com.match_tracker.match_tracker.entity.Match;
 import com.match_tracker.match_tracker.entity.Tournament;
 import com.match_tracker.match_tracker.service.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +25,8 @@ public class TournamentController {
         return tournamentService.getTournamentById(id);
     }
 
-    @PostMapping
-    public Tournament createTournament(@RequestBody Tournament tournament) {
-        return tournamentService.saveTournament(tournament);
-    }
-
-    @PutMapping("/{id}")
-    public Tournament updateTournament(@PathVariable Long id, @RequestBody Tournament tournament) {
-        tournament.setId(id);
-        return tournamentService.saveTournament(tournament);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteTournament(@PathVariable Long id) {
-        tournamentService.deleteTournament(id);
+    @GetMapping("/{tournamentId}/matches")
+    public List<Match> getMatchesByTournamentId(@PathVariable Long tournamentId) {
+        return tournamentService.getMatchesByTournamentId(tournamentId);
     }
 }

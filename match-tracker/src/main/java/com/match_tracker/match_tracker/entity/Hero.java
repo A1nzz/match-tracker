@@ -18,4 +18,6 @@ public class Hero {
     private String attackType;
 
     private String roles;
+
+    private String logoUrl;
 }

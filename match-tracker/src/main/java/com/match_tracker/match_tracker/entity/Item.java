@@ -16,4 +16,6 @@ public class Item {
     private Integer cost;
 
     private String description;
+
+    private String logoUrl;
 }
