@@ -29,7 +29,7 @@
 |1|DB|2.5|3|
 |2|JDBC|6|8|
 |3|JSP|25|30|
-|4|Spring|0|0|
-|5|React|0|0|
+|4|Spring|10|8|
+|5|React|14|15|
 |6|Angular|∞|0|
 |*|Total|||
