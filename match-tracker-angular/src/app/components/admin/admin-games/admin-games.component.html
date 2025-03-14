@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Управление играми</h1>
+
+  <!-- Список игр -->
+  <div class="grid-list">
+    <div *ngFor="let game of games" class="card">
+      <h3>Игра #{{ game.id }}</h3>
+      <p>Матч: [{{ game.match.id }}] {{game.match.tournament.name}}: {{game.match.teamRadiant.name}} - {{game.match.teamDire.name}}</p>
+      <p>Победитель: {{ game.winner }}</p>
+      <p>Длительность: {{ game.duration }} минут</p>
+      <p>Начало: {{ game.startTime }}</p>
+      <button class="edit" (click)="editGame(game)">Редактировать</button>
+      <button (click)="deleteGame(game.id!)">Удалить</button>
+    </div>
+  </div>
+
+  <!-- Кнопка для добавления новой игры -->
+  <button (click)="addGame()">Добавить игру</button>
+</div>

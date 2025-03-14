@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Items</h1>
+  <div class="grid-list">
+    @for (item of items; track item.id) {
+      <div class="card">
+        <h3>{{ item.name }}</h3>
+        <img [src]="item.logoUrl" [alt]="item.name" class="itemLogo" />
+        <p>Cost: {{ item.cost }}</p>
+        <p>{{ item.description }}</p>
+      </div>
+    }
+  </div>
+</div>

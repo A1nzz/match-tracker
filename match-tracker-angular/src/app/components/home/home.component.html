@@ -1,0 +1,63 @@
+<div class="container">
+  <h1>Welcome to Match Tracker</h1>
+  <p>Track your favorite matches and stay updated with the latest results!</p>
+
+  <!-- Секция с актуальными турнирами -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Актуальные турниры</h2>
+      <a routerLink="/tournaments" class="button">Показать все</a>
+    </div>
+    <div class="grid-list">
+      @for (tournament of tournaments.slice(0, 3); track tournament.id) {
+        <div class="card">
+          <h3>{{ tournament.name }}</h3>
+          <p>Prize Pool: ${{ tournament.prizePool.toLocaleString() }}</p>
+          <p>
+            Dates: {{ tournament.startDate }} -
+            {{ tournament.endDate }}
+          </p>
+          <a [routerLink]="['/tournaments', tournament.id, 'matches']" class="button">
+            Посмотреть матчи
+          </a>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Секция с сильнейшими командами -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Сильнейшие команды</h2>
+      <a routerLink="/teams" class="button">Показать все</a>
+    </div>
+    <div class="grid-list">
+      @for (team of teams.slice(0, 3); track team.id) {
+        <div class="card">
+          <h3>{{ team.name }}</h3>
+          <img [src]="team.logoUrl" [alt]="team.name" class="teamLogo" />
+          <p>Region: {{ team.region }}</p>
+          <p>Rating: {{ team.rating }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Секция с актуальными героями -->
+  <section class="section">
+    <div class="section-header">
+      <h2>Актуальные герои</h2>
+      <a routerLink="/heroes" class="button">Показать все</a>
+    </div>
+    <div class="grid-list">
+      @for (hero of heroes.slice(0, 3); track hero.id) {
+        <div class="card">
+          <h3>{{ hero.name }}</h3>
+          <img [src]="hero.logoUrl" [alt]="hero.name" class="heroLogo" />
+          <p>Primary Attribute: {{ hero.primaryAttribute }}</p>
+          <p>Roles: {{ hero.roles }}</p>
+        </div>
+      }
+    </div>
+  </section>
+</div>

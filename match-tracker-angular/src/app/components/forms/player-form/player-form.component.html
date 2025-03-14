@@ -1,0 +1,20 @@
+<div>
+<h2>{{ isEditMode ? 'Редактировать игрока' : 'Добавить игрока' }}</h2>
+<form [formGroup]="playerForm" (ngSubmit)="savePlayer()">
+  <input formControlName="nickname" placeholder="Никнейм" required />
+  <input formControlName="realName" placeholder="Настоящее имя" required />
+  
+  <!-- Выпадающий список для выбора команды -->
+  <select formControlName="team" required>
+    <option value="" disabled>Выберите команду</option>
+    <option *ngFor="let team of teams" [ngValue]="team">
+      {{ team.name }}
+    </option>
+  </select>
+
+  <input formControlName="country" placeholder="Страна" required />
+  <input formControlName="role" placeholder="Роль" required />
+  <button type="submit">Сохранить</button>
+  <button type="button" (click)="close()">Отмена</button>
+</form>
+</div>

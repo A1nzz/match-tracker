@@ -1,0 +1,18 @@
+<div class="container">
+  <h1>Управление предметами</h1>
+
+  <!-- Список предметов -->
+  <div class="grid-list">
+    <div *ngFor="let item of items" class="card">
+      <h3>{{ item.name }}</h3>
+      <img [src]="item.logoUrl" [alt]="item.name" class="itemLogo" />
+      <p>Описание: {{ item.description }}</p>
+      <p>Стоимость: {{ item.cost }}</p>
+      <button class="edit" (click)="editItem(item)">Редактировать</button>
+      <button (click)="deleteItem(item.id!)">Удалить</button>
+    </div>
+  </div>
+
+  <!-- Кнопка для добавления нового предмета -->
+  <button (click)="addItem()">Добавить предмет</button>
+</div>

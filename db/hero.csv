@@ -1,0 +1,16 @@
+id,attack_type,name,primary_attribute,roles,logo_url
+2,Melee,Anti-Mage,Agility,"Carry, Escape",https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/antimage.png
+3,Ranged,Crystal Maiden,Intelligence,"Support, Disabler",https://pub-5f12f7508ff04ae5925853dee0438460.r2.dev/data/dota/panorama/images/heroes/renders/images/crystal_maiden.png
+4,Melee,Axe,Strength,"Tank, Initiator",https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/axe.png
+8,Ranged,Bane,Intelligence,"Support, Disabler",
+9,Ranged,Lina,Intelligence,"Mid, Nuker",
+10,Ranged,Templar Assassin,Agility,"Carry, Nuker",
+11,Ranged,Winter Wyvern,Intelligence,"Support, Disabler",
+12,Melee,Earthshaker,Strength,"Support, Initiator",
+13,Melee,Monkey King,Agility,"Carry, Escape",
+14,Ranged,Snapfire,Strength,"Support, Nuker",
+15,Melee,Kunkka,Strength,"Mid, Initiator",
+6,Melee,Tiny,Strength,"Carry, Nuker",https://pub-5f12f7508ff04ae5925853dee0438460.r2.dev/data/dota/panorama/images/heroes/renders/images/tiny.png
+7,Melee,Magnus,Strength,"Initiator, Support",https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/magnataur.png
+5,,Invoker,Intelligence,"Nuker, Escape",https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/invoker.png
+16,Melee,kez,Agility,"Carry, Escape",123345

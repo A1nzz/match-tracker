@@ -1,0 +1,11 @@
+id,cost,description,name,logo_url
+1,50,+1 all attributes,iron branch,null
+2,90,Restores 250 health over 16 seconds,Tango,null
+3,50,Restores 150 mana over 40 seconds,Clarity,null
+4,500,+50 movement speed,Boots of Speed,null
+5,200,Charges from nearby enemy spell casts,Magic Stick,null
+6,2250,Allows you to teleport a short distance,Blink Dagger,null
+7,4050,Provides spell immunity.,Black King Bar,null
+8,2200,Grants bonus gold and experience.,Hand of Midas,null 
+9,5950,Massively increases attack damage.,Divine Rapier,null
+11,50,"Turns the caster and all allied player-controlled units in a 1200 radius invisible, and grants 15% bonus movement speed for 45 seconds",Smoke Of Deceit,https://static.wikia.nocookie.net/dota2_gamepedia/images/f/fa/Ingame_model_Smoke_of_Deceit.png/revision/latest/scale-to-width-down/250?cb=20130421212236

@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Heroes</h1>
+  <div class="grid-list">
+    <div *ngFor="let hero of heroes" class="card">
+      <h3>{{ hero.name }}</h3>
+      <img [src]="hero.logoUrl" [alt]="hero.name" class="heroLogo" />
+      <p>Primary Attribute: {{ hero.primaryAttribute }}</p>
+      <p>Roles: {{ hero.roles }}</p>
+    </div>
+  </div>
+</div>

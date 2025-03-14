@@ -1,0 +1,12 @@
+
+<div>
+  <h2>{{ isEditMode ? 'Редактировать команду' : 'Добавить команду' }}</h2>
+  <form [formGroup]="teamForm" (ngSubmit)="saveTeam()">
+    <input formControlName="name" placeholder="Название" required />
+    <input formControlName="logoUrl" placeholder="Логотип" required />
+    <input formControlName="region" placeholder="Регион" required />
+    <input formControlName="rating" type="number" placeholder="Рейтинг" required />
+    <button type="submit">Сохранить</button>
+    <button type="button" (click)="close()">Отмена</button>
+  </form>
+</div>

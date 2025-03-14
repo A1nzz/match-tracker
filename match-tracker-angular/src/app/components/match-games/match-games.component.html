@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Игры матча</h1>
+  <div class="grid-list">
+    @for (game of games; track game.id) {
+      <div class="card">
+        <a [routerLink]="['/games', game.id, 'stats']" class="card-link">
+          <h3>Игра #{{ game.id }}</h3>
+          <p>Победитель: {{ game.winner }}</p>
+          <p>Длительность: {{ game.duration }} минут</p>
+          <p>Начало: {{ game.startTime }}</p>
+        </a>
+      </div>
+    }
+  </div>
+</div>

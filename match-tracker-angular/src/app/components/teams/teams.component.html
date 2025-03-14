@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Команды</h1>
+  <div class="grid-list team">
+    @for (team of teams; track team.id) {
+      <div class="card team">
+        <div class="team-info">
+          <h3>{{ team.name }}</h3>
+          <img [src]="team.logoUrl" [alt]="team.name" class="teamLogo" />
+          <p>Регион: {{ team.region }}</p>
+          <p>Рейтинг: {{ team.rating }}</p>
+        </div>
+        <div class="players-list">
+          <h4>Игроки:</h4>
+          <ul>
+            @for (player of team.players; track player.id) {
+              <li>
+               
+                {{ player.nickname }} ({{ player.role }})
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    }
+  </div>
+</div>

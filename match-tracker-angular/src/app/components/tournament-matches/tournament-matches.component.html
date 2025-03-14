@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Матчи турнира</h1>
+  <div class="grid-list">
+    @for (match of matches; track match.id) {
+      <div class="card">
+        <a [routerLink]="['/matches', match.id, 'games']" class="card-link">
+          <h3>{{ match.teamRadiant.name }} vs {{ match.teamDire.name }}</h3>
+          <p>Тип матча: {{ match.matchType.typeName }}</p>
+          <p>Формат: BO{{ match.bestOf }}</p>
+          <p>Дата: {{ match.matchDate }}</p>
+        </a>
+      </div>
+    }
+  </div>
+</div>

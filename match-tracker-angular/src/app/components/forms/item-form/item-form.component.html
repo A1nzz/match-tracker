@@ -1,0 +1,11 @@
+<div class="modal-body">
+  <h2>{{ isEditMode ? 'Редактировать предмет' : 'Добавить предмет' }}</h2>
+  <form [formGroup]="itemForm" (ngSubmit)="saveItem()">
+    <input formControlName="name" placeholder="Название" required />
+    <input formControlName="description" placeholder="Описание" required />
+    <input formControlName="logoUrl" placeholder="Логотип" required />
+    <input formControlName="cost" type="number" placeholder="Стоимость" required />
+    <button type="submit">Сохранить</button>
+    <button type="button" (click)="close()">Отмена</button>
+  </form>
+</div>

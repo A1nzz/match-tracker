@@ -1,0 +1,45 @@
+<div>
+  <h2>{{ isEditMode ? 'Редактировать матч' : 'Добавить матч' }}</h2>
+  <form [formGroup]="matchForm" (ngSubmit)="saveMatch()">
+    <!-- Выбор команды Radiant -->
+    <select formControlName="teamRadiant" required>
+      <option value="" disabled>Выберите команду Radiant</option>
+      <option *ngFor="let team of teams" [ngValue]="team">
+        {{ team.name }}
+      </option>
+    </select>
+
+    <!-- Выбор команды Dire -->
+    <select formControlName="teamDire" required>
+      <option value="" disabled>Выберите команду Dire</option>
+      <option *ngFor="let team of teams" [ngValue]="team">
+        {{ team.name }}
+      </option>
+    </select>
+
+    <!-- Выбор типа матча -->
+    <select formControlName="matchType" required>
+      <option value="" disabled>Выберите тип матча</option>
+      <option *ngFor="let type of matchTypes" [ngValue]="type">
+        {{ type.typeName }}
+      </option>
+    </select>
+
+    <!-- Выбор формата (bestOf) -->
+    <input formControlName="bestOf" type="number" placeholder="Формат (BO)" required />
+
+    <!-- Дата матча -->
+    <input formControlName="matchDate" type="date" placeholder="Дата матча" required />
+
+    <!-- Выбор турнира -->
+    <select formControlName="tournament" required>
+      <option value="" disabled>Выберите турнир</option>
+      <option *ngFor="let tournament of tournaments" [ngValue]="tournament.id">
+        {{ tournament.name }}
+      </option>
+    </select>
+
+    <button type="submit">Сохранить</button>
+    <button type="button" (click)="close()">Отмена</button>
+  </form>
+</div>

@@ -1,0 +1,70 @@
+<div class="container">
+  <h1>Послеигровая статистика</h1>
+  <div class="stats-grid">
+    <!-- Radiant Team -->
+    <div class="team-stats radiant">
+      <h2>Radiant</h2>
+      <div class="players-grid">
+        @for (stat of radiantStats; track stat.gameStats.id) {
+          <div class="player-card">
+            <img [src]="stat.gameStats.playerHero.hero.logoUrl" [alt]="stat.gameStats.playerHero.hero.name" class="hero-image" />
+            <div class="player-info">
+              <h3>{{ stat.gameStats.playerHero.player.nickname }}</h3>
+              <p>{{ stat.gameStats.playerHero.hero.name }}</p>
+            </div>
+            <div class="stats-info">
+              <p>K/D/A: {{ stat.gameStats.kills }}/{{ stat.gameStats.deaths }}/{{ stat.gameStats.assists }}</p>
+              <p>LH: {{ stat.gameStats.lastHits }}</p>
+              <p>GPM: {{ stat.gameStats.goldPerMinute }}</p>
+              <p>XPM: {{ stat.gameStats.xpPerMinute }}</p>
+              <p>Net Worth: {{ stat.gameStats.netWorth }}</p>
+              <p>Level: {{ stat.gameStats.finalLevel }}</p>
+            </div>
+            <div class="items-info">
+              @for (item of stat.items; track item.id) {
+                <div class="item-card">
+                  <h4>{{ item.name }}</h4>
+                  <p>{{ item.description }}</p>
+                  <p>Количество: {{ item.quantity }}</p>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Dire Team -->
+    <div class="team-stats dire">
+      <h2>Dire</h2>
+      <div class="players-grid">
+        @for (stat of direStats; track stat.gameStats.id) {
+          <div class="player-card">
+            <img [src]="stat.gameStats.playerHero.hero.logoUrl" [alt]="stat.gameStats.playerHero.hero.name" class="hero-image" />
+            <div class="player-info">
+              <h3>{{ stat.gameStats.playerHero.player.nickname }}</h3>
+              <p>{{ stat.gameStats.playerHero.hero.name }}</p>
+            </div>
+            <div class="stats-info">
+              <p>K/D/A: {{ stat.gameStats.kills }}/{{ stat.gameStats.deaths }}/{{ stat.gameStats.assists }}</p>
+              <p>LH: {{ stat.gameStats.lastHits }}</p>
+              <p>GPM: {{ stat.gameStats.goldPerMinute }}</p>
+              <p>XPM: {{ stat.gameStats.xpPerMinute }}</p>
+              <p>Net Worth: {{ stat.gameStats.netWorth }}</p>
+              <p>Level: {{ stat.gameStats.finalLevel }}</p>
+            </div>
+            <div class="items-info">
+              @for (item of stat.items; track item.id) {
+                <div class="item-card">
+                  <h4>{{ item.name }}</h4>
+                  <p>{{ item.description }}</p>
+                  <p>Количество: {{ item.quantity }}</p>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

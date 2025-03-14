@@ -1,0 +1,23 @@
+<div>
+<h2>{{ isEditMode ? 'Редактировать игру' : 'Добавить игру' }}</h2>
+<form [formGroup]="gameForm" (ngSubmit)="saveGame()">
+  <select formControlName="match" required>
+    <option value="" disabled>Выберите матч</option>
+    <option *ngFor="let match of matches" [ngValue]="match">
+      [{{ match.id }}]{{ match.tournament.name}}: {{match.teamRadiant.name}} - {{match.teamDire.name}}
+    </option>
+  </select>
+  <!-- Выбор победителя -->
+  <select formControlName="winner" required>
+    <option value="" disabled>Выберите победителя</option>
+    <option value="Radiant">Radiant</option>
+    <option value="Dire">Dire</option>
+  </select>
+
+  <input formControlName="duration" type="number" placeholder="Длительность (минуты)" required />
+  <input formControlName="startTime" type="datetime-local" placeholder="Дата и время начала" required />
+  <button type="submit">Сохранить</button>
+  <button type="button" (click)="close()">Отмена</button>
+</form>
+  
+</div>

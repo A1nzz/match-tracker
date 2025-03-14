@@ -1,0 +1,18 @@
+<div class="container">
+  <h1>Tournaments</h1>
+  <div class="grid-list">
+    @for (tournament of tournaments; track tournament.id) {
+      <div class="card">
+        <h3>{{ tournament.name }}</h3>
+        <p>Prize Pool: ${{ tournament.prizePool.toLocaleString() }}</p>
+        <p>
+          Dates: {{ tournament.startDate}} -
+          {{ tournament.endDate }}
+        </p>
+        <a [routerLink]="['/tournaments', tournament.id, 'matches']" class="button">
+          Посмотреть матчи
+        </a>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div>
+  <h2>{{ isEditMode ? 'Редактировать турнир' : 'Добавить турнир' }}</h2>
+  <form [formGroup]="tournamentForm" (ngSubmit)="saveTournament()">
+    <input formControlName="name" placeholder="Название" required />
+    <input formControlName="prizePool" type="number" placeholder="Призовой фонд" required />
+    <input formControlName="startDate" type="date" placeholder="Дата начала" required />
+    <input formControlName="endDate" type="date" placeholder="Дата окончания" required />
+    <input formControlName="organizer" placeholder="Организатор" required />
+    <button type="submit">Сохранить</button>
+    <button type="button" (click)="close()">Отмена</button>
+  </form>
+</div>

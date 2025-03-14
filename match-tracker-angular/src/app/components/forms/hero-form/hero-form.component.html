@@ -1,0 +1,14 @@
+
+  <div className="modal-body">
+    <h2>{{ isEditMode ? 'Редактировать героя' : 'Добавить героя' }}</h2>
+    <form [formGroup]="heroForm" (ngSubmit)="saveHero()">
+      <input formControlName="name" placeholder="Имя" required />
+      <input formControlName="logoUrl" placeholder="Изображение" required />
+      <input formControlName="attackType" placeholder="Тип Атаки" required />
+      <input formControlName="primaryAttribute" placeholder="Атрибут" required />
+      <input formControlName="roles" placeholder="Роли" required />
+      <button type="submit">Сохранить</button>
+      <button type="button" (click)="close()">Отмена</button>
+    </form>
+  </div>
+

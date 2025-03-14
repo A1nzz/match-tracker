@@ -1,0 +1,18 @@
+<div class="container">
+  <h1>Управление связями между игроками и героями</h1>
+
+  <!-- Список связей -->
+  <div class="grid-list">
+    <div *ngFor="let playerHero of playerHeroes" class="card">
+      <h3>Связь #{{ playerHero.id }}</h3>
+      <p>Игрок: {{ playerHero.player.nickname }}</p>
+      <p>Герой: {{ playerHero.hero.name }}</p>
+      <p>Количество игр: {{ playerHero.gamesPlayed }}</p>
+      <button class="edit" (click)="editPlayerHero(playerHero)">Редактировать</button>
+      <button (click)="deletePlayerHero(playerHero.id!)">Удалить</button>
+    </div>
+  </div>
+
+  <!-- Кнопка для добавления новой связи -->
+  <button (click)="addPlayerHero()">Добавить связь</button>
+</div>

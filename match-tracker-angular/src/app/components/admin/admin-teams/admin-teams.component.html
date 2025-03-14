@@ -1,0 +1,18 @@
+<div class="container">
+  <h1>Управление командами</h1>
+
+  <!-- Список команд -->
+  <div class="grid-list">
+    <div *ngFor="let team of teams" class="card">
+      <h3>{{ team.name }}</h3>
+      <img [src]="team.logoUrl" [alt]="team.name" class="teamLogo" />
+      <p>Регион: {{ team.region }}</p>
+      <p>Рейтинг: {{ team.rating }}</p>
+      <button class="edit" (click)="editTeam(team)">Редактировать</button>
+      <button (click)="deleteTeam(team.id!)">Удалить</button>
+    </div>
+  </div>
+
+  <!-- Кнопка для добавления новой команды -->
+  <button (click)="addTeam()">Добавить команду</button>
+</div>
