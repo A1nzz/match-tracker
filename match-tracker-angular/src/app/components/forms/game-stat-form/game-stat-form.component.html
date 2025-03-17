@@ -1,0 +1,27 @@
+<div>
+  <h2>{{ isEditMode ? 'Редактировать игровую статистику' : 'Добавить игровую статистику' }}</h2>
+  <form [formGroup]="gameStatForm" (ngSubmit)="saveGameStat()">
+    <select formControlName="game" required>
+      <option value="" disabled>Выберите игру</option>
+      <option *ngFor="let game of games" [ngValue]="game">
+        [{{ game.id }}]{{ game.match.tournament.name}}: {{game.match.teamRadiant.name}} - {{game.match.teamDire.name}}
+      </option>
+    </select>
+    <select formControlName="playerHero" required>
+      <option value="" disabled>Выберите игрока-героя</option>
+      <option *ngFor="let playerHero of playerHeroes" [ngValue]="playerHero">
+        [{{ playerHero.id }}]{{ playerHero.player.nickname}} {{playerHero.hero.name}}
+      </option>
+    </select>
+    <input formControlName="kills" type="number" placeholder="Убийства" required />
+    <input formControlName="deaths" type="number" placeholder="Смерти" required />
+    <input formControlName="assists" type="number" placeholder="Помощи" required />
+    <input formControlName="lastHits" type="number" placeholder="Последние удары" required />
+    <input formControlName="goldPerMinute" type="number" placeholder="Золото в минуту" required />
+    <input formControlName="xpPerMinute" type="number" placeholder="Опыт в минуту" required />
+    <input formControlName="netWorth" type="number" placeholder="Чистая стоимость" required />
+    <input formControlName="finalLevel" type="number" placeholder="Финальный уровень" required />
+    <button type="submit">Сохранить</button>
+    <button type="button" (click)="close()">Отмена</button>
+  </form>
+</div>

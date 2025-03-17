@@ -15,6 +15,8 @@ import { AdminTournamentsComponent } from './components/admin/admin-tournaments/
 import { AdminMatchesComponent } from './components/admin/admin-matches/admin-matches.component';
 import { AdminGamesComponent } from './components/admin/admin-games/admin-games.component';
 import { AdminPlayerHeroComponent } from './components/admin/admin-player-hero/admin-player-hero.component';
+import { AdminGameStatsComponent } from './components/admin/admin-game-stats/admin-game-stats.component';
+import { AdminGameItemStatsComponent } from './components/admin/admin-game-item-stats/admin-game-item-stats.component';
 
 export const appRoutes: Routes = [
   { path: 'heroes', component: HeroesComponent },
@@ -35,7 +37,9 @@ export const appRoutes: Routes = [
   { path: 'admin/matches', component: AdminMatchesComponent },
   { path: 'admin/games', component: AdminGamesComponent },
   { path: 'admin/player-heroes', component: AdminPlayerHeroComponent },
-  //{ path: 'admin/game-stats', component: AdminGameStatsComponent },
+  { path: 'admin/game-stats', component: AdminGameStatsComponent },
+  { path: 'admin/game-item-stats', component: AdminGameItemStatsComponent },
+
 ];
 
 

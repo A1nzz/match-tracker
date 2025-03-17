@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Управление игровой статистикой</h1>
+
+  <!-- Список игровой статистики -->
+  <div class="grid-list">
+    <div *ngFor="let gameStat of gameStats" class="card">
+      <h3>Статистика #{{ gameStat.id }}</h3>
+      <p>Игра ID: {{ gameStat.game.id }}</p>
+      <p>Игрок: {{ gameStat.playerHero.player.nickname }}</p>
+      <p>Герой: {{ gameStat.playerHero.hero.name }}</p>
+      <p>Убийства: {{ gameStat.kills }}</p>
+      <p>Смерти: {{ gameStat.deaths }}</p>
+      <p>Помощи: {{ gameStat.assists }}</p>
+      <p>Последние удары: {{ gameStat.lastHits }}</p>
+      <p>Золото в минуту: {{ gameStat.goldPerMinute }}</p>
+      <p>Опыт в минуту: {{ gameStat.xpPerMinute }}</p>
+      <p>Чистая стоимость: {{ gameStat.netWorth }}</p>
+      <p>Финальный уровень: {{ gameStat.finalLevel }}</p>
+      <button class="edit" (click)="editGameStat(gameStat)">Редактировать</button>
+      <button (click)="deleteGameStat(gameStat.id!)">Удалить</button>
+    </div>
+  </div>
+
+  <!-- Кнопка для добавления новой игровой статистики -->
+  <button (click)="addGameStat()">Добавить статистику</button>
+</div>

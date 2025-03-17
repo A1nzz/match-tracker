@@ -31,5 +31,5 @@
 |3|JSP|25|30|
 |4|Spring|10|8|
 |5|React|14|15|
-|6|Angular|18|13|
+|6|Angular|18|14|
 |*|Total|||
