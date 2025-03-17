@@ -38,7 +38,7 @@ export const appRoutes: Routes = [
   { path: 'admin/games', component: AdminGamesComponent },
   { path: 'admin/player-heroes', component: AdminPlayerHeroComponent },
   { path: 'admin/game-stats', component: AdminGameStatsComponent },
-  { path: 'admin/game-item-stats', component: AdminGameItemStatsComponent },
+  { path: 'admin/game-item-stats', component: AdminGameItemStatsComponent }
 
 ];
 

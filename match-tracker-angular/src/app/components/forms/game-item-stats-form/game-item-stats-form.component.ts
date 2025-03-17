@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 export class GameItemStatsFormComponent implements OnInit {
   gameItemStatsForm: FormGroup;
   isEditMode: boolean = false;
-  gameStats: any[] = []; 
+  gameStatsList: any[] = []; 
   items: any[] = [];
 
 
@@ -29,8 +29,8 @@ export class GameItemStatsFormComponent implements OnInit {
   ) {
     // Инициализация формы
     this.gameItemStatsForm = this.fb.group({
-      gameStatsId: [null, Validators.required],
-      itemId: [null, Validators.required],
+      gameStats: [null, Validators.required],
+      item: [null, Validators.required],
       quantity: [1, [Validators.required, Validators.min(1)]],
     });
   }
@@ -38,7 +38,7 @@ export class GameItemStatsFormComponent implements OnInit {
   ngOnInit(): void {
     // Загружаем список игр, предметов и игроков
     this.gameStatsService.getGameStats().subscribe({
-      next: (data) => (this.gameStats = data),
+      next: (data) => (this.gameStatsList = data),
       error: (error) => console.error('Error fetching game stats:', error),
     });
 

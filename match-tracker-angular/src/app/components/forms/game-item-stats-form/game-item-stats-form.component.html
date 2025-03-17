@@ -1,17 +1,18 @@
+<div>
 <h2>{{ isEditMode ? 'Редактировать статистику предмета' : 'Добавить статистику предмета' }}</h2>
 <form [formGroup]="gameItemStatsForm" (ngSubmit)="saveGameItemStat()">
   <!-- Выбор игры -->
-  <select formControlName="gameId" required>
+  <select formControlName="gameStats" required>
     <option value="" disabled>Выберите игру</option>
-    <option *ngFor="let gameStat of gameStats" [ngValue]="gameStat.id">
-      Игра #{{ gameStat.id }}
+    <option *ngFor="let gameStats of gameStatsList" [ngValue]="gameStats">
+      Игра #{{ gameStats.id }}
     </option>
   </select>
 
   <!-- Выбор предмета -->
-  <select formControlName="itemId" required>
+  <select formControlName="item" required>
     <option value="" disabled>Выберите предмет</option>
-    <option *ngFor="let item of items" [ngValue]="item.id">
+    <option *ngFor="let item of items" [ngValue]="item">
       {{ item.name }}
     </option>
   </select>
@@ -22,3 +23,4 @@
   <button type="submit">Сохранить</button>
   <button type="button" (click)="close()">Отмена</button>
 </form>
+</div>
