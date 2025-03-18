@@ -34,12 +34,14 @@ export class AdminTeamsComponent implements OnInit {
   // Открыть попап для добавления команды
   addTeam(): void {
     const dialogRef = this.dialog.open(TeamFormComponent, {
-      data: null, // Передаём null, так как это режим добавления
+      data: null,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.teamsService.addTeam(result).subscribe(() => this.loadTeams());
+        this.teamsService.addTeam(result).subscribe((newTeam) => {
+          this.teams.push(newTeam); 
+        });
       }
     });
   }
@@ -47,13 +49,18 @@ export class AdminTeamsComponent implements OnInit {
   // Открыть попап для редактирования команды
   editTeam(team: Team): void {
     const dialogRef = this.dialog.open(TeamFormComponent, {
-      data: team, // Передаём команду для редактирования
+      data: team, 
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        result.id = team.id; // Добавляем ID для обновления
-        this.teamsService.updateTeam(result).subscribe(() => this.loadTeams());
+        result.id = team.id; 
+        this.teamsService.updateTeam(result).subscribe((updatedTeam) => {
+          const index = this.teams.findIndex(t => t.id === updatedTeam.id);
+          if (index !== -1) {
+            this.teams[index] = updatedTeam; 
+          }
+        });
       }
     });
   }
@@ -61,7 +68,9 @@ export class AdminTeamsComponent implements OnInit {
   // Удалить команду
   deleteTeam(teamId: number): void {
     this.teamsService.deleteTeam(teamId).subscribe({
-      next: () => this.loadTeams(),
+      next: () => {
+        this.teams = this.teams.filter(team => team.id !== teamId); 
+      },
       error: (error) => console.error('Error deleting team:', error),
     });
   }

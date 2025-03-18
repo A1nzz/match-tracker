@@ -10,9 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 
-
 @Component({
-  selector: 'app-game-form',  
+  selector: 'app-game-form',
   standalone: true,
   imports: [
     CommonModule,

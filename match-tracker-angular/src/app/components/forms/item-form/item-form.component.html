@@ -1,11 +1,48 @@
-<div class="modal-body">
+<div>
   <h2>{{ isEditMode ? 'Редактировать предмет' : 'Добавить предмет' }}</h2>
   <form [formGroup]="itemForm" (ngSubmit)="saveItem()">
-    <input formControlName="name" placeholder="Название" required />
-    <input formControlName="description" placeholder="Описание" required />
-    <input formControlName="logoUrl" placeholder="Логотип" required />
-    <input formControlName="cost" type="number" placeholder="Стоимость" required />
-    <button type="submit">Сохранить</button>
-    <button type="button" (click)="close()">Отмена</button>
+    <!-- Название -->
+    <mat-form-field appearance="fill">
+      <mat-label>Название</mat-label>
+      <input matInput formControlName="name" placeholder="Название" required />
+      <mat-error *ngIf="itemForm.get('name')?.invalid && itemForm.get('name')?.touched">
+        Название обязательно.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Описание -->
+    <mat-form-field appearance="fill">
+      <mat-label>Описание</mat-label>
+      <input matInput formControlName="description" placeholder="Описание" required />
+      <mat-error *ngIf="itemForm.get('description')?.invalid && itemForm.get('description')?.touched">
+        Описание обязательно.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Логотип -->
+    <mat-form-field appearance="fill">
+      <mat-label>Логотип</mat-label>
+      <input matInput formControlName="logoUrl" placeholder="Логотип" required />
+      <mat-error *ngIf="itemForm.get('logoUrl')?.invalid && itemForm.get('logoUrl')?.touched">
+        Логотип обязателен.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Стоимость -->
+    <mat-form-field appearance="fill">
+      <mat-label>Стоимость</mat-label>
+      <input matInput formControlName="cost" type="number" placeholder="Стоимость" required />
+      <mat-error *ngIf="itemForm.get('cost')?.invalid && itemForm.get('cost')?.touched">
+        Стоимость должна быть положительным числом.
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button [disabled]="itemForm.invalid" (click)="saveItem()">
+        Сохранить
+      </button>
+      <button (click)="close()">Отмена</button>  
+    </div>
   </form>
+  
 </div>
+

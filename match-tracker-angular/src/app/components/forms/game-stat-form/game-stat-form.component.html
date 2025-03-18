@@ -1,27 +1,99 @@
-<div>
+<div class="content">
   <h2>{{ isEditMode ? 'Редактировать игровую статистику' : 'Добавить игровую статистику' }}</h2>
   <form [formGroup]="gameStatForm" (ngSubmit)="saveGameStat()">
-    <select formControlName="game" required>
-      <option value="" disabled>Выберите игру</option>
-      <option *ngFor="let game of games" [ngValue]="game">
-        [{{ game.id }}]{{ game.match.tournament.name}}: {{game.match.teamRadiant.name}} - {{game.match.teamDire.name}}
-      </option>
-    </select>
-    <select formControlName="playerHero" required>
-      <option value="" disabled>Выберите игрока-героя</option>
-      <option *ngFor="let playerHero of playerHeroes" [ngValue]="playerHero">
-        [{{ playerHero.id }}]{{ playerHero.player.nickname}} {{playerHero.hero.name}}
-      </option>
-    </select>
-    <input formControlName="kills" type="number" placeholder="Убийства" required />
-    <input formControlName="deaths" type="number" placeholder="Смерти" required />
-    <input formControlName="assists" type="number" placeholder="Помощи" required />
-    <input formControlName="lastHits" type="number" placeholder="Последние удары" required />
-    <input formControlName="goldPerMinute" type="number" placeholder="Золото в минуту" required />
-    <input formControlName="xpPerMinute" type="number" placeholder="Опыт в минуту" required />
-    <input formControlName="netWorth" type="number" placeholder="Чистая стоимость" required />
-    <input formControlName="finalLevel" type="number" placeholder="Финальный уровень" required />
-    <button type="submit">Сохранить</button>
-    <button type="button" (click)="close()">Отмена</button>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите игру</mat-label>
+      <mat-select formControlName="game" required>
+        <mat-option value="" disabled>Выберите игру</mat-option>
+        <mat-option *ngFor="let game of games" [value]="game">
+          [{{ game.id }}] {{ game.match.tournament.name }}: {{ game.match.teamRadiant.name }} - {{ game.match.teamDire.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="gameStatForm.get('game')?.invalid && gameStatForm.get('game')?.touched">
+        Игра обязательна для выбора.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите игрока-героя</mat-label>
+      <mat-select formControlName="playerHero" required>
+        <mat-option value="" disabled>Выберите игрока-героя</mat-option>
+        <mat-option *ngFor="let playerHero of playerHeroes" [value]="playerHero">
+          [{{ playerHero.id }}] {{ playerHero.player.nickname }} {{ playerHero.hero.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="gameStatForm.get('playerHero')?.invalid && gameStatForm.get('playerHero')?.touched">
+        Игрок-герой обязателен для выбора.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Убийства</mat-label>
+      <input matInput formControlName="kills" type="number" placeholder="Убийства" required />
+      <mat-error *ngIf="gameStatForm.get('kills')?.invalid && gameStatForm.get('kills')?.touched">
+        Убийства обязательны.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Смерти</mat-label>
+      <input matInput formControlName="deaths" type="number" placeholder="Смерти" required />
+      <mat-error *ngIf="gameStatForm.get('deaths')?.invalid && gameStatForm.get('deaths')?.touched">
+        Смерти обязательны.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Помощи</mat-label>
+      <input matInput formControlName="assists" type="number" placeholder="Помощи" required />
+      <mat-error *ngIf="gameStatForm.get('assists')?.invalid && gameStatForm.get('assists')?.touched">
+        Помощи обязательны.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Последние удары</mat-label>
+      <input matInput formControlName="lastHits" type="number" placeholder="Последние удары" required />
+      <mat-error *ngIf="gameStatForm.get('lastHits')?.invalid && gameStatForm.get('lastHits')?.touched">
+        Последние удары обязательны.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Золото в минуту</mat-label>
+      <input matInput formControlName="goldPerMinute" type="number" placeholder="Золото в минуту" required />
+      <mat-error *ngIf="gameStatForm.get('goldPerMinute')?.invalid && gameStatForm.get('goldPerMinute')?.touched">
+        Золото в минуту обязательно.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Опыт в минуту</mat-label>
+      <input matInput formControlName="xpPerMinute" type="number" placeholder="Опыт в минуту" required />
+      <mat-error *ngIf="gameStatForm.get('xpPerMinute')?.invalid && gameStatForm.get('xpPerMinute')?.touched">
+        Опыт в минуту обязателен.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Чистая стоимость</mat-label>
+      <input matInput formControlName="netWorth" type="number" placeholder="Чистая стоимость" required />
+      <mat-error *ngIf="gameStatForm.get('netWorth')?.invalid && gameStatForm.get('netWorth')?.touched">
+        Чистая стоимость обязательна.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Финальный уровень</mat-label>
+      <input matInput formControlName="finalLevel" type="number" placeholder="Финальный уровень" required />
+      <mat-error *ngIf="gameStatForm.get('finalLevel')?.invalid && gameStatForm.get('finalLevel')?.touched">
+        Финальный уровень обязателен.
+      </mat-error>
+    </mat-form-field>
   </form>
+</div>
+<div class="actions">
+  <button type="submit" [disabled]="gameStatForm.invalid">Сохранить</button>
+  <button type="button" (click)="close()">Отмена</button>
 </div>

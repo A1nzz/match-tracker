@@ -39,7 +39,9 @@ export class AdminMatchesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.matchesService.addMatch(result).subscribe(() => this.loadMatches());
+        this.matchesService.addMatch(result).subscribe((newMatch) => {
+          this.matches.push(newMatch); // Добавляем новый матч в локальный массив
+        });
       }
     });
   }
@@ -53,7 +55,12 @@ export class AdminMatchesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         result.id = match.id; // Добавляем ID для обновления
-        this.matchesService.updateMatch(result).subscribe(() => this.loadMatches());
+        this.matchesService.updateMatch(result).subscribe((updatedMatch) => {
+          const index = this.matches.findIndex(m => m.id === updatedMatch.id);
+          if (index !== -1) {
+            this.matches[index] = updatedMatch; // Обновляем существующий матч в локальном массиве
+          }
+        });
       }
     });
   }
@@ -61,7 +68,9 @@ export class AdminMatchesComponent implements OnInit {
   // Удалить матч
   deleteMatch(matchId: number): void {
     this.matchesService.deleteMatch(matchId).subscribe({
-      next: () => this.loadMatches(),
+      next: () => {
+        this.matches = this.matches.filter(m => m.id !== matchId); // Удаляем матч из локального массива
+      },
       error: (error) => console.error('Error deleting match:', error),
     });
   }

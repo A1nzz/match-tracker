@@ -5,10 +5,23 @@ import { Game, GameStats, PlayerHero } from '../../../models/models';
 import { CommonModule } from '@angular/common';
 import { GamesService } from '../../../services/games.service';
 import { PlayerHeroService } from '../../../services/player-hero.service';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-game-stat-form',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatOptionModule,
+  ],
   templateUrl: './game-stat-form.component.html',
   styleUrls: ['./game-stat-form.component.scss'],
 })

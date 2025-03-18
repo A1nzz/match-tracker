@@ -1,26 +1,47 @@
 <div>
-<h2>{{ isEditMode ? 'Редактировать статистику предмета' : 'Добавить статистику предмета' }}</h2>
-<form [formGroup]="gameItemStatsForm" (ngSubmit)="saveGameItemStat()">
-  <!-- Выбор игры -->
-  <select formControlName="gameStats" required>
-    <option value="" disabled>Выберите игру</option>
-    <option *ngFor="let gameStats of gameStatsList" [ngValue]="gameStats">
-      Игра #{{ gameStats.id }}
-    </option>
-  </select>
+  <h2>{{ isEditMode ? 'Редактировать статистику предмета' : 'Добавить статистику предмета' }}</h2>
+  <form [formGroup]="gameItemStatsForm" (ngSubmit)="saveGameItemStat()">
+    <!-- Выбор игры -->
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите игру</mat-label>
+      <mat-select formControlName="gameStats" required>
+        <mat-option value="" disabled>Выберите игру</mat-option>
+        <mat-option *ngFor="let gameStats of gameStatsList" [value]="gameStats">
+          Игра #{{ gameStats.id }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="gameItemStatsForm.get('gameStats')?.invalid && gameItemStatsForm.get('gameStats')?.touched">
+        Игра обязательна для выбора.
+      </mat-error>
+    </mat-form-field>
 
-  <!-- Выбор предмета -->
-  <select formControlName="item" required>
-    <option value="" disabled>Выберите предмет</option>
-    <option *ngFor="let item of items" [ngValue]="item">
-      {{ item.name }}
-    </option>
-  </select>
+    <!-- Выбор предмета -->
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите предмет</mat-label>
+      <mat-select formControlName="item" required>
+        <mat-option value="" disabled>Выберите предмет</mat-option>
+        <mat-option *ngFor="let item of items" [value]="item">
+          {{ item.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="gameItemStatsForm.get('item')?.invalid && gameItemStatsForm.get('item')?.touched">
+        Предмет обязателен для выбора.
+      </mat-error>
+    </mat-form-field>
 
-  <!-- Количество предметов -->
-  <input formControlName="quantity" type="number" placeholder="Количество" required />
+    <!-- Количество предметов -->
+    <mat-form-field appearance="fill">
+      <mat-label>Количество</mat-label>
+      <input matInput formControlName="quantity" type="number" placeholder="Количество" required />
+      <mat-error *ngIf="gameItemStatsForm.get('quantity')?.invalid && gameItemStatsForm.get('quantity')?.touched">
+        Количество должно быть положительным числом.
+      </mat-error>
+    </mat-form-field>
 
-  <button type="submit">Сохранить</button>
-  <button type="button" (click)="close()">Отмена</button>
-</form>
+    <!-- Кнопки -->
+    <div>
+      <button type="submit" [disabled]="gameItemStatsForm.invalid">Сохранить</button>
+      <button type="button" (click)="close()">Отмена</button>
+    </div>
+  </form>
 </div>

@@ -1,12 +1,58 @@
 <div>
   <h2>{{ isEditMode ? 'Редактировать турнир' : 'Добавить турнир' }}</h2>
   <form [formGroup]="tournamentForm" (ngSubmit)="saveTournament()">
-    <input formControlName="name" placeholder="Название" required />
-    <input formControlName="prizePool" type="number" placeholder="Призовой фонд" required />
-    <input formControlName="startDate" type="date" placeholder="Дата начала" required />
-    <input formControlName="endDate" type="date" placeholder="Дата окончания" required />
-    <input formControlName="organizer" placeholder="Организатор" required />
-    <button type="submit">Сохранить</button>
-    <button type="button" (click)="close()">Отмена</button>
+    <!-- Название -->
+    <mat-form-field appearance="fill">
+      <mat-label>Название</mat-label>
+      <input matInput formControlName="name" placeholder="Название" required />
+      <mat-error *ngIf="tournamentForm.get('name')?.invalid && tournamentForm.get('name')?.touched">
+        Название обязательно.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Призовой фонд -->
+    <mat-form-field appearance="fill">
+      <mat-label>Призовой фонд</mat-label>
+      <input matInput formControlName="prizePool" type="number" placeholder="Призовой фонд" required />
+      <mat-error *ngIf="tournamentForm.get('prizePool')?.invalid && tournamentForm.get('prizePool')?.touched">
+        Призовой фонд должен быть положительным числом.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Дата начала -->
+    <mat-form-field appearance="fill">
+      <mat-label>Дата начала</mat-label>
+      <input matInput formControlName="startDate" type="date" placeholder="Дата начала" required />
+      <mat-error *ngIf="tournamentForm.get('startDate')?.invalid && tournamentForm.get('startDate')?.touched">
+        Дата начала обязательна.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Дата окончания -->
+    <mat-form-field appearance="fill">
+      <mat-label>Дата окончания</mat-label>
+      <input matInput formControlName="endDate" type="date" placeholder="Дата окончания" required />
+      <mat-error *ngIf="tournamentForm.get('endDate')?.invalid && tournamentForm.get('endDate')?.touched">
+        Дата окончания обязательна.
+      </mat-error>
+      <mat-error *ngIf="tournamentForm.hasError('dateRangeInvalid')">
+        Дата окончания не может быть раньше даты начала.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Организатор -->
+    <mat-form-field appearance="fill">
+      <mat-label>Организатор</mat-label>
+      <input matInput formControlName="organizer" placeholder="Организатор" required />
+      <mat-error *ngIf="tournamentForm.get('organizer')?.invalid && tournamentForm.get('organizer')?.touched">
+        Организатор обязателен.
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button [disabled]="tournamentForm.invalid" (click)="saveTournament()">
+        Сохранить
+      </button>
+      <button (click)="close()">Отмена</button>
+    </div>
   </form>
 </div>

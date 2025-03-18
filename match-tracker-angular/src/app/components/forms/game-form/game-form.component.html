@@ -1,11 +1,12 @@
 <div>
   <h2>{{ isEditMode ? 'Редактировать игру' : 'Добавить игру' }}</h2>
   <form [formGroup]="gameForm" (ngSubmit)="saveGame()">
+    <!-- Выбор матча -->
     <mat-form-field appearance="fill">
       <mat-label>Выберите матч</mat-label>
       <mat-select formControlName="match" required>
         <mat-option value="" disabled>Выберите матч</mat-option>
-        <mat-option *ngFor="let match of matches" [ngValue]="match">
+        <mat-option *ngFor="let match of matches" [value]="match">
           [{{ match.id }}] {{ match.tournament.name }}: {{ match.teamRadiant.name }} - {{ match.teamDire.name }}
         </mat-option>
       </mat-select>
@@ -27,6 +28,7 @@
       </mat-error>
     </mat-form-field>
 
+    <!-- Длительность -->
     <mat-form-field appearance="fill">
       <mat-label>Длительность (минуты)</mat-label>
       <input matInput formControlName="duration" type="number" placeholder="Длительность (минуты)" required />
@@ -35,6 +37,7 @@
       </mat-error>
     </mat-form-field>
 
+    <!-- Дата и время начала -->
     <mat-form-field appearance="fill">
       <mat-label>Дата и время начала</mat-label>
       <input matInput formControlName="startTime" type="datetime-local" required />
@@ -43,7 +46,10 @@
       </mat-error>
     </mat-form-field>
 
+    <!-- Кнопки -->
     <div>
-      <button mat-raised-button color="primary" type="submit" [disabled]="gameForm.invalid">Сохранить</button>
-      <button mat-button type="button" (click)="close()">Отмена</button>
+      <button type="submit" [disabled]="gameForm.invalid">Сохранить</button>
+      <button type="button" (click)="close()">Отмена</button>
     </div>
+  </form>
+</div>

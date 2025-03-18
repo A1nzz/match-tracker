@@ -2,25 +2,46 @@
   <h2>{{ isEditMode ? 'Редактировать связь' : 'Добавить связь' }}</h2>
   <form [formGroup]="playerHeroForm" (ngSubmit)="savePlayerHero()">
     <!-- Выбор игрока -->
-    <select formControlName="player" required>
-      <option value="" disabled>Выберите игрока</option>
-      <option *ngFor="let player of players" [ngValue]="player">
-        {{ player.nickname }}
-      </option>
-    </select>
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите игрока</mat-label>
+      <mat-select formControlName="player" required>
+        <mat-option value="" disabled>Выберите игрока</mat-option>
+        <mat-option *ngFor="let player of players" [value]="player">
+          {{ player.nickname }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="playerHeroForm.get('player')?.invalid && playerHeroForm.get('player')?.touched">
+        Игрок обязателен для выбора.
+      </mat-error>
+    </mat-form-field>
 
     <!-- Выбор героя -->
-    <select formControlName="hero" required>
-      <option value="" disabled>Выберите героя</option>
-      <option *ngFor="let hero of heroes" [ngValue]="hero">
-        {{ hero.name }}
-      </option>
-    </select>
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите героя</mat-label>
+      <mat-select formControlName="hero" required>
+        <mat-option value="" disabled>Выберите героя</mat-option>
+        <mat-option *ngFor="let hero of heroes" [value]="hero">
+          {{ hero.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="playerHeroForm.get('hero')?.invalid && playerHeroForm.get('hero')?.touched">
+        Герой обязателен для выбора.
+      </mat-error>
+    </mat-form-field>
 
     <!-- Количество сыгранных игр -->
-    <input formControlName="gamesPlayed" type="number" placeholder="Количество игр" required />
-
-    <button type="submit">Сохранить</button>
-    <button type="button" (click)="close()">Отмена</button>
+    <mat-form-field appearance="fill">
+      <mat-label>Количество игр</mat-label>
+      <input matInput formControlName="gamesPlayed" type="number" placeholder="Количество игр" required />
+      <mat-error *ngIf="playerHeroForm.get('gamesPlayed')?.invalid && playerHeroForm.get('gamesPlayed')?.touched">
+        Количество игр должно быть положительным числом.
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button [disabled]="playerHeroForm.invalid" (click)="savePlayerHero()">
+        Сохранить
+      </button>
+      <button class="cancel-button" (click)="close()">Отмена</button>
+    </div>
   </form>
 </div>

@@ -39,7 +39,9 @@ export class AdminPlayersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.playersService.addPlayer(result).subscribe(() => this.loadPlayers());
+        this.playersService.addPlayer(result).subscribe((newPlayer) => {
+          this.players.push(newPlayer); // Добавляем нового игрока в локальный массив
+        });
       }
     });
   }
@@ -53,7 +55,12 @@ export class AdminPlayersComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         result.id = player.id; // Добавляем ID для обновления
-        this.playersService.updatePlayer(result).subscribe(() => this.loadPlayers());
+        this.playersService.updatePlayer(result).subscribe((updatedPlayer) => {
+          const index = this.players.findIndex(p => p.id === updatedPlayer.id);
+          if (index !== -1) {
+            this.players[index] = updatedPlayer; // Обновляем существующего игрока в локальном массиве
+          }
+        });
       }
     });
   }
@@ -61,7 +68,9 @@ export class AdminPlayersComponent implements OnInit {
   // Удалить игрока
   deletePlayer(playerId: number): void {
     this.playersService.deletePlayer(playerId).subscribe({
-      next: () => this.loadPlayers(),
+      next: () => {
+        this.players = this.players.filter(player => player.id !== playerId); // Удаляем игрока из локального массива
+      },
       error: (error) => console.error('Error deleting player:', error),
     });
   }

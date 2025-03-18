@@ -39,7 +39,9 @@ export class AdminItemsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.itemsService.addItem(result).subscribe(() => this.loadItems());
+        this.itemsService.addItem(result).subscribe((newItem) => {
+          this.items.push(newItem); // Добавляем новый предмет в локальный массив
+        });
       }
     });
   }
@@ -53,7 +55,12 @@ export class AdminItemsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         result.id = item.id; // Добавляем ID для обновления
-        this.itemsService.updateItem(result).subscribe(() => this.loadItems());
+        this.itemsService.updateItem(result).subscribe((updatedItem) => {
+          const index = this.items.findIndex(i => i.id === updatedItem.id);
+          if (index !== -1) {
+            this.items[index] = updatedItem; // Обновляем существующий предмет в локальном массиве
+          }
+        });
       }
     });
   }
@@ -61,7 +68,9 @@ export class AdminItemsComponent implements OnInit {
   // Удалить предмет
   deleteItem(itemId: number): void {
     this.itemsService.deleteItem(itemId).subscribe({
-      next: () => this.loadItems(),
+      next: () => {
+        this.items = this.items.filter(item => item.id !== itemId); // Удаляем предмет из локального массива
+      },
       error: (error) => console.error('Error deleting item:', error),
     });
   }

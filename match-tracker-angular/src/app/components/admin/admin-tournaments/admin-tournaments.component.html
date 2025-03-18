@@ -6,8 +6,8 @@
     <div *ngFor="let tournament of tournaments" class="card">
       <h3>{{ tournament.name }}</h3>
       <p>Призовой фонд: ${{ tournament.prizePool.toLocaleString() }}</p>
-      <p>Дата начала: {{ tournament.startDate }}</p>
-      <p>Дата окончания: {{ tournament.endDate }}</p>
+      <p>Дата начала: {{ formatDate(tournament.startDate) }}</p>
+      <p>Дата окончания: {{ formatDate(tournament.endDate) }}</p>
       <p>Организатор: {{ tournament.organizer }}</p>
       <button class="edit" (click)="editTournament(tournament)">Редактировать</button>
       <button (click)="deleteTournament(tournament.id!)">Удалить</button>

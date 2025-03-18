@@ -5,7 +5,6 @@ import { GameItemStatsService } from '../../../services/game-item-stats.service'
 import { GameItemStatsFormComponent } from '../../forms/game-item-stats-form/game-item-stats-form.component';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-admin-game-item-stats',
   imports: [CommonModule],
@@ -40,7 +39,9 @@ export class AdminGameItemStatsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.gameItemStatsService.addGameItemStat(result).subscribe(() => this.loadGameItemStats());
+        this.gameItemStatsService.addGameItemStat(result).subscribe((newGameItemStat) => {
+          this.gameItemStats.push(newGameItemStat); // Добавляем новую статистику в локальный массив
+        });
       }
     });
   }
@@ -54,7 +55,12 @@ export class AdminGameItemStatsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         result.id = gameItemStat.id; // Добавляем ID для обновления
-        this.gameItemStatsService.updateGameItemStat(result).subscribe(() => this.loadGameItemStats());
+        this.gameItemStatsService.updateGameItemStat(result).subscribe((updatedGameItemStat) => {
+          const index = this.gameItemStats.findIndex(stat => stat.id === updatedGameItemStat.id);
+          if (index !== -1) {
+            this.gameItemStats[index] = updatedGameItemStat; // Обновляем существующую статистику в локальном массиве
+          }
+        });
       }
     });
   }
@@ -62,7 +68,9 @@ export class AdminGameItemStatsComponent implements OnInit {
   // Удалить статистику
   deleteGameItemStat(gameItemStatId: number): void {
     this.gameItemStatsService.deleteGameItemStat(gameItemStatId).subscribe({
-      next: () => this.loadGameItemStats(),
+      next: () => {
+        this.gameItemStats = this.gameItemStats.filter(stat => stat.id !== gameItemStatId); // Удаляем статистику из локального массива
+      },
       error: (error) => console.error('Error deleting game item stat:', error),
     });
   }

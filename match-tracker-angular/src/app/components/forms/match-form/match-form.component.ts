@@ -6,10 +6,23 @@ import { MatchType, Match, Team, Tournament } from '../../../models/models';
 import { TournamentsService } from '../../../services/tournaments.service';
 import { TeamsService } from '../../../services/teams.service';
 import { MatchTypesService } from '../../../services/match-types.service';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-match-form',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatOptionModule,
+  ],
   templateUrl: './match-form.component.html',
   styleUrls: ['./match-form.component.scss'],
 })

@@ -1,14 +1,56 @@
+<div>
+  <h2>{{ isEditMode ? 'Редактировать героя' : 'Добавить героя' }}</h2>
+  <form [formGroup]="heroForm" (ngSubmit)="saveHero()">
+    <!-- Имя -->
+    <mat-form-field appearance="fill">
+      <mat-label>Имя</mat-label>
+      <input matInput formControlName="name" placeholder="Имя" required />
+      <mat-error *ngIf="heroForm.get('name')?.invalid && heroForm.get('name')?.touched">
+        Имя обязательно.
+      </mat-error>
+    </mat-form-field>
 
-  <div className="modal-body">
-    <h2>{{ isEditMode ? 'Редактировать героя' : 'Добавить героя' }}</h2>
-    <form [formGroup]="heroForm" (ngSubmit)="saveHero()">
-      <input formControlName="name" placeholder="Имя" required />
-      <input formControlName="logoUrl" placeholder="Изображение" required />
-      <input formControlName="attackType" placeholder="Тип Атаки" required />
-      <input formControlName="primaryAttribute" placeholder="Атрибут" required />
-      <input formControlName="roles" placeholder="Роли" required />
-      <button type="submit">Сохранить</button>
-      <button type="button" (click)="close()">Отмена</button>
-    </form>
-  </div>
+    <!-- Изображение -->
+    <mat-form-field appearance="fill">
+      <mat-label>Изображение</mat-label>
+      <input matInput formControlName="logoUrl" placeholder="Изображение" required />
+      <mat-error *ngIf="heroForm.get('logoUrl')?.invalid && heroForm.get('logoUrl')?.touched">
+        Изображение обязательно.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Тип Атаки -->
+    <mat-form-field appearance="fill">
+      <mat-label>Тип Атаки</mat-label>
+      <input matInput formControlName="attackType" placeholder="Тип Атаки" required />
+      <mat-error *ngIf="heroForm.get('attackType')?.invalid && heroForm.get('attackType')?.touched">
+        Тип атаки обязателен.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Атрибут -->
+    <mat-form-field appearance="fill">
+      <mat-label>Атрибут</mat-label>
+      <input matInput formControlName="primaryAttribute" placeholder="Атрибут" required />
+      <mat-error *ngIf="heroForm.get('primaryAttribute')?.invalid && heroForm.get('primaryAttribute')?.touched">
+        Атрибут обязателен.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Роли -->
+    <mat-form-field appearance="fill">
+      <mat-label>Роли</mat-label>
+      <input matInput formControlName="roles" placeholder="Роли" required />
+      <mat-error *ngIf="heroForm.get('roles')?.invalid && heroForm.get('roles')?.touched">
+        Роли обязательны.
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button [disabled]="heroForm.invalid" (click)="saveHero()">
+        Сохранить
+      </button>
+      <button (click)="close()">Отмена</button>     
+    </div>
+  </form>
+</div>
 

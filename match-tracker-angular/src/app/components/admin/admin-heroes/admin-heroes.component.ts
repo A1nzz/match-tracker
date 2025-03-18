@@ -39,7 +39,9 @@ export class AdminHeroesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.heroesService.addHero(result).subscribe(() => this.loadHeroes());
+        this.heroesService.addHero(result).subscribe((newHero) => {
+          this.heroes.push(newHero); // Добавляем нового героя в локальный массив
+        });
       }
     });
   }
@@ -53,7 +55,12 @@ export class AdminHeroesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         result.id = hero.id; // Добавляем ID для обновления
-        this.heroesService.updateHero(result).subscribe(() => this.loadHeroes());
+        this.heroesService.updateHero(result).subscribe((updatedHero) => {
+          const index = this.heroes.findIndex(h => h.id === updatedHero.id);
+          if (index !== -1) {
+            this.heroes[index] = updatedHero; // Обновляем существующего героя в локальном массиве
+          }
+        });
       }
     });
   }
@@ -61,7 +68,9 @@ export class AdminHeroesComponent implements OnInit {
   // Удалить героя
   deleteHero(heroId: number): void {
     this.heroesService.deleteHero(heroId).subscribe({
-      next: () => this.loadHeroes(),
+      next: () => {
+        this.heroes = this.heroes.filter(hero => hero.id !== heroId); // Удаляем героя из локального массива
+      },
       error: (error) => console.error('Error deleting hero:', error),
     });
   }

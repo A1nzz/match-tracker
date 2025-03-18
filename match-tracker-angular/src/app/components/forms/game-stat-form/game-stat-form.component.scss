@@ -1,5 +1,8 @@
-div {
+.content {
   background-color: #444;
+  overflow-y: auto;
+  max-height: 80vh; /* 90% высоты экрана */
+
 }
 
 h2 {
@@ -10,6 +13,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 400px;
 }
 
 input, select {
@@ -21,7 +25,8 @@ input, select {
 }
 
 button {
-  padding: 8px 16px;
+  padding: 14px 24px;
+  margin-right: 10px;
   background-color: #ff8a65;
   color: white;
   border: none;
@@ -32,5 +37,13 @@ button {
   &:hover {
     scale: 1.05;
   }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #ff896596;
+  }
+}
+.actions {
+  background-color: #444;
+  padding: 20px 50px;
 }
 

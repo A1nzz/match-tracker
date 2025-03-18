@@ -1,12 +1,47 @@
-
 <div>
   <h2>{{ isEditMode ? 'Редактировать команду' : 'Добавить команду' }}</h2>
   <form [formGroup]="teamForm" (ngSubmit)="saveTeam()">
-    <input formControlName="name" placeholder="Название" required />
-    <input formControlName="logoUrl" placeholder="Логотип" required />
-    <input formControlName="region" placeholder="Регион" required />
-    <input formControlName="rating" type="number" placeholder="Рейтинг" required />
-    <button type="submit">Сохранить</button>
-    <button type="button" (click)="close()">Отмена</button>
+    <!-- Название -->
+    <mat-form-field appearance="fill">
+      <mat-label>Название</mat-label>
+      <input matInput formControlName="name" placeholder="Название" required />
+      <mat-error *ngIf="teamForm.get('name')?.invalid && teamForm.get('name')?.touched">
+        Название обязательно.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Логотип -->
+    <mat-form-field appearance="fill">
+      <mat-label>Логотип</mat-label>
+      <input matInput formControlName="logoUrl" placeholder="Логотип" required />
+      <mat-error *ngIf="teamForm.get('logoUrl')?.invalid && teamForm.get('logoUrl')?.touched">
+        Логотип обязателен.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Регион -->
+    <mat-form-field appearance="fill">
+      <mat-label>Регион</mat-label>
+      <input matInput formControlName="region" placeholder="Регион" required />
+      <mat-error *ngIf="teamForm.get('region')?.invalid && teamForm.get('region')?.touched">
+        Регион обязателен.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Рейтинг -->
+    <mat-form-field appearance="fill">
+      <mat-label>Рейтинг</mat-label>
+      <input matInput formControlName="rating" type="number" placeholder="Рейтинг" required />
+      <mat-error *ngIf="teamForm.get('rating')?.invalid && teamForm.get('rating')?.touched">
+        Рейтинг должен быть числом.
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button [disabled]="teamForm.invalid" (click)="saveTeam()">
+        Сохранить
+      </button>
+      <button class="cancel-button" (click)="close()">Отмена</button>
+
+    </div>
   </form>
 </div>

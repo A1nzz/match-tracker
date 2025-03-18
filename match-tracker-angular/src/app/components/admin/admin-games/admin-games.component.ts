@@ -39,7 +39,9 @@ export class AdminGamesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.gamesService.addGame(result).subscribe(() => this.loadGames());
+        this.gamesService.addGame(result).subscribe((newGame) => {
+          this.games.push(newGame); // Добавляем новую игру в локальный массив
+        });
       }
     });
   }
@@ -53,7 +55,12 @@ export class AdminGamesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         result.id = game.id; // Добавляем ID для обновления
-        this.gamesService.updateGame(result).subscribe(() => this.loadGames());
+        this.gamesService.updateGame(result).subscribe((updatedGame) => {
+          const index = this.games.findIndex(g => g.id === updatedGame.id);
+          if (index !== -1) {
+            this.games[index] = updatedGame; // Обновляем существующую игру в локальном массиве
+          }
+        });
       }
     });
   }
@@ -61,7 +68,9 @@ export class AdminGamesComponent implements OnInit {
   // Удалить игру
   deleteGame(gameId: number): void {
     this.gamesService.deleteGame(gameId).subscribe({
-      next: () => this.loadGames(),
+      next: () => {
+        this.games = this.games.filter(game => game.id !== gameId); // Удаляем игру из локального массива
+      },
       error: (error) => console.error('Error deleting game:', error),
     });
   }

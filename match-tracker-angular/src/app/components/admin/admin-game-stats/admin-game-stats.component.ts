@@ -39,7 +39,9 @@ export class AdminGameStatsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.gameStatsService.addGameStat(result).subscribe(() => this.loadGameStats());
+        this.gameStatsService.addGameStat(result).subscribe((newGameStat) => {
+          this.gameStats.push(newGameStat); // Добавляем новую статистику в локальный массив
+        });
       }
     });
   }
@@ -47,13 +49,18 @@ export class AdminGameStatsComponent implements OnInit {
   // Открыть попап для редактирования игровой статистики
   editGameStat(gameStat: GameStats): void {
     const dialogRef = this.dialog.open(GameStatFormComponent, {
-      data: gameStat, // Передаём игровую статистику для редактирования
+      data: gameStat, // Передаём статистику для редактирования
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         result.id = gameStat.id; // Добавляем ID для обновления
-        this.gameStatsService.updateGameStat(result).subscribe(() => this.loadGameStats());
+        this.gameStatsService.updateGameStat(result).subscribe((updatedGameStat) => {
+          const index = this.gameStats.findIndex(gs => gs.id === updatedGameStat.id);
+          if (index !== -1) {
+            this.gameStats[index] = updatedGameStat; // Обновляем существующую статистику в локальном массиве
+          }
+        });
       }
     });
   }
@@ -61,7 +68,9 @@ export class AdminGameStatsComponent implements OnInit {
   // Удалить игровую статистику
   deleteGameStat(gameStatId: number): void {
     this.gameStatsService.deleteGameStat(gameStatId).subscribe({
-      next: () => this.loadGameStats(),
+      next: () => {
+        this.gameStats = this.gameStats.filter(gs => gs.id !== gameStatId); // Удаляем статистику из локального массива
+      },
       error: (error) => console.error('Error deleting game stat:', error),
     });
   }

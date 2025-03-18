@@ -39,7 +39,9 @@ export class AdminPlayerHeroComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.playerHeroService.addPlayerHero(result).subscribe(() => this.loadPlayerHeroes());
+        this.playerHeroService.addPlayerHero(result).subscribe((newPlayerHero) => {
+          this.playerHeroes.push(newPlayerHero); // Добавляем новую связь в локальный массив
+        });
       }
     });
   }
@@ -53,7 +55,12 @@ export class AdminPlayerHeroComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         result.id = playerHero.id; // Добавляем ID для обновления
-        this.playerHeroService.updatePlayerHero(result).subscribe(() => this.loadPlayerHeroes());
+        this.playerHeroService.updatePlayerHero(result).subscribe((updatedPlayerHero) => {
+          const index = this.playerHeroes.findIndex(ph => ph.id === updatedPlayerHero.id);
+          if (index !== -1) {
+            this.playerHeroes[index] = updatedPlayerHero; // Обновляем существующую связь в локальном массиве
+          }
+        });
       }
     });
   }
@@ -61,7 +68,9 @@ export class AdminPlayerHeroComponent implements OnInit {
   // Удалить связь
   deletePlayerHero(playerHeroId: number): void {
     this.playerHeroService.deletePlayerHero(playerHeroId).subscribe({
-      next: () => this.loadPlayerHeroes(),
+      next: () => {
+        this.playerHeroes = this.playerHeroes.filter(ph => ph.id !== playerHeroId); // Удаляем связь из локального массива
+      },
       error: (error) => console.error('Error deleting player hero:', error),
     });
   }

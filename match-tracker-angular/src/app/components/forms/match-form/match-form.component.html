@@ -2,44 +2,84 @@
   <h2>{{ isEditMode ? 'Редактировать матч' : 'Добавить матч' }}</h2>
   <form [formGroup]="matchForm" (ngSubmit)="saveMatch()">
     <!-- Выбор команды Radiant -->
-    <select formControlName="teamRadiant" required>
-      <option value="" disabled>Выберите команду Radiant</option>
-      <option *ngFor="let team of teams" [ngValue]="team">
-        {{ team.name }}
-      </option>
-    </select>
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите команду Radiant</mat-label>
+      <mat-select formControlName="teamRadiant" required>
+        <mat-option value="" disabled>Выберите команду Radiant</mat-option>
+        <mat-option *ngFor="let team of teams" [value]="team">
+          {{ team.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="matchForm.get('teamRadiant')?.invalid && matchForm.get('teamRadiant')?.touched">
+        Команда Radiant обязательна для выбора.
+      </mat-error>
+    </mat-form-field>
 
     <!-- Выбор команды Dire -->
-    <select formControlName="teamDire" required>
-      <option value="" disabled>Выберите команду Dire</option>
-      <option *ngFor="let team of teams" [ngValue]="team">
-        {{ team.name }}
-      </option>
-    </select>
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите команду Dire</mat-label>
+      <mat-select formControlName="teamDire" required>
+        <mat-option value="" disabled>Выберите команду Dire</mat-option>
+        <mat-option *ngFor="let team of teams" [value]="team">
+          {{ team.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="matchForm.get('teamDire')?.invalid && matchForm.get('teamDire')?.touched">
+        Команда Dire обязательна для выбора.
+      </mat-error>
+    </mat-form-field>
 
     <!-- Выбор типа матча -->
-    <select formControlName="matchType" required>
-      <option value="" disabled>Выберите тип матча</option>
-      <option *ngFor="let type of matchTypes" [ngValue]="type">
-        {{ type.typeName }}
-      </option>
-    </select>
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите тип матча</mat-label>
+      <mat-select formControlName="matchType" required>
+        <mat-option value="" disabled>Выберите тип матча</mat-option>
+        <mat-option *ngFor="let type of matchTypes" [value]="type">
+          {{ type.typeName }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="matchForm.get('matchType')?.invalid && matchForm.get('matchType')?.touched">
+        Тип матча обязателен для выбора.
+      </mat-error>
+    </mat-form-field>
 
     <!-- Выбор формата (bestOf) -->
-    <input formControlName="bestOf" type="number" placeholder="Формат (BO)" required />
+    <mat-form-field appearance="fill">
+      <mat-label>Формат (BO)</mat-label>
+      <input matInput formControlName="bestOf" type="number" placeholder="Формат (BO)" required />
+      <mat-error *ngIf="matchForm.get('bestOf')?.invalid && matchForm.get('bestOf')?.touched">
+        Формат должен быть положительным числом.
+      </mat-error>
+    </mat-form-field>
 
     <!-- Дата матча -->
-    <input formControlName="matchDate" type="date" placeholder="Дата матча" required />
+    <mat-form-field appearance="fill">
+      <mat-label>Дата матча</mat-label>
+      <input matInput formControlName="matchDate" type="date" placeholder="Дата матча" required />
+      <mat-error *ngIf="matchForm.get('matchDate')?.invalid && matchForm.get('matchDate')?.touched">
+        Дата матча обязательна.
+      </mat-error>
+    </mat-form-field>
 
     <!-- Выбор турнира -->
-    <select formControlName="tournament" required>
-      <option value="" disabled>Выберите турнир</option>
-      <option *ngFor="let tournament of tournaments" [ngValue]="tournament.id">
-        {{ tournament.name }}
-      </option>
-    </select>
-
-    <button type="submit">Сохранить</button>
-    <button type="button" (click)="close()">Отмена</button>
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите турнир</mat-label>
+      <mat-select formControlName="tournament" required>
+        <mat-option value="" disabled>Выберите турнир</mat-option>
+        <mat-option *ngFor="let tournament of tournaments" [value]="tournament.id">
+          {{ tournament.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="matchForm.get('tournament')?.invalid && matchForm.get('tournament')?.touched">
+        Турнир обязателен для выбора.
+      </mat-error>
+    </mat-form-field>
+    <div>
+      <button [disabled]="matchForm.invalid" (click)="saveMatch()">
+        Сохранить
+      </button>
+      <button class="cancel-button" (click)="close()">Отмена</button>
+    </div>
+    
   </form>
 </div>

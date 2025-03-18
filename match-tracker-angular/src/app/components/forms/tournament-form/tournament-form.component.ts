@@ -2,10 +2,26 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Tournament } from '../../../models/models';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import { dateRangeValidator } from '../../../utils/dateRangeValidator'; // Импортируем кастомный валидатор
+
 
 @Component({
   selector: 'app-tournament-form',
-  imports: [ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatOptionModule,
+  ],
   templateUrl: './tournament-form.component.html',
   styleUrls: ['./tournament-form.component.scss'],
 })
@@ -25,7 +41,7 @@ export class TournamentFormComponent {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       organizer: ['', Validators.required],
-    });
+    }, { validators: dateRangeValidator() });
 
     // Если передан турнир (режим редактирования), заполняем форму
     if (data) {

@@ -2,10 +2,24 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Item } from '../../../models/models';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-item-form',
-  imports: [ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatOptionModule,
+  ],
   templateUrl: './item-form.component.html',
   styleUrls: ['./item-form.component.scss'],
 })
