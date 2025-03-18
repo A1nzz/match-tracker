@@ -7,7 +7,6 @@ import { Match } from '../../models/models';
   selector: 'app-tournament-matches',
   imports: [RouterModule],
   templateUrl: './tournament-matches.component.html',
-  styleUrls: ['./tournament-matches.component.scss'],
 })
 export class TournamentMatchesComponent implements OnInit {
   matches: Match[] = [];

@@ -8,24 +8,13 @@ import { Team } from '../models/models';
   providedIn: 'root',
 })
 export class TeamsService {
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'http://localhost:8080/teams';
   private adminApiUrl = 'http://localhost:8080/admin/teams';
 
   constructor(private http: HttpClient) {}
 
   getTeams(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/teams`).pipe(
-      // Для каждой команды получаем игроков
-      switchMap((teams) => {
-        const teamsWithPlayers$ = teams.map((team) =>
-          this.http.get<any[]>(`${this.apiUrl}/teams/${team.id}/players`).pipe(
-            map((players) => ({ ...team, players }))
-          )
-        );
-        // Объединяем все запросы в один поток
-        return forkJoin(teamsWithPlayers$);
-      })
-    );
+    return this.http.get<any[]>(`${this.apiUrl}`)
   }
 
   addTeam(team: Team): Observable<Team> {

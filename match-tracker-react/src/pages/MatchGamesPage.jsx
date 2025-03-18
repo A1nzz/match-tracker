@@ -21,7 +21,8 @@ const MatchGamesPage = () => {
           <div key={game.id} className="card">
             <Link to={`/games/${game.id}/stats`} className="card-link">
                 <h3>Игра #{game.id}</h3>
-                <p>Победитель: {game.winner}</p>
+                <p>Победитель: {game.winner == 'Radiant' ? game.match.teamRadiant.name : game.winner == 'Dire' ? game.match.teamDire.name : ''}</p>
+                <p>Счет: {game.radiantScore} - {game.radiantScore}</p>
                 <p>Длительность: {game.duration} минут</p>
                 <p>Начало: {new Date(game.startTime).toLocaleString()}</p>
             </Link>

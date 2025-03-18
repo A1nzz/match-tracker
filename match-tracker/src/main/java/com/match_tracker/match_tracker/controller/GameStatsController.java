@@ -12,8 +12,12 @@ import java.util.List;
 @RequestMapping("/game-stats")
 public class GameStatsController {
 
+    private final GameStatsService gameStatsService;
+
     @Autowired
-    private GameStatsService gameStatsService;
+    public GameStatsController(GameStatsService gameStatsService) {
+        this.gameStatsService = gameStatsService;
+    }
 
     @GetMapping
     public List<GameStatsDto> getAllGameStats() {
@@ -24,6 +28,4 @@ public class GameStatsController {
     public GameStats getGameStatsById(@PathVariable Long id) {
         return gameStatsService.getGameStatsById(id);
     }
-
-
 }

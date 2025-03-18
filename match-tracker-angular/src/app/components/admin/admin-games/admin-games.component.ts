@@ -34,7 +34,6 @@ export class AdminGamesComponent implements OnInit {
   // Открыть попап для добавления игры
   addGame(): void {
     const dialogRef = this.dialog.open(GameFormComponent, {
-      width: '400px',
       data: null, // Передаём null, так как это режим добавления
     });
 
@@ -48,7 +47,6 @@ export class AdminGamesComponent implements OnInit {
   // Открыть попап для редактирования игры
   editGame(game: Game): void {
     const dialogRef = this.dialog.open(GameFormComponent, {
-      width: '400px',
       data: game, // Передаём игру для редактирования
     });
 

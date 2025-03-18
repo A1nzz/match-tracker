@@ -1,9 +1,7 @@
 package com.match_tracker.match_tracker.controller;
 
 import com.match_tracker.match_tracker.entity.Game;
-import com.match_tracker.match_tracker.entity.GameStats;
 import com.match_tracker.match_tracker.service.GameService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,8 +10,11 @@ import java.util.List;
 @RequestMapping("/admin/games")
 public class AdminGameController {
 
-    @Autowired
-    private GameService gameService;
+    private final GameService gameService;
+
+    public AdminGameController(GameService gameService) {
+        this.gameService = gameService;
+    }
 
     @GetMapping
     public List<Game> getAllGames() {

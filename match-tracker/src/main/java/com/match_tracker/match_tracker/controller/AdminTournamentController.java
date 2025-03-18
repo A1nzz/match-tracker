@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/admin/tournaments")
 public class AdminTournamentController {
 
+    private final TournamentService tournamentService;
+
     @Autowired
-    private TournamentService tournamentService;
+    public AdminTournamentController(TournamentService tournamentService) {
+        this.tournamentService = tournamentService;
+    }
 
     @GetMapping
     public List<Tournament> getAllTournaments() {

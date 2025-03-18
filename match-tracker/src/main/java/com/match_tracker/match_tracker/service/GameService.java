@@ -12,11 +12,14 @@ import java.util.List;
 @Service
 public class GameService {
 
-    @Autowired
-    private GameRepository gameRepository;
+    private final GameRepository gameRepository;
+    private final GameStatsRepository gameStatsRepository;
 
     @Autowired
-    private GameStatsRepository gameStatsRepository;
+    public GameService(GameRepository gameRepository, GameStatsRepository gameStatsRepository) {
+        this.gameRepository = gameRepository;
+        this.gameStatsRepository = gameStatsRepository;
+    }
 
     public List<Game> getAllGames() {
         return gameRepository.findAll();

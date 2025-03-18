@@ -11,8 +11,12 @@ import java.util.List;
 @RequestMapping("/player-heroes")
 public class PlayerHeroController {
 
+    private final PlayerHeroService playerHeroService;
+
     @Autowired
-    private PlayerHeroService playerHeroService;
+    public PlayerHeroController(PlayerHeroService playerHeroService) {
+        this.playerHeroService = playerHeroService;
+    }
 
     @GetMapping
     public List<PlayerHero> getAllPlayerHeroes() {

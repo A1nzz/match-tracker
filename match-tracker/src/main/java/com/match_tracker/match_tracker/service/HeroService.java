@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class HeroService {
 
+    private final HeroRepository heroRepository;
+
     @Autowired
-    private HeroRepository heroRepository;
+    public HeroService(HeroRepository heroRepository) {
+        this.heroRepository = heroRepository;
+    }
 
     public List<Hero> getAllHeroes() {
         return heroRepository.findAll();

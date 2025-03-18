@@ -11,8 +11,12 @@ import java.util.List;
 @RequestMapping("/admin/players")
 public class AdminPlayerController {
 
+    private final PlayerService playerService;
+
     @Autowired
-    private PlayerService playerService;
+    public AdminPlayerController(PlayerService playerService) {
+        this.playerService = playerService;
+    }
 
     @GetMapping
     public List<Player> getAllPlayers() {

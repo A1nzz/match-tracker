@@ -9,7 +9,7 @@
       <a routerLink="/tournaments" class="button">Показать все</a>
     </div>
     <div class="grid-list">
-      @for (tournament of tournaments.slice(0, 3); track tournament.id) {
+      @for (tournament of homePageData?.tournaments?.slice(0, 3); track tournament.id) {
         <div class="card">
           <h3>{{ tournament.name }}</h3>
           <p>Prize Pool: ${{ tournament.prizePool.toLocaleString() }}</p>
@@ -32,7 +32,7 @@
       <a routerLink="/teams" class="button">Показать все</a>
     </div>
     <div class="grid-list">
-      @for (team of teams.slice(0, 3); track team.id) {
+      @for (team of homePageData?.teams?.slice(0, 3); track team.id) {
         <div class="card">
           <h3>{{ team.name }}</h3>
           <img [src]="team.logoUrl" [alt]="team.name" class="teamLogo" />
@@ -50,7 +50,7 @@
       <a routerLink="/heroes" class="button">Показать все</a>
     </div>
     <div class="grid-list">
-      @for (hero of heroes.slice(0, 3); track hero.id) {
+      @for (hero of homePageData?.heroes?.slice(0, 3); track hero.id) {
         <div class="card">
           <h3>{{ hero.name }}</h3>
           <img [src]="hero.logoUrl" [alt]="hero.name" class="heroLogo" />

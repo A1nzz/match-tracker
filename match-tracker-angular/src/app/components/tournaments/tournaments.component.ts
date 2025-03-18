@@ -7,7 +7,6 @@ import { Tournament } from '../../models/models';
   selector: 'app-tournaments',
   templateUrl: './tournaments.component.html',
   imports: [RouterModule],
-  styleUrls: ['./tournaments.component.scss'],
 })
 export class TournamentsComponent implements OnInit {
   tournaments: Tournament[] = [];

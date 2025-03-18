@@ -34,7 +34,6 @@ export class AdminTeamsComponent implements OnInit {
   // Открыть попап для добавления команды
   addTeam(): void {
     const dialogRef = this.dialog.open(TeamFormComponent, {
-      width: '400px',
       data: null, // Передаём null, так как это режим добавления
     });
 
@@ -48,7 +47,6 @@ export class AdminTeamsComponent implements OnInit {
   // Открыть попап для редактирования команды
   editTeam(team: Team): void {
     const dialogRef = this.dialog.open(TeamFormComponent, {
-      width: '400px',
       data: team, // Передаём команду для редактирования
     });
 

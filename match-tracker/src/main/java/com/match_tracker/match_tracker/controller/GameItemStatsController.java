@@ -11,8 +11,12 @@ import java.util.List;
 @RequestMapping("/game-item-stats")
 public class GameItemStatsController {
 
+    private final GameItemStatsService gameItemStatsService;
+
     @Autowired
-    private GameItemStatsService gameItemStatsService;
+    public GameItemStatsController(GameItemStatsService gameItemStatsService) {
+        this.gameItemStatsService = gameItemStatsService;
+    }
 
     @GetMapping
     public List<GameItemStats> getAllGameItemStats() {

@@ -11,8 +11,12 @@ import java.util.List;
 @RequestMapping("/admin/match-types")
 public class AdminMatchTypeController {
 
+    private final MatchTypeService matchTypeService;
+
     @Autowired
-    private MatchTypeService matchTypeService;
+    public AdminMatchTypeController(MatchTypeService matchTypeService) {
+        this.matchTypeService = matchTypeService;
+    }
 
     @GetMapping
     public List<MatchType> getAllMatchTypes() {

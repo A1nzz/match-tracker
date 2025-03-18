@@ -7,7 +7,6 @@ import { Game } from '../../models/models';
   selector: 'app-match-games',
   imports: [RouterModule],
   templateUrl: './match-games.component.html',
-  styleUrls: ['./match-games.component.scss'],
 })
 export class MatchGamesComponent implements OnInit {
   games: Game[] = [];

@@ -13,11 +13,14 @@ import java.util.stream.Collectors;
 @Service
 public class GameStatsService {
 
-    @Autowired
-    private GameStatsRepository gameStatsRepository;
+    private final GameStatsRepository gameStatsRepository;
+    private final GameItemStatsService gameItemStatsService;
 
     @Autowired
-    private  GameItemStatsService gameItemStatsService;
+    public GameStatsService(GameStatsRepository gameStatsRepository, GameItemStatsService gameItemStatsService) {
+        this.gameStatsRepository = gameStatsRepository;
+        this.gameItemStatsService = gameItemStatsService;
+    }
 
     public List<GameStatsDto> getAllGameStatsDto() {
         List<GameStats> stats = gameStatsRepository.findAll();
@@ -26,7 +29,7 @@ public class GameStatsService {
                     List<ItemDto> items = gameItemStatsService.getItemsByGameStatsId(stat.getId());
                     return new GameStatsDto(stat, items);
                 })
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<GameStats> getAllGameStats() {

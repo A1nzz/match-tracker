@@ -1,5 +1,6 @@
 package com.match_tracker.match_tracker.controller;
 
+import com.match_tracker.match_tracker.dto.MatchDto;
 import com.match_tracker.match_tracker.entity.Match;
 import com.match_tracker.match_tracker.entity.Tournament;
 import com.match_tracker.match_tracker.service.TournamentService;
@@ -12,8 +13,12 @@ import java.util.List;
 @RequestMapping("/tournaments")
 public class TournamentController {
 
+    private final TournamentService tournamentService;
+
     @Autowired
-    private TournamentService tournamentService;
+    public TournamentController(TournamentService tournamentService) {
+        this.tournamentService = tournamentService;
+    }
 
     @GetMapping
     public List<Tournament> getAllTournaments() {
@@ -26,7 +31,7 @@ public class TournamentController {
     }
 
     @GetMapping("/{tournamentId}/matches")
-    public List<Match> getMatchesByTournamentId(@PathVariable Long tournamentId) {
+    public List<MatchDto> getMatchesByTournamentId(@PathVariable Long tournamentId) {
         return tournamentService.getMatchesByTournamentId(tournamentId);
     }
 }

@@ -34,7 +34,6 @@ export class AdminTournamentsComponent implements OnInit {
   // Открыть попап для добавления турнира
   addTournament(): void {
     const dialogRef = this.dialog.open(TournamentFormComponent, {
-      width: '400px',
       data: null, // Передаём null, так как это режим добавления
     });
 
@@ -48,7 +47,6 @@ export class AdminTournamentsComponent implements OnInit {
   // Открыть попап для редактирования турнира
   editTournament(tournament: Tournament): void {
     const dialogRef = this.dialog.open(TournamentFormComponent, {
-      width: '400px',
       data: tournament, // Передаём турнир для редактирования
     });
 

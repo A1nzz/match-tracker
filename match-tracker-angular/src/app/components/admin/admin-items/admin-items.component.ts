@@ -34,7 +34,6 @@ export class AdminItemsComponent implements OnInit {
   // Открыть попап для добавления предмета
   addItem(): void {
     const dialogRef = this.dialog.open(ItemFormComponent, {
-      width: '400px',
       data: null, // Передаём null, так как это режим добавления
     });
 
@@ -48,7 +47,6 @@ export class AdminItemsComponent implements OnInit {
   // Открыть попап для редактирования предмета
   editItem(item: Item): void {
     const dialogRef = this.dialog.open(ItemFormComponent, {
-      width: '400px',
       data: item, // Передаём предмет для редактирования
     });
 

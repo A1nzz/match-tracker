@@ -2,7 +2,6 @@ package com.match_tracker.match_tracker.controller;
 
 import com.match_tracker.match_tracker.entity.Admin;
 import com.match_tracker.match_tracker.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.List;
 @RequestMapping("/admins")
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
+    private final AdminService adminService;
+
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     @GetMapping
     public List<Admin> getAllAdmins() {

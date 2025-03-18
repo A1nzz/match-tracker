@@ -11,8 +11,12 @@ import java.util.List;
 @RequestMapping("/match-types")
 public class MatchTypeController {
 
+    private final MatchTypeService matchTypeService;
+
     @Autowired
-    private MatchTypeService matchTypeService;
+    public MatchTypeController(MatchTypeService matchTypeService) {
+        this.matchTypeService = matchTypeService;
+    }
 
     @GetMapping
     public List<MatchType> getAllMatchTypes() {

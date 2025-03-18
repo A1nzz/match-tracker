@@ -1,8 +1,11 @@
 package com.match_tracker.match_tracker.controller;
 
-import com.match_tracker.match_tracker.entity.Game;
+import com.match_tracker.match_tracker.dto.GameDto;
+import com.match_tracker.match_tracker.dto.MatchDto;
 import com.match_tracker.match_tracker.entity.Match;
+import com.match_tracker.match_tracker.entity.MatchWithScores;
 import com.match_tracker.match_tracker.service.MatchService;
+import com.match_tracker.match_tracker.service.MatchWithScoresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +15,18 @@ import java.util.List;
 @RequestMapping("/matches")
 public class MatchController {
 
+    private final MatchService matchService;
+    private final MatchWithScoresService matchWithScoresService;
+
     @Autowired
-    private MatchService matchService;
+    public MatchController(MatchService matchService, MatchWithScoresService matchWithScoresService) {
+        this.matchService = matchService;
+        this.matchWithScoresService = matchWithScoresService;
+    }
 
     @GetMapping
-    public List<Match> getAllMatches() {
-        return matchService.getAllMatches();
+    public List<MatchDto> getAllMatches() {
+        return matchWithScoresService.getAllMatches();
     }
 
     @GetMapping("/{id}")
@@ -26,7 +35,7 @@ public class MatchController {
     }
 
     @GetMapping("/{matchId}/games")
-    public List<Game> getGamesByMatchId(@PathVariable Long matchId) {
+    public List<GameDto> getGamesByMatchId(@PathVariable Long matchId) {
         return matchService.getGamesByMatchId(matchId);
     }
 }

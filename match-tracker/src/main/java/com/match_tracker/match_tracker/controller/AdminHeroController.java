@@ -11,8 +11,12 @@ import java.util.List;
 @RequestMapping("/admin/heroes")
 public class AdminHeroController {
 
+    private final HeroService heroService;
+
     @Autowired
-    private HeroService heroService;
+    public AdminHeroController(HeroService heroService) {
+        this.heroService = heroService;
+    }
 
     @GetMapping
     public List<Hero> getAllHeroes() {

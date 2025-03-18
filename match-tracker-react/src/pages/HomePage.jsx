@@ -8,16 +8,15 @@ const HomePage = () => {
   const [teams, setTeams] = useState([]);
   const [heroes, setHeroes] = useState([]);
 
+  const host = 'http://localhost:8080/'
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const tournamentsResponse = await axios.get('http://localhost:8080/tournaments');
-        const teamsResponse = await axios.get('http://localhost:8080/teams');
-        const heroesResponse = await axios.get('http://localhost:8080/heroes');
-
-        setTournaments(tournamentsResponse.data);
-        setTeams(teamsResponse.data);
-        setHeroes(heroesResponse.data);
+        const response = await axios.get(`${host}home`);
+        setTournaments(response.data.tournaments);
+        setTeams(response.data.teams);
+        setHeroes(response.data.heroes);
       } catch (error) {
         console.error('Error fetching data:', error);
       }

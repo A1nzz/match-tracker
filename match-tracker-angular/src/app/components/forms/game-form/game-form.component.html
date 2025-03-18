@@ -1,23 +1,49 @@
 <div>
-<h2>{{ isEditMode ? 'Редактировать игру' : 'Добавить игру' }}</h2>
-<form [formGroup]="gameForm" (ngSubmit)="saveGame()">
-  <select formControlName="match" required>
-    <option value="" disabled>Выберите матч</option>
-    <option *ngFor="let match of matches" [ngValue]="match">
-      [{{ match.id }}]{{ match.tournament.name}}: {{match.teamRadiant.name}} - {{match.teamDire.name}}
-    </option>
-  </select>
-  <!-- Выбор победителя -->
-  <select formControlName="winner" required>
-    <option value="" disabled>Выберите победителя</option>
-    <option value="Radiant">Radiant</option>
-    <option value="Dire">Dire</option>
-  </select>
+  <h2>{{ isEditMode ? 'Редактировать игру' : 'Добавить игру' }}</h2>
+  <form [formGroup]="gameForm" (ngSubmit)="saveGame()">
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите матч</mat-label>
+      <mat-select formControlName="match" required>
+        <mat-option value="" disabled>Выберите матч</mat-option>
+        <mat-option *ngFor="let match of matches" [ngValue]="match">
+          [{{ match.id }}] {{ match.tournament.name }}: {{ match.teamRadiant.name }} - {{ match.teamDire.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="gameForm.get('match')?.invalid && gameForm.get('match')?.touched">
+        Матч обязателен для выбора.
+      </mat-error>
+    </mat-form-field>
 
-  <input formControlName="duration" type="number" placeholder="Длительность (минуты)" required />
-  <input formControlName="startTime" type="datetime-local" placeholder="Дата и время начала" required />
-  <button type="submit">Сохранить</button>
-  <button type="button" (click)="close()">Отмена</button>
-</form>
-  
-</div>
+    <!-- Выбор победителя -->
+    <mat-form-field appearance="fill">
+      <mat-label>Выберите победителя</mat-label>
+      <mat-select formControlName="winner" required>
+        <mat-option value="" disabled>Выберите победителя</mat-option>
+        <mat-option value="Radiant">Radiant</mat-option>
+        <mat-option value="Dire">Dire</mat-option>
+      </mat-select>
+      <mat-error *ngIf="gameForm.get('winner')?.invalid && gameForm.get('winner')?.touched">
+        Победитель обязателен для выбора.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Длительность (минуты)</mat-label>
+      <input matInput formControlName="duration" type="number" placeholder="Длительность (минуты)" required />
+      <mat-error *ngIf="gameForm.get('duration')?.invalid && gameForm.get('duration')?.touched">
+        Длительность должна быть положительным числом.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Дата и время начала</mat-label>
+      <input matInput formControlName="startTime" type="datetime-local" required />
+      <mat-error *ngIf="gameForm.get('startTime')?.invalid && gameForm.get('startTime')?.touched">
+        Дата и время начала обязательны.
+      </mat-error>
+    </mat-form-field>
+
+    <div>
+      <button mat-raised-button color="primary" type="submit" [disabled]="gameForm.invalid">Сохранить</button>
+      <button mat-button type="button" (click)="close()">Отмена</button>
+    </div>

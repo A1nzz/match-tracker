@@ -34,7 +34,6 @@ export class AdminPlayerHeroComponent implements OnInit {
   // Открыть попап для добавления связи
   addPlayerHero(): void {
     const dialogRef = this.dialog.open(PlayerHeroFormComponent, {
-      width: '400px',
       data: null, // Передаём null, так как это режим добавления
     });
 
@@ -48,7 +47,6 @@ export class AdminPlayerHeroComponent implements OnInit {
   // Открыть попап для редактирования связи
   editPlayerHero(playerHero: PlayerHero): void {
     const dialogRef = this.dialog.open(PlayerHeroFormComponent, {
-      width: '400px',
       data: playerHero, // Передаём связь для редактирования
     });
 

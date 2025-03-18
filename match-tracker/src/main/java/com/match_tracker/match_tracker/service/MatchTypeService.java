@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class MatchTypeService {
 
+    private final MatchTypeRepository matchTypeRepository;
+
     @Autowired
-    private MatchTypeRepository matchTypeRepository;
+    public MatchTypeService(MatchTypeRepository matchTypeRepository) {
+        this.matchTypeRepository = matchTypeRepository;
+    }
 
     public List<MatchType> getAllMatchTypes() {
         return matchTypeRepository.findAll();

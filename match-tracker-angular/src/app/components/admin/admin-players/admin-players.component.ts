@@ -34,7 +34,6 @@ export class AdminPlayersComponent implements OnInit {
   // Открыть попап для добавления игрока
   addPlayer(): void {
     const dialogRef = this.dialog.open(PlayerFormComponent, {
-      width: '400px',
       data: null, // Передаём null, так как это режим добавления
     });
 
@@ -48,7 +47,6 @@ export class AdminPlayersComponent implements OnInit {
   // Открыть попап для редактирования игрока
   editPlayer(player: Player): void {
     const dialogRef = this.dialog.open(PlayerFormComponent, {
-      width: '400px',
       data: player, // Передаём игрока для редактирования
     });
 

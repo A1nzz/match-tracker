@@ -4,10 +4,25 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Game, Match } from '../../../models/models';
 import { MatchesService } from '../../../services/matches.service';
 import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+
 
 @Component({
-  selector: 'app-game-form',
-  imports: [ReactiveFormsModule, CommonModule],
+  selector: 'app-game-form',  
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatOptionModule,
+  ],
   templateUrl: './game-form.component.html',
   styleUrls: ['./game-form.component.scss'],
 })
@@ -31,7 +46,6 @@ export class GameFormComponent {
   }
 
   ngOnInit(): void {
-    
     this.matchesService.getMatches().subscribe({
       next: (data) => (this.matches = data),
       error: (error) => console.error('Error fetching matches:', error),

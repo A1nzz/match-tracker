@@ -6,7 +6,6 @@ import { GameStat } from '../../models/models';
 @Component({
   selector: 'app-game-stats',
   templateUrl: './game-stats.component.html',
-  styleUrls: ['./game-stats.component.scss'],
 })
 export class GameStatsComponent implements OnInit {
   stats: GameStat[] = [];

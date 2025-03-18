@@ -34,7 +34,6 @@ export class AdminHeroesComponent implements OnInit {
   // Открыть попап для добавления героя
   addHero(): void {
     const dialogRef = this.dialog.open(HeroFormComponent, {
-      width: '400px',
       data: null, // Передаём null, так как это режим добавления
     });
 
@@ -48,7 +47,6 @@ export class AdminHeroesComponent implements OnInit {
   // Открыть попап для редактирования героя
   editHero(hero: Hero): void {
     const dialogRef = this.dialog.open(HeroFormComponent, {
-      width: '400px',
       data: hero, // Передаём героя для редактирования
     });
 

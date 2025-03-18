@@ -118,3 +118,9 @@ export interface GameItemStats {
   item: Item;
   quantity: number;
 }
+
+export interface HomePageDTO {
+  tournaments: Tournament[];
+  teams: Team[];
+  heroes: Hero[];
+}

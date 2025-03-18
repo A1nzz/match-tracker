@@ -1,4 +1,6 @@
 package com.match_tracker.match_tracker.controller;
+
+import com.match_tracker.match_tracker.dto.TeamDto;
 import com.match_tracker.match_tracker.entity.Team;
 import com.match_tracker.match_tracker.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,15 @@ import java.util.List;
 @RequestMapping("/admin/teams")
 public class AdminTeamController {
 
+    private final TeamService teamService;
+
     @Autowired
-    private TeamService teamService;
+    public AdminTeamController(TeamService teamService) {
+        this.teamService = teamService;
+    }
 
     @GetMapping
-    public List<Team> getAllTeams() {
+    public List<TeamDto> getAllTeams() {
         return teamService.getAllTeams();
     }
 

@@ -11,8 +11,12 @@ import java.util.List;
 @RequestMapping("/heroes")
 public class HeroController {
 
+    private final HeroService heroService;
+
     @Autowired
-    private HeroService heroService;
+    public HeroController(HeroService heroService) {
+        this.heroService = heroService;
+    }
 
     @GetMapping
     public List<Hero> getAllHeroes() {

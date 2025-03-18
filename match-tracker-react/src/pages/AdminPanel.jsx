@@ -7,7 +7,7 @@ import '../styles/adminPanel.scss';
 
 function AdminPanel() {
   const [entities, setEntities] = useState([]);
-  const [selectedEntity, setSelectedEntity] = useState('heroes'); 
+  const [selectedEntity, setSelectedEntity] = useState('heroes');
   const [editingItem, setEditingItem] = useState(null);
   const [loading, setLoading] = useState(false);
   const [teams, setTeams] = useState([]);
@@ -20,6 +20,9 @@ function AdminPanel() {
   const [heroes, setHeroes] = useState([]);
   const [gameStats, setGameStats] = useState([]);
   const [items, setItems] = useState([]);
+  const [errors, setErrors] = useState({});
+
+  const host = 'http://localhost:8080/';
 
   useEffect(() => {
     fetchEntities(selectedEntity);
@@ -28,7 +31,7 @@ function AdminPanel() {
     }
     if (selectedEntity === 'matches') {
       fetchTournaments();
-      fetchTeams(); 
+      fetchTeams();
       fetchMatchTypes();
     }
     if (selectedEntity === 'games') {
@@ -38,7 +41,6 @@ function AdminPanel() {
       fetchGames();
       fetchPlayerHeroes();
     }
-
     if (selectedEntity === 'player-heroes') {
       fetchPlayers();
       fetchHeroes();
@@ -52,7 +54,7 @@ function AdminPanel() {
   const fetchEntities = async (entity) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:8080/admin/${entity}`);
+      const response = await axios.get(`${host}admin/${entity}`);
       setEntities(response.data);
     } catch (error) {
       console.error(`Ошибка загрузки ${entity}:`, error);
@@ -63,7 +65,7 @@ function AdminPanel() {
 
   const fetchTournaments = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/admin/tournaments');
+      const response = await axios.get(`${host}admin/tournaments`);
       setTournaments(response.data);
     } catch (error) {
       console.error('Ошибка загрузки турниров:', error);
@@ -72,95 +74,127 @@ function AdminPanel() {
 
   const fetchTeams = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/admin/teams`);
+      const response = await axios.get(`${host}admin/teams`);
       setTeams(response.data);
     } catch (error) {
-      console.error("Не удалось загрузить команды:", error);
+      console.error('Не удалось загрузить команды:', error);
     }
   };
 
   const fetchMatches = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/admin/matches`);
+      const response = await axios.get(`${host}admin/matches`);
       setMatches(response.data);
     } catch (error) {
-      console.error("Не удалось загрузить матчи:", error);
+      console.error('Не удалось загрузить матчи:', error);
     }
   };
 
   const fetchMatchTypes = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/admin/match-types`);
+      const response = await axios.get(`${host}admin/match-types`);
       setMatchTypes(response.data);
     } catch (error) {
-      console.error("Не удалось загрузить типы матчей:", error);
+      console.error('Не удалось загрузить типы матчей:', error);
     }
-  }
+  };
 
   const fetchGames = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/admin/games`);
+      const response = await axios.get(`${host}admin/games`);
       setGames(response.data);
     } catch (error) {
-      console.error("Не удалось загрузить игры:", error);
+      console.error('Не удалось загрузить игры:', error);
     }
-  }
+  };
 
   const fetchPlayerHeroes = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/admin/player-heroes`);
+      const response = await axios.get(`${host}admin/player-heroes`);
       setPlayerHeroes(response.data);
     } catch (error) {
-      console.error("Не удалось загрузить игроков - героев:", error);
+      console.error('Не удалось загрузить игроков - героев:', error);
     }
-  }
+  };
 
   const fetchPlayers = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/admin/players`);
+      const response = await axios.get(`${host}admin/players`);
       setPlayers(response.data);
     } catch (error) {
-      console.error("Не удалось загрузить Игроков:", error);
+      console.error('Не удалось загрузить Игроков:', error);
     }
-  }
+  };
 
   const fetchHeroes = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/admin/heroes`);
+      const response = await axios.get(`${host}admin/heroes`);
       setHeroes(response.data);
     } catch (error) {
-      console.error("Не удалось загрузить героев:", error);
+      console.error('Не удалось загрузить героев:', error);
     }
-  }
+  };
 
   const fetchGameStats = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/admin/game-stats`);
+      const response = await axios.get(`${host}admin/game-stats`);
       setGameStats(response.data);
     } catch (error) {
-      console.error("Не удалось загрузить статистику игры:", error);
+      console.error('Не удалось загрузить статистику игры:', error);
     }
-  }
+  };
 
   const fetchItems = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/admin/items');
+      const response = await axios.get(`${host}admin/items`);
       setItems(response.data);
     } catch (error) {
-      console.error("Не удалось загрузить предметы:", error);
+      console.error('Не удалось загрузить предметы:', error);
     }
-  }
+  };
+
+  const validateFields = () => {
+    const newErrors = {};
+  
+    // Проверка на обязательные поля
+    if (!editingItem.name) {
+      newErrors.name = 'Название обязательно';
+    }
+  
+    // Проверка на отрицательные числа для числовых полей
+    const numericFields = ['prizePool', 'gamesPlayed', 'quantity', 'kills', 'deaths', 'assists', 'gold', 'xp', 'cost'];
+    numericFields.forEach((field) => {
+      if (editingItem[field] !== undefined && editingItem[field] < 0) {
+        newErrors[field] = 'Значение не может быть отрицательным';
+      }
+    });
+  
+    // Проверка дат
+    if (editingItem.startDate && editingItem.endDate && new Date(editingItem.startDate) > new Date(editingItem.endDate)) {
+      newErrors.endDate = 'Дата окончания не может быть раньше даты начала';
+    }
+  
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const saveEntity = async (item) => {
+    if (!validateFields()) return;
+
     try {
+      let response;
       if (item.id) {
-        await axios.put(`http://localhost:8080/admin/${selectedEntity}/${item.id}`, item);
+        // Обновление существующей сущности
+        response = await axios.put(`${host}admin/${selectedEntity}/${item.id}`, item);
+        setEntities((prevEntities) =>
+          prevEntities.map((entity) => (entity.id === item.id ? response.data : entity))
+        );
       } else {
-        const response = await axios.post(`http://localhost:8080/admin/${selectedEntity}`, item);
-        setEntities([...entities, response.data]);
+        // Добавление новой сущности
+        response = await axios.post(`${host}admin/${selectedEntity}`, item);
+        setEntities((prevEntities) => [...prevEntities, response.data]);
       }
       setEditingItem(null);
-      fetchEntities(selectedEntity);
     } catch (error) {
       console.error(`Ошибка сохранения:`, error);
     }
@@ -168,8 +202,8 @@ function AdminPanel() {
 
   const deleteEntity = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/admin/${selectedEntity}/${id}`);
-      setEntities(entities.filter((item) => item.id !== id));
+      await axios.delete(`${host}admin/${selectedEntity}/${id}`);
+      setEntities((prevEntities) => prevEntities.filter((entity) => entity.id !== id));
     } catch (error) {
       console.error(`Ошибка удаления:`, error);
     }
@@ -183,7 +217,7 @@ function AdminPanel() {
 
   const renderEditFields = () => {
     if (!editingItem) return null;
-  
+
     return Object.keys(editingItem).map((key) => {
       if (key === 'id') return null;
       if (key === 'startTime') {
@@ -217,6 +251,7 @@ function AdminPanel() {
               dateFormat="yyyy-MM-dd"
               placeholderText="Выберите дату"
             />
+            {errors[key] && <span className="error">{errors[key]}</span>}
           </div>
         );
       }
@@ -224,10 +259,13 @@ function AdminPanel() {
       if (key === 'team' || key === 'teamDire' || key === 'teamRadiant') {
         return (
           <div className="form-group" key={key}>
-            <label> {key === 'teamRadiant' ? 'Команда Radiant: ' :
-                    key === 'teamDire' ? 'Команда Dire: ' :
-                    'Команда: '
-              }</label>
+            <label>
+              {key === 'teamRadiant'
+                ? 'Команда Radiant: '
+                : key === 'teamDire'
+                ? 'Команда Dire: '
+                : 'Команда: '}
+            </label>
             <select
               value={editingItem[key]?.id || ''}
               onChange={(e) =>
@@ -481,17 +519,18 @@ function AdminPanel() {
           </div>
         );
       }
-      
+
       return (
         <div className="form-group" key={key}>
           <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
-          <input
+          <input required
             type="text"
             value={editingItem[key] || ''}
             onChange={(e) =>
               setEditingItem({ ...editingItem, [key]: e.target.value })
             }
           />
+          {errors[key] && <span className="error">{errors[key]}</span>}
         </div>
       );
     });
@@ -518,14 +557,11 @@ function AdminPanel() {
       {/* Основной контент */}
       <div className="content">
         <div className="content-header">
-            <h2>
-            {selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)}
-            </h2>
-            <button className="button" onClick={addEntity}>
+          <h2>{selectedEntity.charAt(0).toUpperCase() + selectedEntity.slice(1)}</h2>
+          <button className="button" onClick={addEntity}>
             Добавить
-            </button>
+          </button>
         </div>
-        
 
         {/* Список сущностей */}
         {loading ? (
@@ -533,21 +569,20 @@ function AdminPanel() {
         ) : (
           <ul className="entity-list">
             {entities.map((item, index) => (
-              <li key={item.id} className="entity-card">               
+              <li key={item.id} className="entity-card">
                 <span>
                   {item.tournament?.name && item.teamRadiant?.name && item.teamDire?.name
                     ? `${item.tournament.name} | ${item.teamRadiant.name} vs ${item.teamDire.name}`
                     : item.match?.tournament?.name && item.match?.teamRadiant?.name && item.match?.teamDire?.name
                     ? `MatchId ${item.match.id} Игра ${index + 1} ${item.match.tournament.name} | ${item.match.teamRadiant.name} vs ${item.match.teamDire.name}`
                     : item.game && item.playerHero
-                    ? `MatchId ${item.game.match.id} Игра ${index +1} ${item.game.match.tournament.name} | ${item.game.match.teamRadiant.name} vs ${item.game.match.teamDire.name} ${item.playerHero.player.nickname} ${item.playerHero.hero.name}` 
-                    : item.player && item.hero 
+                    ? `MatchId ${item.game.match.id} Игра ${index + 1} ${item.game.match.tournament.name} | ${item.game.match.teamRadiant.name} vs ${item.game.match.teamDire.name} ${item.playerHero.player.nickname} ${item.playerHero.hero.name}`
+                    : item.player && item.hero
                     ? `${item.player.nickname} - ${item.hero.name}`
                     : item.gameStats && item.item
                     ? `(${item.gameStats.id}) ${item.item.name}`
-                    : item.name || item.nickname || item.typeName
-                  }
-                </span>    
+                    : item.name || item.nickname || item.typeName}
+                </span>
                 <div className="actions">
                   <button onClick={() => setEditingItem(item)}>Редактировать</button>
                   <button className="delete" onClick={() => deleteEntity(item.id)}>
@@ -575,7 +610,6 @@ function AdminPanel() {
                 Отмена
               </button>
             </div>
-            
           </form>
         </Modal>
       </div>

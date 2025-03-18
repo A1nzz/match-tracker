@@ -12,8 +12,15 @@ import java.util.stream.Collectors;
 @Service
 public class GameItemStatsService {
 
+    private final GameItemStatsRepository gameItemStatsRepository;
+
+
     @Autowired
-    private GameItemStatsRepository gameItemStatsRepository;
+    public GameItemStatsService(GameItemStatsRepository gameItemStatsRepository) {
+        this.gameItemStatsRepository = gameItemStatsRepository;
+    }
+
+
 
     public List<GameItemStats> getAllGameItemStats() {
         return gameItemStatsRepository.findAll();
@@ -45,6 +52,6 @@ public class GameItemStatsService {
                         itemStat.getItem().getLogoUrl(),
                         itemStat.getQuantity()
                 ))
-                .collect(Collectors.toList());
+                .toList();
     }
 }

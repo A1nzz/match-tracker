@@ -7,8 +7,7 @@ import { Hero } from '../../models/models';
 @Component({
   selector: 'app-heroes',
   imports: [CommonModule],
-  templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.scss'],
+  templateUrl: './heroes.component.html'
 })
 export class HeroesComponent implements OnInit {
   heroes: Hero[] = [];

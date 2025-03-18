@@ -34,7 +34,6 @@ export class AdminMatchesComponent implements OnInit {
   // Открыть попап для добавления матча
   addMatch(): void {
     const dialogRef = this.dialog.open(MatchFormComponent, {
-      width: '400px',
       data: null, // Передаём null, так как это режим добавления
     });
 
@@ -48,7 +47,6 @@ export class AdminMatchesComponent implements OnInit {
   // Открыть попап для редактирования матча
   editMatch(match: Match): void {
     const dialogRef = this.dialog.open(MatchFormComponent, {
-      width: '400px',
       data: match, // Передаём матч для редактирования
     });
 

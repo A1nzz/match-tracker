@@ -23,6 +23,7 @@ const TournamentMatchesPage = () => {
                 <h3>{match.teamRadiant.name} vs {match.teamDire.name}</h3>
                 <p>Тип матча: {match.matchType.typeName}</p>
                 <p>Формат: BO{match.bestOf}</p>
+                <p>Счет: {match.radiantScore} - {match.direScore}</p>
                 <p>Дата: {new Date(match.matchDate).toLocaleDateString()}</p>
             </Link>
           </div>

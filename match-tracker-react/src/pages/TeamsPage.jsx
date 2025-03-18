@@ -7,14 +7,8 @@ const TeamsPage = () => {
 
   useEffect(() => {
     axios.get('http://localhost:8080/teams')
-      .then(response => {
-        const teamsWithPlayers = response.data.map(async team => {
-          const playersResponse = await axios.get(`http://localhost:8080/teams/${team.id}/players`);
-          return { ...team, players: playersResponse.data };
-        });
-        Promise.all(teamsWithPlayers).then(setTeams);
-      })
-      .catch(error => console.error('Error fetching teams:', error));
+      .then(response => setTeams(response.data))
+      .catch(error => console.error('Error fetching items:', error));
   }, []);
 
   return (

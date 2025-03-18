@@ -11,14 +11,17 @@ import java.util.List;
 @RequestMapping("/admin/items")
 public class AdminItemController {
 
+    private final ItemService itemService;
+
     @Autowired
-    private ItemService itemService;
+    public AdminItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @GetMapping
     public List<Item> getAllItems() {
         return itemService.getAllItems();
     }
-
 
     @PostMapping
     public Item createItem(@RequestBody Item item) {

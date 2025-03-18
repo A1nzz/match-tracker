@@ -35,7 +35,6 @@ export class AdminGameItemStatsComponent implements OnInit {
   // Открыть попап для добавления статистики
   addGameItemStat(): void {
     const dialogRef = this.dialog.open(GameItemStatsFormComponent, {
-      width: '400px',
       data: null, // Передаём null, так как это режим добавления
     });
 
@@ -49,7 +48,6 @@ export class AdminGameItemStatsComponent implements OnInit {
   // Открыть попап для редактирования статистики
   editGameItemStat(gameItemStat: GameItemStats): void {
     const dialogRef = this.dialog.open(GameItemStatsFormComponent, {
-      width: '400px',
       data: gameItemStat, // Передаём статистику для редактирования
     });
 
