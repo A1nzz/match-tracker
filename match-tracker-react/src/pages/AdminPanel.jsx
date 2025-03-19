@@ -279,6 +279,30 @@ function AdminPanel() {
     );
   };
 
+  const getEntityLabel = (item, index) => {
+    if (item.tournament?.name && item.teamRadiant?.name && item.teamDire?.name) {
+      return `${item.tournament.name} | ${item.teamRadiant.name} vs ${item.teamDire.name}`;
+    }
+  
+    if (item.match?.tournament?.name && item.match?.teamRadiant?.name && item.match?.teamDire?.name) {
+      return `MatchId ${item.match.id} Игра ${index + 1} ${item.match.tournament.name} | ${item.match.teamRadiant.name} vs ${item.match.teamDire.name}`;
+    }
+  
+    if (item.game && item.playerHero) {
+      return `MatchId ${item.game.match.id} Игра ${index + 1} ${item.game.match.tournament.name} | ${item.game.match.teamRadiant.name} vs ${item.game.match.teamDire.name} ${item.playerHero.player.nickname} ${item.playerHero.hero.name}`;
+    }
+  
+    if (item.player && item.hero) {
+      return `${item.player.nickname} - ${item.hero.name}`;
+    }
+  
+    if (item.gameStats && item.item) {
+      return `(${item.gameStats.id}) ${item.item.name}`;
+    }
+  
+    return item.name || item.nickname || item.typeName;
+  };
+
   const renderEditFields = () => {
     if (!editingItem) return null;
   
@@ -383,28 +407,16 @@ function AdminPanel() {
           <p>Загрузка...</p>
         ) : (
           <ul className="entity-list">
-            {entities.map((item, index) => (
-              <li key={item.id} className="entity-card">
-                <span>
-                  {item.tournament?.name && item.teamRadiant?.name && item.teamDire?.name
-                    ? `${item.tournament.name} | ${item.teamRadiant.name} vs ${item.teamDire.name}`
-                    : item.match?.tournament?.name && item.match?.teamRadiant?.name && item.match?.teamDire?.name
-                    ? `MatchId ${item.match.id} Игра ${index + 1} ${item.match.tournament.name} | ${item.match.teamRadiant.name} vs ${item.match.teamDire.name}`
-                    : item.game && item.playerHero
-                    ? `MatchId ${item.game.match.id} Игра ${index + 1} ${item.game.match.tournament.name} | ${item.game.match.teamRadiant.name} vs ${item.game.match.teamDire.name} ${item.playerHero.player.nickname} ${item.playerHero.hero.name}`
-                    : item.player && item.hero
-                    ? `${item.player.nickname} - ${item.hero.name}`
-                    : item.gameStats && item.item
-                    ? `(${item.gameStats.id}) ${item.item.name}`
-                    : item.name || item.nickname || item.typeName}
-                </span>
-                <div className="actions">
-                  <button onClick={() => setEditingItem(item)}>Редактировать</button>
-                  <button className="delete" onClick={() => deleteEntity(item.id)}>
-                    Удалить
-                  </button>
-                </div>
-              </li>
+          {entities.map((item, index) => (
+            <li key={item.id} className="entity-card">
+              <span>{getEntityLabel(item, index)}</span>
+              <div className="actions">
+                <button onClick={() => setEditingItem(item)}>Редактировать</button>
+                <button className="delete" onClick={() => deleteEntity(item.id)}>
+                  Удалить
+                </button>
+              </div>
+            </li>
             ))}
           </ul>
         )}
