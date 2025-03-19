@@ -115,4 +115,72 @@ CREATE TABLE public.game_item_stats (
     item_id bigint REFERENCES public.item(id) ON DELETE CASCADE
 );
 
--- Примечание: На данном этапе таблицы созданы и ограничения добавлены корректно.
+CREATE OR REPLACE VIEW game_with_scores AS
+SELECT 
+    g.id AS game_id,
+    g.match_id,
+    g.duration,
+    g.winner,
+    g.start_time,
+    -- Считаем radiant_score и dire_score на основе данных из GameStats
+    COALESCE(SUM(CASE WHEN ph.player_id IN (SELECT player_id FROM player WHERE team_id = m.team_radiant_id) THEN gs.kills ELSE 0 END), 0) AS radiant_score,
+    COALESCE(SUM(CASE WHEN ph.player_id IN (SELECT player_id FROM player WHERE team_id = m.team_dire_id) THEN gs.kills ELSE 0 END), 0) AS dire_score
+FROM 
+    game g
+LEFT JOIN game_stats gs ON g.id = gs.game_id
+LEFT JOIN player_hero ph ON gs.player_hero_id = ph.id
+LEFT JOIN Match m ON g.match_id = m.id
+GROUP BY g.id, g.match_id, g.duration, g.winner, g.start_time;
+
+
+
+CREATE OR REPLACE VIEW player_hero_performance AS
+SELECT 
+    ph.id AS player_hero_id,
+    ph.player_id,
+    ph.hero_id,
+    ph.games_played,
+    COALESCE(AVG(gs.kills + gs.assists - gs.deaths) / NULLIF(ph.games_played, 0), 0) AS average_performance -- Средняя производительность с учетом смертей
+FROM 
+    player_hero ph
+LEFT JOIN 
+    game_stats gs ON ph.id = gs.player_hero_id
+GROUP BY 
+    ph.id, ph.player_id, ph.hero_id, ph.games_played;
+
+CREATE OR REPLACE VIEW match_results AS
+SELECT 
+    m.id AS match_id,
+    CASE 
+        WHEN COUNT(g.id) = 0 THEN 'No Result'
+        WHEN MAX(g.winner) = 'Radiant' THEN t_r.name
+        WHEN MAX(g.winner) = 'Dire' THEN t_d.name
+    END AS result
+FROM 
+    Match m
+LEFT JOIN 
+    game g ON m.id = g.match_id
+LEFT JOIN 
+    team t_r ON m.team_radiant_id = t_r.id
+LEFT JOIN 
+    team t_d ON m.team_dire_id = t_d.id
+GROUP BY 
+    m.id, t_r.name, t_d.name;
+
+CREATE OR REPLACE VIEW match_with_wins AS
+SELECT 
+    m.id AS match_id,
+    m.best_of,
+    m.match_date,
+    m.match_type_id,
+    m.team_dire_id,
+    m.team_radiant_id,
+    m.tournament_id,
+    COALESCE(SUM(CASE WHEN g.winner = 'Radiant' THEN 1 ELSE 0 END), 0) AS radiant_score,
+    COALESCE(SUM(CASE WHEN g.winner = 'Dire' THEN 1 ELSE 0 END), 0) AS dire_score
+FROM 
+    public.match m
+LEFT JOIN 
+    public.game g ON m.id = g.match_id
+GROUP BY 
+    m.id, m.best_of, m.match_date, m.match_type_id, m.team_dire_id, m.team_radiant_id, m.tournament_id;

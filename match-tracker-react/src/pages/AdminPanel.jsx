@@ -220,324 +220,134 @@ function AdminPanel() {
     setEditingItem(emptyEntity);
   };
 
+  const renderDatePicker = (key, label, dateFormat, showTimeSelect = false) => {
+    return (
+      <div className="form-group" key={key}>
+        <label>{label}:</label>
+        <DatePicker
+          selected={editingItem[key] ? new Date(editingItem[key]) : null}
+          onChange={(date) =>
+            setEditingItem({ ...editingItem, [key]: date.toISOString() })
+          }
+          showTimeSelect={showTimeSelect}
+          timeFormat={showTimeSelect ? "HH:mm" : undefined}
+          timeIntervals={showTimeSelect ? 15 : undefined}
+          dateFormat={dateFormat}
+          placeholderText={`Выберите ${label.toLowerCase()}`}
+        />
+        {errors[key] && <div className="error">{errors[key]}</div>}
+      </div>
+    );
+  };
+  
+  const renderSelect = (key, label, options, optionLabelKey = 'name') => {
+    return (
+      <div className="form-group" key={key}>
+        <label>{label}:</label>
+        <select
+          value={editingItem[key]?.id || ''}
+          onChange={(e) =>
+            setEditingItem({
+              ...editingItem,
+              [key]: { id: e.target.value, [optionLabelKey]: e.target.selectedOptions[0].text },
+            })
+          }
+        >
+          <option value="">Выберите {label.toLowerCase()}</option>
+          {options.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option[optionLabelKey]}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
+  
+  const renderInput = (key, label, type = 'text') => {
+    return (
+      <div className="form-group" key={key}>
+        <label>{label}:</label>
+        <input
+          required
+          type={type}
+          value={editingItem[key] || ''}
+          onChange={(e) => setEditingItem({ ...editingItem, [key]: e.target.value })}
+        />
+        {errors[key] && <span className="error">{errors[key]}</span>}
+      </div>
+    );
+  };
+
   const renderEditFields = () => {
     if (!editingItem) return null;
-
+  
     return Object.keys(editingItem).map((key) => {
       if (key === 'id') return null;
-      if (key === 'startTime') {
-        return (
-          <div className="form-group" key={key}>
-            <label>Время начала:</label>
-            <DatePicker
-              selected={editingItem[key] ? new Date(editingItem[key]) : null}
-              onChange={(date) =>
-                setEditingItem({ ...editingItem, [key]: date.toISOString() })
-              }
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={15}
-              dateFormat="yyyy-MM-dd HH:mm"
-              placeholderText="Выберите дату и время"
-            />
-          </div>
-        );
+  
+      switch (key) {
+        case 'startTime':
+          return renderDatePicker(key, 'Время начала', 'yyyy-MM-dd HH:mm', true);
+  
+        case 'matchDate':
+        case 'startDate':
+        case 'endDate':
+          return renderDatePicker(key, key.charAt(0).toUpperCase() + key.slice(1), 'yyyy-MM-dd');
+  
+        case 'team':
+        case 'teamDire':
+        case 'teamRadiant':
+          return renderSelect(
+            key,
+            key === 'teamRadiant' ? 'Команда Radiant' : key === 'teamDire' ? 'Команда Dire' : 'Команда',
+            teams
+          );
+  
+        case 'tournament':
+          return renderSelect(key, 'Турнир', tournaments);
+  
+        case 'winner':
+          return (
+            <div className="form-group" key={key}>
+              <label>Winner:</label>
+              <select
+                value={editingItem[key] || ''}
+                onChange={(e) => setEditingItem({ ...editingItem, [key]: e.target.value })}
+              >
+                <option value="">Выберите победителя</option>
+                <option value="Radiant">Radiant</option>
+                <option value="Dire">Dire</option>
+              </select>
+            </div>
+          );
+  
+        case 'match':
+          return renderSelect(key, 'Матч', matches, 'name');
+  
+        case 'player':
+          return renderSelect(key, 'Игрок', players, 'nickname');
+  
+        case 'hero':
+          return renderSelect(key, 'Герой', heroes);
+  
+        case 'matchType':
+          return renderSelect(key, 'Тип матча', matchTypes, 'typeName');
+  
+        case 'game':
+          return renderSelect(key, 'Игра', games, 'name');
+  
+        case 'playerHero':
+          return renderSelect(key, 'Игрок-Герой', playerHeroes, 'name');
+  
+        case 'gameStats':
+          return renderSelect(key, 'Игровая статистика', gameStats, 'name');
+  
+        case 'item':
+          return renderSelect(key, 'Предмет', items);
+  
+        default:
+          return renderInput(key, key.charAt(0).toUpperCase() + key.slice(1));
       }
-
-      if (key === 'matchDate' || key === 'startDate' || key === 'endDate') {
-        return (
-          <div className="form-group" key={key}>
-            <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
-            <DatePicker
-              selected={editingItem[key] ? new Date(editingItem[key]) : null}
-              onChange={(date) =>
-                setEditingItem({ ...editingItem, [key]: date.toISOString().split('T')[0] })
-              }
-              dateFormat="yyyy-MM-dd"
-              placeholderText="Выберите дату"
-            />
-            {errors[key] && <div className="error">{errors[key]}</div>}
-          </div>
-        );
-      }
-
-      if (key === 'team' || key === 'teamDire' || key === 'teamRadiant') {
-        return (
-          <div className="form-group" key={key}>
-            <label>
-              {key === 'teamRadiant'
-                ? 'Команда Radiant: '
-                : key === 'teamDire'
-                ? 'Команда Dire: '
-                : 'Команда: '}
-            </label>
-            <select
-              value={editingItem[key]?.id || ''}
-              onChange={(e) =>
-                setEditingItem({
-                  ...editingItem,
-                  [key]: { id: e.target.value, name: e.target.selectedOptions[0].text },
-                })
-              }
-            >
-              <option value="">Выберите команду</option>
-              {teams.map((team) => (
-                <option key={team.id} value={team.id}>
-                  {team.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        );
-      }
-
-      if (key === 'tournament') {
-        return (
-          <div className="form-group" key={key}>
-            <label>Турнир:</label>
-            <select
-              value={editingItem[key]?.id || ''}
-              onChange={(e) =>
-                setEditingItem({
-                  ...editingItem,
-                  [key]: { id: e.target.value, name: e.target.selectedOptions[0].text },
-                })
-              }
-            >
-              <option value="">Выберите турнир</option>
-              {tournaments.map((tournament) => (
-                <option key={tournament.id} value={tournament.id}>
-                  {tournament.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        );
-      }
-
-      if (key === 'winner') {
-        return (
-          <div className="form-group" key={key}>
-            <label>Winner:</label>
-            <select
-              value={editingItem[key] || ''}
-              onChange={(e) =>
-                setEditingItem({ ...editingItem, [key]: e.target.value })
-              }
-            >
-              <option value="">Выберите победителя</option>
-              <option value="Radiant">Radiant</option>
-              <option value="Dire">Dire</option>
-            </select>
-          </div>
-        );
-      }
-
-      if (key === 'match') {
-        return (
-          <div className="form-group" key={key}>
-            <label>Матч:</label>
-            <select
-              value={editingItem[key]?.id || ''}
-              onChange={(e) =>
-                setEditingItem({
-                  ...editingItem,
-                  [key]: { id: e.target.value },
-                })
-              }
-            >
-              <option value="">Выберите матч</option>
-              {matches.map((match) => (
-                <option key={match.id} value={match.id}>
-                  ({match.id}){match.tournament.name}: {match.teamRadiant.name} - {match.teamDire.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        );
-      }
-
-      if (key === 'player') {
-        return (
-          <div className="form-group" key={key}>
-            <label>Игрок:</label>
-            <select
-              value={editingItem[key]?.id || ''}
-              onChange={(e) =>
-                setEditingItem({
-                  ...editingItem,
-                  [key]: { id: e.target.value },
-                })
-              }
-            >
-              <option value="">Выберите игрока</option>
-              {players.map((player) => (
-                <option key={player.id} value={player.id}>
-                  {player.nikcname} - {player.team.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        );
-      }
-
-      if (key === 'hero') {
-        return (
-          <div className="form-group" key={key}>
-            <label>Герой:</label>
-            <select
-              value={editingItem[key]?.id || ''}
-              onChange={(e) =>
-                setEditingItem({
-                  ...editingItem,
-                  [key]: { id: e.target.value },
-                })
-              }
-            >
-              <option value="">Выберите героя</option>
-              {heroes.map((hero) => (
-                <option key={hero.id} value={hero.id}>
-                  {hero.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        );
-      }
-
-      if (key === 'matchType') {
-        return (
-          <div className="form-group" key={key}>
-            <label>Тип матча:</label>
-            <select
-              value={editingItem[key]?.id || ''}
-              onChange={(e) =>
-                setEditingItem({
-                  ...editingItem,
-                  [key]: { id: e.target.value },
-                })
-              }
-            >
-              <option value="">Выберите матч</option>
-              {matchTypes.map((type) => (
-                <option key={type.id} value={type.id}>
-                  {type.typeName}
-                </option>
-              ))}
-            </select>
-          </div>
-        );
-      }
-
-      if (key === 'game') {
-        return (
-          <div className="form-group" key={key}>
-            <label>Игра:</label>
-            <select
-              value={editingItem[key]?.id || ''}
-              onChange={(e) =>
-                setEditingItem({
-                  ...editingItem,
-                  [key]: { id: e.target.value },
-                })
-              }
-            >
-              <option value="">Выберите игру</option>
-              {games.map((game) => (
-                <option key={game.id} value={game.id}>
-                  ({game.id}){game.match.id} {game.match.tournament.name}: {game.match.teamRadiant.name} - {game.match.teamDire.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        );
-      }
-
-      if (key === 'playerHero') {
-        return (
-          <div className="form-group" key={key}>
-            <label>Игрок-Герой:</label>
-            <select
-              value={editingItem[key]?.id || ''}
-              onChange={(e) =>
-                setEditingItem({
-                  ...editingItem,
-                  [key]: { id: e.target.value },
-                })
-              }
-            >
-              <option value="">Выберите игрока + героя</option>
-              {playerHeroes.map((playerHero) => (
-                <option key={playerHero.id} value={playerHero.id}>
-                  ({playerHero.id}) {playerHero.player.nickname} - {playerHero.hero.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        );
-      }
-
-      if (key === 'gameStats') {
-        return (
-          <div className="form-group" key={key}>
-            <label>Игровая статистиска:</label>
-            <select
-              value={editingItem[key]?.id || ''}
-              onChange={(e) =>
-                setEditingItem({
-                  ...editingItem,
-                  [key]: { id: e.target.value },
-                })
-              }
-            >
-              <option value="">Выберите игровую статистику</option>
-              {gameStats.map((stats) => (
-                <option key={stats.id} value={stats.id}>
-                  ({stats.id}) {stats.game.match.tournament.name} : {stats.game.match.teamRadiant.name} - {stats.game.match.teamDire.name} [{stats.playerHero.player.nickname} - {stats.playerHero.hero.name}]
-                </option>
-              ))}
-            </select>
-          </div>
-        );
-      }
-
-      if (key === 'item') {
-        return (
-          <div className="form-group" key={key}>
-            <label>Предметы:</label>
-            <select
-              value={editingItem[key]?.id || ''}
-              onChange={(e) =>
-                setEditingItem({
-                  ...editingItem,
-                  [key]: { id: e.target.value },
-                })
-              }
-            >
-              <option value="">Выберите предмет</option>
-              {items.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        );
-      }
-
-      return (
-        <div className="form-group" key={key}>
-          <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
-          <input required
-            type="text"
-            value={editingItem[key] || ''}
-            onChange={(e) =>
-              setEditingItem({ ...editingItem, [key]: e.target.value })
-            }
-          />
-          {errors[key] && <span className="error">{errors[key]}</span>}
-        </div>
-      );
     });
   };
 
