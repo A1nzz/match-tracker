@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Team } from '../models/models';
 
 @Injectable({
