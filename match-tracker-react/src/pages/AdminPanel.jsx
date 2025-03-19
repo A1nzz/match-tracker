@@ -225,9 +225,10 @@ function AdminPanel() {
       <div className="form-group" key={key}>
         <label>{label}:</label>
         <DatePicker
+          required
           selected={editingItem[key] ? new Date(editingItem[key]) : null}
           onChange={(date) =>
-            setEditingItem({ ...editingItem, [key]: date.toISOString() })
+            setEditingItem({ ...editingItem, [key]: date?.toISOString() })
           }
           showTimeSelect={showTimeSelect}
           timeFormat={showTimeSelect ? "HH:mm" : undefined}
