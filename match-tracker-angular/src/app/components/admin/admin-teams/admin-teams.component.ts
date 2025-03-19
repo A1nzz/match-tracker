@@ -15,8 +15,8 @@ export class AdminTeamsComponent implements OnInit {
   teams: Team[] = [];
 
   constructor(
-    private teamsService: TeamsService,
-    private dialog: MatDialog
+    private readonly teamsService: TeamsService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

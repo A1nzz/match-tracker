@@ -7,9 +7,9 @@ import { Game } from '../models/models';
   providedIn: 'root',
 })
 export class GamesService {
-  private apiUrl = 'http://localhost:8080/admin/games';
+  private readonly apiUrl = 'http://localhost:8080/admin/games';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   // Получить все игры
   getGames(): Observable<Game[]> {

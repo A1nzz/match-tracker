@@ -7,9 +7,9 @@ import { Game } from '../models/models';
   providedIn: 'root',
 })
 export class MatchGamesService {
-  private apiUrl = 'http://localhost:8080/matches';
+  private readonly apiUrl = 'http://localhost:8080/matches';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getGames(matchId: number): Observable<Game[]> {
     return this.http.get<Game[]>(`${this.apiUrl}/${matchId}/games`);

@@ -32,11 +32,11 @@ export class PlayerHeroFormComponent implements OnInit {
   heroes: Hero[] = []; // Список героев
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<PlayerHeroFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PlayerHero | null,
-    private playersService: PlayersService, // Сервис для получения игроков
-    private heroesService: HeroesService // Сервис для получения героев
+    private readonly playersService: PlayersService, // Сервис для получения игроков
+    private readonly heroesService: HeroesService // Сервис для получения героев
   ) {
     // Инициализация формы
     this.playerHeroForm = this.fb.group({

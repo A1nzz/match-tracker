@@ -13,8 +13,8 @@ export class MatchGamesComponent implements OnInit {
   matchId: number | null = null;
 
   constructor(
-    private route: ActivatedRoute,
-    private matchGamesService: MatchGamesService
+    private readonly route: ActivatedRoute,
+    private readonly matchGamesService: MatchGamesService
   ) {}
 
   ngOnInit(): void {

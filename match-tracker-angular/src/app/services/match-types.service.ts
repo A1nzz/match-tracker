@@ -8,9 +8,9 @@ import { MatchType } from '../models/models';
   providedIn: 'root',
 })
 export class MatchTypesService {
-  private apiUrl = 'http://localhost:8080/admin/match-types';
+  private readonly apiUrl = 'http://localhost:8080/admin/match-types';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getMatchTypes(): Observable<MatchType[]> {
     return this.http.get<MatchType[]>(this.apiUrl);

@@ -23,7 +23,10 @@
     <mat-form-field appearance="fill">
       <mat-label>Дата начала</mat-label>
       <input matInput formControlName="startDate" type="date" placeholder="Дата начала" required />
-      <mat-error *ngIf="tournamentForm.get('startDate')?.invalid && tournamentForm.get('startDate')?.touched">
+      <span *ngIf="tournamentForm.errors?.['dateRangeInvalid']">
+        {{ tournamentForm.errors?.['dateRangeInvalid'].message }}
+      </span>
+      <mat-error *ngIf="!tournamentForm.get('startDate')?.value && tournamentForm.get('startDate')?.touched">
         Дата начала обязательна.
       </mat-error>
     </mat-form-field>
@@ -32,12 +35,13 @@
     <mat-form-field appearance="fill">
       <mat-label>Дата окончания</mat-label>
       <input matInput formControlName="endDate" type="date" placeholder="Дата окончания" required />
-      <mat-error *ngIf="tournamentForm.get('endDate')?.invalid && tournamentForm.get('endDate')?.touched">
-        Дата окончания обязательна.
+      <span *ngIf="tournamentForm.errors?.['dateRangeInvalid']">
+        {{ tournamentForm.errors?.['dateRangeInvalid'].message }}
+      </span>
+      <mat-error *ngIf="!tournamentForm.get('endDate')?.value && tournamentForm.get('endDate')?.touched">
+        Дата окнчания обязательна
       </mat-error>
-      <mat-error *ngIf="tournamentForm.hasError('dateRangeInvalid')">
-        Дата окончания не может быть раньше даты начала.
-      </mat-error>
+      <!-- Ошибка валидации обязательного поля -->
     </mat-form-field>
 
     <!-- Организатор -->
@@ -48,6 +52,8 @@
         Организатор обязателен.
       </mat-error>
     </mat-form-field>
+
+    <!-- Кнопки -->
     <div>
       <button [disabled]="tournamentForm.invalid" (click)="saveTournament()">
         Сохранить

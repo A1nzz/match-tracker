@@ -15,8 +15,8 @@ export class AdminPlayersComponent implements OnInit {
   players: Player[] = [];
 
   constructor(
-    private playersService: PlayersService,
-    private dialog: MatDialog
+    private readonly playersService: PlayersService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

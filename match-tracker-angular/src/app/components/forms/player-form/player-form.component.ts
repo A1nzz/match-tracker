@@ -30,10 +30,10 @@ export class PlayerFormComponent implements OnInit {
   teams: Team[] = []; // Список команд
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<PlayerFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Player | null,
-    private teamsService: TeamsService
+    private readonly teamsService: TeamsService
   ) {
     // Инициализация формы
     this.playerForm = this.fb.group({

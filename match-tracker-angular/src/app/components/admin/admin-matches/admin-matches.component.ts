@@ -15,8 +15,8 @@ export class AdminMatchesComponent implements OnInit {
   matches: Match[] = [];
 
   constructor(
-    private matchesService: MatchesService,
-    private dialog: MatDialog
+    private readonly matchesService: MatchesService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

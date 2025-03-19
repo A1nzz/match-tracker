@@ -30,7 +30,7 @@ export class TournamentFormComponent {
   isEditMode: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<TournamentFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Tournament | null
   ) {
@@ -52,6 +52,10 @@ export class TournamentFormComponent {
 
   // Сохранить турнир
   saveTournament(): void {
+    console.log('Form Value:', this.tournamentForm.value); // Логируем значения формы
+
+    console.log('Form Errors:', this.tournamentForm.errors); // Логируем ошибки формы
+
     if (this.tournamentForm.valid) {
       this.dialogRef.close(this.tournamentForm.value);
     }

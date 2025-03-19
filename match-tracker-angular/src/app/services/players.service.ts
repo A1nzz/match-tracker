@@ -7,9 +7,9 @@ import { Player } from '../models/models';
   providedIn: 'root',
 })
 export class PlayersService {
-  private apiUrl = 'http://localhost:8080/admin/players';
+  private readonly apiUrl = 'http://localhost:8080/admin/players';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   // Получить всех игроков
   getPlayers(): Observable<Player[]> {

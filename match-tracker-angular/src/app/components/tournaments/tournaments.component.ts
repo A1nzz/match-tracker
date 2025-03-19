@@ -11,7 +11,7 @@ import { Tournament } from '../../models/models';
 export class TournamentsComponent implements OnInit {
   tournaments: Tournament[] = [];
 
-  constructor(private tournamentsService: TournamentsService) {}
+  constructor(private readonly tournamentsService: TournamentsService) {}
 
   ngOnInit(): void {
     this.tournamentsService.getTournaments().subscribe({

@@ -7,9 +7,9 @@ import { GameStats } from '../models/models';
   providedIn: 'root',
 })
 export class AdminGameStatsService {
-  private apiUrl = 'http://localhost:8080/admin/game-stats';
+  private readonly apiUrl = 'http://localhost:8080/admin/game-stats';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   // Получить всю игровую статистику
   getGameStats(): Observable<GameStats[]> {

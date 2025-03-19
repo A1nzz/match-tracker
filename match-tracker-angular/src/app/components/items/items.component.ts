@@ -9,7 +9,7 @@ import { Item } from '../../models/models';
 export class ItemsComponent implements OnInit {
   items: Item[] = [];
 
-  constructor(private itemsService: ItemsService) {}
+  constructor(private readonly itemsService: ItemsService) {}
 
   ngOnInit(): void {
     this.itemsService.getItems().subscribe({

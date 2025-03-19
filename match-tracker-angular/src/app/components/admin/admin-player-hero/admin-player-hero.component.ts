@@ -15,8 +15,8 @@ export class AdminPlayerHeroComponent implements OnInit {
   playerHeroes: PlayerHero[] = [];
 
   constructor(
-    private playerHeroService: PlayerHeroService,
-    private dialog: MatDialog
+    private readonly playerHeroService: PlayerHeroService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

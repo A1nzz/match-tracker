@@ -8,9 +8,9 @@ import { Match } from '../models/models'
   providedIn: 'root',
 })
 export class MatchesService {
-  private apiUrl = 'http://localhost:8080/admin/matches';
+  private readonly apiUrl = 'http://localhost:8080/admin/matches';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getMatches(): Observable<Match[]> {
     return this.http.get<Match[]>(this.apiUrl);

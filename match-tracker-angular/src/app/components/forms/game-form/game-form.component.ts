@@ -31,10 +31,10 @@ export class GameFormComponent {
   matches: Match[] = [];
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<GameFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Game | null,
-    private matchesService: MatchesService
+    private readonly matchesService: MatchesService
   ) {
     this.gameForm = this.fb.group({
       match: [null, Validators.required],

@@ -28,7 +28,7 @@ export class ItemFormComponent {
   isEditMode: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<ItemFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Item | null
   ) {

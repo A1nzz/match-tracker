@@ -28,7 +28,7 @@ export class TeamFormComponent {
   isEditMode: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<TeamFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Team | null
   ) {

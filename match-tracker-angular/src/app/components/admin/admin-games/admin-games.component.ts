@@ -15,8 +15,8 @@ export class AdminGamesComponent implements OnInit {
   games: Game[] = [];
 
   constructor(
-    private gamesService: GamesService,
-    private dialog: MatDialog
+    private readonly gamesService: GamesService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

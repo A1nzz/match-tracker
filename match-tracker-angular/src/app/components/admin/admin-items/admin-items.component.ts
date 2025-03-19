@@ -15,8 +15,8 @@ export class AdminItemsComponent implements OnInit {
   items: Item[] = [];
 
   constructor(
-    private itemsService: ItemsService,
-    private dialog: MatDialog
+    private readonly itemsService: ItemsService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

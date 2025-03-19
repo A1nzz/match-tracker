@@ -34,12 +34,12 @@ export class MatchFormComponent implements OnInit {
   matchTypes: MatchType[] = [];
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<MatchFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Match | null,
-    private tournamentsService: TournamentsService,
-    private teamsService: TeamsService,
-    private matchTypeService: MatchTypesService
+    private readonly tournamentsService: TournamentsService,
+    private readonly teamsService: TeamsService,
+    private readonly matchTypeService: MatchTypesService
   ) {
     this.matchForm = this.fb.group({
       tournament: [null, Validators.required],

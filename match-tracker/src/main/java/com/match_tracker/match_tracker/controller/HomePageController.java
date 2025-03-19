@@ -2,6 +2,7 @@ package com.match_tracker.match_tracker.controller;
 
 import com.match_tracker.match_tracker.dto.HomePageDto;
 import com.match_tracker.match_tracker.service.HomePageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ public class HomePageController {
 
     private final HomePageService homePageService;
 
+    @Autowired
     public HomePageController(HomePageService homePageService) {
         this.homePageService = homePageService;
     }

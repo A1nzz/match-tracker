@@ -8,9 +8,9 @@ import { GameItemStats } from '../models/models';
   providedIn: 'root',
 })
 export class GameItemStatsService {
-  private apiUrl = 'http://localhost:8080/admin/game-item-stats';
+  private readonly apiUrl = 'http://localhost:8080/admin/game-item-stats';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getGameItemStats(): Observable<GameItemStats[]> {
     return this.http.get<GameItemStats[]>(this.apiUrl);

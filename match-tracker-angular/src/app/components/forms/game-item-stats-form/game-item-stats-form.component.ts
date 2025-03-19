@@ -32,11 +32,11 @@ export class GameItemStatsFormComponent implements OnInit {
 
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<GameItemStatsFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GameItemStats | null,
-    private gameStatsService: AdminGameStatsService, 
-    private itemsService: ItemsService,
+    private readonly gameStatsService: AdminGameStatsService, 
+    private readonly itemsService: ItemsService,
   ) {
     // Инициализация формы
     this.gameItemStatsForm = this.fb.group({

@@ -32,11 +32,11 @@ export class GameStatFormComponent {
   playerHeroes: PlayerHero[] = [];
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<GameStatFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GameStats | null,
-    private gameService: GamesService,
-    private playerHeroService: PlayerHeroService
+    private readonly gameService: GamesService,
+    private readonly playerHeroService: PlayerHeroService
   ) {
     // Инициализация формы
     this.gameStatForm = this.fb.group({

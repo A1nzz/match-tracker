@@ -171,11 +171,16 @@ function AdminPanel() {
   
     // Проверка дат
     if (editingItem.startDate && editingItem.endDate && new Date(editingItem.startDate) > new Date(editingItem.endDate)) {
-      newErrors.endDate = 'Дата окончания не может быть раньше даты начала';
+      newErrors.endDate = '\nДата окончания не может быть раньше даты начала';
     }
   
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const closeModal = () => {
+    setEditingItem(null); // Закрываем модальное окно
+    setErrors({}); // Сбрасываем ошибки
   };
 
   const saveEntity = async (item) => {
@@ -251,7 +256,7 @@ function AdminPanel() {
               dateFormat="yyyy-MM-dd"
               placeholderText="Выберите дату"
             />
-            {errors[key] && <span className="error">{errors[key]}</span>}
+            {errors[key] && <div className="error">{errors[key]}</div>}
           </div>
         );
       }
@@ -595,7 +600,7 @@ function AdminPanel() {
         )}
 
         {/* Модальное окно для редактирования */}
-        <Modal isOpen={!!editingItem} onClose={() => setEditingItem(null)}>
+        <Modal isOpen={!!editingItem} onClose={closeModal}>
           <h3>{editingItem?.id ? 'Редактирование' : 'Добавление'}</h3>
           <form
             onSubmit={(e) => {

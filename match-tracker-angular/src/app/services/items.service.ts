@@ -8,10 +8,10 @@ import { Item } from '../models/models';
   providedIn: 'root',
 })
 export class ItemsService {
-  private apiUrl = 'http://localhost:8080/items';
-  private adminApiUrl = 'http://localhost:8080/admin/items';
+  private readonly apiUrl = 'http://localhost:8080/items';
+  private readonly adminApiUrl = 'http://localhost:8080/admin/items';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(this.apiUrl);

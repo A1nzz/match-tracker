@@ -2,6 +2,7 @@ package com.match_tracker.match_tracker.controller;
 
 import com.match_tracker.match_tracker.entity.Admin;
 import com.match_tracker.match_tracker.service.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class AdminController {
 
     private final AdminService adminService;
 
+    @Autowired
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }

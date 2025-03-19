@@ -9,10 +9,10 @@ import { Tournament } from '../models/models'
   providedIn: 'root',
 })
 export class TournamentsService {
-  private apiUrl = 'http://localhost:8080/tournaments';
-  private adminApiUrl = 'http://localhost:8080/admin/tournaments';
+  private readonly apiUrl = 'http://localhost:8080/tournaments';
+  private readonly adminApiUrl = 'http://localhost:8080/admin/tournaments';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getTournaments(): Observable<Tournament[]> {
     return this.http.get<Tournament[]>(this.apiUrl);

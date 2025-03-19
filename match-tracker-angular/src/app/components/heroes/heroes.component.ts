@@ -12,7 +12,7 @@ import { Hero } from '../../models/models';
 export class HeroesComponent implements OnInit {
   heroes: Hero[] = [];
 
-  constructor(private heroesService: HeroesService) {}
+  constructor(private  readonly heroesService: HeroesService) {}
 
   ngOnInit(): void {
     this.heroesService.getHeroes().subscribe({

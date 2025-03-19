@@ -15,8 +15,8 @@ export class GameStatsComponent implements OnInit {
   direStats: GameStat[] = [];
 
   constructor(
-    private route: ActivatedRoute,
-    private gameStatsService: GameStatsService
+    private readonly route: ActivatedRoute,
+    private readonly gameStatsService: GameStatsService
   ) {}
 
   ngOnInit(): void {

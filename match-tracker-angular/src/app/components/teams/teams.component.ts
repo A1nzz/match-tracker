@@ -9,7 +9,7 @@ import { Team } from '../../models/models';
 export class TeamsComponent implements OnInit {
   teams: Team[] = [];
 
-  constructor(private teamsService: TeamsService) {}
+  constructor(private readonly teamsService: TeamsService) {}
 
   ngOnInit(): void {
     this.teamsService.getTeams().subscribe({

@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   homePageData: HomePageDTO | null = null;
 
 
-  constructor(private homeService: HomeService) {}
+  constructor(private readonly homeService: HomeService) {}
 
   ngOnInit() {
     this.homeService.getHomePageData().subscribe((data) => {

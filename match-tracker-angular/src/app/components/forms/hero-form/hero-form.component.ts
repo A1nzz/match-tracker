@@ -28,7 +28,7 @@ export class HeroFormComponent {
   isEditMode: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<HeroFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Hero | null
   ) {

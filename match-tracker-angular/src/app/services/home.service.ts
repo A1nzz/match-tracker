@@ -7,9 +7,9 @@ import { HomePageDTO } from '../models/models';
   providedIn: 'root',
 })
 export class HomeService {
-  private apiUrl = 'http://localhost:8080/home';
+  private readonly apiUrl = 'http://localhost:8080/home';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   // Метод для получения данных для главной страницы
   getHomePageData(): Observable<HomePageDTO> {

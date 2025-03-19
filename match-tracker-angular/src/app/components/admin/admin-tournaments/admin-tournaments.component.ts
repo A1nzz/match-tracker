@@ -15,8 +15,8 @@ export class AdminTournamentsComponent implements OnInit {
   tournaments: Tournament[] = [];
 
   constructor(
-    private tournamentsService: TournamentsService,
-    private dialog: MatDialog
+    private readonly tournamentsService: TournamentsService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

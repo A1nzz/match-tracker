@@ -8,10 +8,10 @@ import { Hero } from '../models/models';
   providedIn: 'root',
 })
 export class HeroesService {
-  private apiUrl = 'http://localhost:8080/heroes';
-  private adminApiUrl = "http://localhost:8080/admin/heroes";
+  private readonly apiUrl = 'http://localhost:8080/heroes';
+  private readonly adminApiUrl = "http://localhost:8080/admin/heroes";
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getHeroes(): Observable<Hero[]> {
     return this.http.get<Hero[]>(this.apiUrl);

@@ -15,8 +15,8 @@ export class AdminGameItemStatsComponent implements OnInit {
   gameItemStats: GameItemStats[] = [];
 
   constructor(
-    private gameItemStatsService: GameItemStatsService,
-    private dialog: MatDialog
+    private readonly gameItemStatsService: GameItemStatsService,
+    private readonly dialog: MatDialog
   ) {}
 
   ngOnInit(): void {

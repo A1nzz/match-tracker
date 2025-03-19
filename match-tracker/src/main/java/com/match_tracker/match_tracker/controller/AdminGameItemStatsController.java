@@ -2,6 +2,7 @@ package com.match_tracker.match_tracker.controller;
 
 import com.match_tracker.match_tracker.entity.GameItemStats;
 import com.match_tracker.match_tracker.service.GameItemStatsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class AdminGameItemStatsController {
 
     private final GameItemStatsService gameItemStatsService;
 
+    @Autowired
     public AdminGameItemStatsController(GameItemStatsService gameItemStatsService) {
         this.gameItemStatsService = gameItemStatsService;
     }
